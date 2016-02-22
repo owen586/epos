@@ -1,0 +1,144 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <!-- 使用外部配置文件进行配置 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!--开发环境 -->
+                <value>classpath:quartz.properties</value>
+                <value>classpath:system.properties</value>
+                <!--生产环境-->
+                <value>file:C:/aliyun/e-pos/config/quartz.properties</value>
+                <value>file:C:/aliyun/e-pos/config/system.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="fileEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName">
+            <value>${mysql.jdbc.driverClassName}</value>
+        </property>
+        <property name="url">
+            <value>${mysql.jdbc.url}</value>
+        </property>
+        <property name="username">
+            <value>${mysql.jdbc.username}</value>
+        </property>
+        <property name="password">
+            <value>${mysql.jdbc.password}</value>
+        </property>
+        <!-- 连接池启动时创建的初始化连接数量（默认值为0）  -->
+        <property name="initialSize">
+            <value>5</value>
+        </property>
+        <!-- 连接池中可同时连接的最大的连接数，为0则表示没有限制，默认为8  -->
+        <property name="maxActive">
+            <value>20</value>
+        </property>
+        <!-- 连接池中最大的空闲的连接数（默认为8,设 0 为没有限制）,超过的空闲连接将被释放，如果设置为负数表示不限制
+        （maxIdle不能设置太小，因为假如在高负载的情况下，连接的打开时间比关闭的时间快，会引起连接池中idle的个数 上升超过maxIdle，而造成频繁的连接销毁和创建)   -->
+        <property name="maxIdle">
+            <value>15</value>
+        </property>
+        <!-- 连接池中最小的空闲的连接数（默认为0，一般可调整5），低于这个数量会被创建新的连接
+        （该参数越接近maxIdle，性能越好，因为连接的创建和销毁，都是需要消耗资源的；但是不能太大，因为在机器很空闲的时候，也会创建低于minidle个数的连接） -->
+        <property name="minIdle">
+            <value>5</value>
+        </property>
+        <!-- 超过时间会丟出错误信息 ,最大等待时间(单位为 ms)，当没有可用连接时，连接池等待连接释放的最大时间，超过该时间限制会抛出异常，如果设置-1表示无限等待
+        （默认为-1，一般可调整为60000ms，避免因线程池不够用，而导致请求被无限制挂起）  -->
+        <property name="maxWait">
+            <value>60000</value>
+        </property>
+        <!-- 验证连接是否成功, SQL SELECT 指令至少要返回一行
+            同时设置testOnBorrow、testOnReturn、testWhileIdle都为true,保证获得数据库连接都是有效连接
+         -->
+        <property name="validationQuery">
+            <value>select sysdate()</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>true</value>
+        </property>
+        <property name="testOnReturn">
+            <value>true</value>
+        </property>
+        <property name="testWhileIdle">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <!-- 配置SessionFactory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect.mysql}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.id.new_generator_mappings">true</prop>
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <value>com.tinytrustframework.epos.entity</value>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>/hibernate-hql.xml</value>
+                <value>/hibernate-sql.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- jdbc模板 -->
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <!-- 配置事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!-- REQUIRED -->
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="saveOrUpdate*" propagation="REQUIRED" rollback-for="Throwable"/>
+            <tx:method name="recharge" propagation="REQUIRED" rollback-for="Throwable"/>
+            <!-- 只读事务 -->
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置切面Aspect -->
+    <aop:config>
+        <!-- 指定切入点表达式 * : 代表匹配任意的返回类型。 一个全称限定的类型名将只会匹配返回给定类型的方法。 I:名字模式匹配的是方法名。你可以使用
+            * 通配符作为所有或者部分命名模式。 II:入参 () 匹配了一个不接受任何参数的方法 (..) 匹配了一个接受任意数量参数的方法 (*)匹配了一个接受一个任何类型的参数的方法
+            (*,String)匹配了一个接受两个参数的方法，第一个可以是任意类型，第二个则必须是String类型。 -->
+        <!-- 配置切入点Pointcut -->
+        <aop:pointcut id="service"
+                      expression="execution(*  com.tinytrustframework.epos.service.impl.*.*(..))"/>
+
+        <!-- 配置通知Advice -->
+        <aop:advisor pointcut-ref="service" advice-ref="txAdvice"/>
+    </aop:config>
+</beans>

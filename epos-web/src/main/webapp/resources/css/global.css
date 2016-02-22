@@ -1,0 +1,1177 @@
+/* Design By OF UELab */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    font: 12px/1.5 Tahoma, Helvetica, Arial, Simsun, sans-serif;
+    color: #484848;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+ol, ul, menu {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+:focus {
+    outline: 0;
+}
+
+ins, del, i, s {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: verdana, Tahoma, Arial, Hei, "Microsoft Yahei", SimHei;
+    font-weight: normal;
+    *font-weight: bold;
+}
+
+cite, big, b {
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+pre, ins {
+    font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
+}
+
+s {
+    font-family: Arial
+}
+
+a, a:visited {
+    color: #0066cc;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #f60;
+}
+
+a:active {
+    color: #999;
+}
+
+/* clear */
+.clearfix:after, .head:after, #footer:after, .block:after, #pages:after, #tab:after, .tab:after, .formul:after, .formul li:after, .formul li .common:after, .formul li .common li:after, .form:after, .form li:after, .form li .common:after, .form li .common li:after, .transverse:after, .vertical:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix, .head, #footer, .block, #pages, #tab, .tab, .formul, .formul li, .formul li .common, .formul li .common li, .form, .form li, .form li .common, .form li .common li, .transverse, .vertical {
+    *zoom: 1;
+    clear: left;
+}
+
+/* layout */
+.ofwrapper {
+    float: left;
+    width: 100%;
+}
+
+.ofside {
+    float: left;
+    margin-left: -100%;
+    width: 190px;
+}
+
+.ofmain {
+    margin-left: 200px;
+}
+
+.ofmainthree {
+    margin-right: 310px;
+}
+
+.ofthree {
+    float: left;
+    margin-left: -300px;
+    width: 300px;
+}
+
+/* content */
+h1, big {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.33em;
+}
+
+h5 {
+    font-size: 1.17em;
+}
+
+h6 {
+    font-size: 1em;
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font: 0.75em/1.5 Tahoma, Helvetica, Arial, Simsun, sans-serif;
+}
+
+.tcontent {
+    line-height: 2.5em;
+}
+
+.tcontent p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tcenter {
+    text-align: center;
+}
+
+.tright {
+    text-align: right;
+}
+
+.tleft {
+    text-align: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+blockquote, .block {
+    padding: 10px;
+}
+
+.block {
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+samp, em {
+    padding: 0 5px;
+}
+
+em {
+    color: #d91010;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.error, .fail, .red, .warn {
+    color: #bb2828;
+}
+
+.success, .green {
+    color: #1cae1c;
+}
+
+.orange {
+    color: #e37513;
+}
+
+.blue {
+    color: #15a5db;
+}
+
+.gray {
+    color: #6d6d6d;
+}
+
+.oatmeal {
+    color: #ccc;
+}
+
+.backred, .backgreen, .backorange, .backblue, .backgray {
+    margin: 0 3px;
+    padding: 2px 5px;
+    color: #fff;
+}
+
+.backred {
+    background: #d91010;
+}
+
+.backgreen {
+    background: #29ad3b;
+}
+
+.backorange {
+    background: #ee8528;
+}
+
+.backblue {
+    background: #2bb3f1;
+}
+
+.backgray {
+    background: #8a8989;
+}
+
+/* list */
+.tlist {
+    line-height: 2.2em;
+}
+
+.tlist li {
+    padding: 1px 10px;
+    border-bottom: 1px dotted #ccc;
+}
+
+/* tab */
+.tab li,
+.tab-nojs li {
+    float: left;
+    margin: 0 2px 0 0px;
+}
+
+.tab-nojs li a, .tab-nojs li a span,
+.tab li a, .tab li a span {
+    display: block;
+    _float: left;
+    text-align: center;
+}
+
+.tab li a, .tab li a span,
+.tab-nojs li a, .tab-nojs li a span {
+    padding-right: 10px;
+    background: url(../images/ofui_protype.png) right -402px no-repeat;
+    line-height: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.tab li a span,
+.tab-nojs li a span {
+    padding-right: 0;
+    padding-left: 10px;
+    background-position: left -402px;
+}
+
+.tab li a:hover,
+.tab-nojs li a:hover {
+    background-position: right -444px;
+}
+
+.tab li a:hover span,
+.tab-nojs li a:hover span {
+    background-position: left -444px;
+}
+
+.tab li a:active,
+.tab-nojs li a:active {
+    background-position: right -486px;
+}
+
+.tab li a:active span,
+.tab-nojs li a:active span {
+    background-position: left -486px;
+}
+
+.tab li.current,
+.tab-nojs li.current {
+    position: relative;
+    margin-bottom: -1px;
+    z-index: 3;
+}
+
+.tab li.current a, .tab li.current a:hover,
+.tab-nojs li.current a, .tab-nojs li.current a:hover {
+    background-position: right -528px;
+    line-height: 33px;
+    height: 33px;
+}
+
+.tab li.current a span, .tab li.current a:hover span,
+.tab-nojs li.current a span, .tab-nojs li.current a:hover span {
+    background-position: left -528px;
+    line-height: 33px;
+    height: 33px;
+    color: #f60;
+    font-weight: bold;
+}
+
+/* table */
+.tablelist {
+    clear: left;
+    margin-top: 10px;
+    background: #fff;
+    width: 100%;
+    border: 1px solid #ccc;
+    line-height: 1.8;
+    vertical-align: middle;
+}
+
+.tablelist th {
+    padding: 5px;
+    background: #f2f0f0 url(../images/ofui_protype.png) left -632px repeat-x;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    border-width: 0 0 1px 1px;
+    font-weight: bold;
+}
+
+.tablelist td {
+    padding: 3px 5px;
+    background: #fff;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    border-width: 1px 0 0 1px;
+}
+
+.tablelist td a:link {
+    color: #0a6ede;
+}
+
+.tablelist td a:visited {
+    color: #60c;
+}
+
+.tablelist td a:hover {
+    color: #f60;
+}
+
+.tablelist td a:active {
+    color: #666;
+}
+
+.tablelist tr th:first-child, .tablelist tr td:first-child, .tablelist tr th.first, .tablelist tr td.first {
+    border-left-width: 0;
+}
+
+.tablelist tr td.borderL {
+    border-left-width: 1px !important;
+}
+
+.tablelist tr.even td, .tablelist tr.odd td {
+    background-color: transparent;
+    background-image: none;
+}
+
+.tablelist tr.hover td {
+    background: #f0f5f8;
+}
+
+.tablelist tr.null td {
+    background: #f1f1f1;
+}
+
+.tablelist tr.null td a {
+    color: #333;
+}
+
+.tablelist tr.null td .blue, .tablelist tr.null td .orange, .tablelist tr.null td .red, .tablelist tr.null td .green {
+    color: #555;
+}
+
+.actions a {
+    margin: 0 3px;
+}
+
+.action {
+    margin: 0 3px 0 0;
+}
+
+/* pages */
+#pages {
+    padding: 5px 10px;
+    font-family: simsun;
+}
+
+.pagination {
+    float: right;
+    vertical-align: middle;
+}
+
+.pagination a {
+    border: solid 1px #CCC;
+    color: #ff6600;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    padding: 2px 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.pagination a:hover {
+    border-color: #666;
+}
+
+.pagination .current {
+    background: #f60;
+    color: #fff;
+    border-color: #f60;
+    font-weight: bold;
+}
+
+.pagination .current.prev, .pagination .current.next {
+    color: #999;
+    border-color: #999;
+    background: #fff;
+    font-weight: normal;
+}
+
+/* ul */
+fieldset {
+    margin: 0 auto;
+    padding: 10px;
+}
+
+fieldset legend {
+    padding: 0 10px;
+    font-size: 1.67em;
+    font-weight: bold;
+}
+
+.formul, .form {
+    line-height: 20px;
+}
+
+.formul li, .form li {
+    padding: 5px 0;
+    vertical-align: middle;
+}
+
+.formul li label, .form li label, .form li.label .vertical label {
+    float: left;
+    margin-right: 5px;
+    text-align: right;
+    width: 190px;
+    line-height: 22px;
+}
+
+ul.formul.short li label, ul.form.short li label {
+    width: 110px;
+}
+
+.formul li .common, .formul li .transverse, .formul li .vertical,
+.form li .common, .form li .transverse, .form li .vertical {
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+.formul li .transverse, .formul li .transverse li, .formul li .vertical,
+.form li .transverse, .form li .transverse li, .form li .vertical {
+    clear: none;
+    float: left;
+}
+
+.formul li .transverse li, .formul li .vertical li,
+.form li .transverse li, .form li .vertical li {
+    border: none;
+    clear: none;
+    width: auto;
+}
+
+.formul li.label label, .formul li span label, .formul li .transverse li label, .formul li .vertical li label,
+.form li.label label, .form li span label, .form li .transverse li label, .form li .vertical li label {
+    float: none;
+    margin: 0;
+    padding: 0 10px 0 3px;
+    text-align: left;
+    width: auto;
+}
+
+.formul li.btnarea, .formul li.label,
+.form li.btnarea, .form li.label {
+    padding-left: 195px;
+}
+
+.column2 li, .column3 li, .column4 li {
+    clear: none;
+    float: left;
+    margin-right: -1px;
+    width: 50%;
+}
+
+.column2 li label {
+    width: 110px;
+}
+
+.column2 li.label {
+    padding-left: 120px;
+}
+
+.column3 li {
+    width: 33%;
+}
+
+.column3 li.colSpan2 {
+    width: 66%;
+}
+
+.column3 li label {
+    width: 110px;
+}
+
+.column3 li.label, .column3 li.btnarea {
+    padding-left: 105px;
+}
+
+.column4 li {
+    width: 25%;
+}
+
+.column4 li.colSpan2 {
+    width: 50%;
+}
+
+.column4 li.colSpan3 {
+    width: 75%;
+}
+
+.column4 li label {
+    width: 110px;
+}
+
+.formul li.all, .form li.all, .column2 li.btnarea, .column3 li.btnarea, .column4 li.btnarea {
+    clear: both;
+    float: none;
+    display: block;
+    width: auto;
+}
+
+.column2 li.btnarea, .column3 li.btnarea, .column4 li.btnarea {
+    text-align: center;
+}
+
+.transverse li {
+    float: left;
+}
+
+.fixedwidth li {
+    width: 110px;
+}
+
+label.error {
+    display: none;
+    float: none !important;
+    padding: 0 5px;
+    width: auto !important;
+}
+
+label.free {
+    float: none !important;
+    padding: 0 5px;
+    width: auto !important;
+}
+
+/* form */
+input, select {
+    vertical-align: middle;
+}
+
+input[type="text"], input[type="password"], input.middle {
+    width: 110px;
+    height: 18px;
+    line-height: 18px;
+    border: 1px solid #ccc;
+    text-indent: 3px;
+}
+
+textarea {
+    border: 1px solid #ccc;
+}
+
+select {
+    width: 115px;
+    height: 22px;
+    line-height: 22px;
+    border: 1px solid #ccc !important;
+    border: 0 inset buttonface;
+}
+
+input.short, input.long1 {
+    width: 35px;
+}
+
+select.short {
+    width: 40px;
+}
+
+input.long2 {
+    width: 50px;
+}
+
+select.long2 {
+    width: 55px;
+}
+
+input.shorter {
+    width: 70px;
+}
+
+select.shorter {
+    width: 75px;
+}
+
+input.middle {
+    width: 110px;
+}
+
+select.middle {
+    width: 115px;
+}
+
+input.long, textarea.long {
+    width: 270px;
+}
+
+select.long {
+    width: 275px;
+}
+
+input.longer, textarea.longer {
+    width: 510px;
+}
+
+select.longer {
+    width: 515px;
+}
+
+input.free, textarea.free, div.WFree, .ul.WFree, input.auto, textarea.auto {
+    width: 70%;
+}
+
+select.auto {
+    width: auto !important;
+}
+
+input.disable {
+    background: #dedede;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
+input.error {
+    padding: 0 5px;
+    border: 1px solid #bb2828;
+}
+
+input.readonly {
+    background: transparent;
+    border: none;
+}
+
+/* button */
+button, button:visited {
+    padding-bottom: 2px;
+    *padding-bottom: 0px;
+    width: 58px;
+    height: 26px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background: url(http://pic.ofcard.com/ofui/images/icon20110727.png) -94px -96px no-repeat;
+    font-size: 14px;
+    font-family: Hei, "Microsoft Yahei", SimHei;
+    color: #fff;
+    vertical-align: middle;
+}
+
+@-moz-document url-prefix() {
+    button {
+        padding-bottom: 4px;
+    }
+}
+
+button.gray, button.gray:visited {
+    background-position: -68px -416px;
+    color: #4c4c4c;
+}
+
+button:hover {
+    background-position: -94px -238px;
+    color: #030;
+}
+
+button:active, button.disable, button.disable:visited, button.disable:hover, button.disable:active {
+    background-position: left -416px;
+    cursor: default;
+    color: #888;
+}
+
+button.s4, button.s4:visited {
+    background-position: left -96px;
+    width: 92px;
+    height: 26px;
+}
+
+button.grayS4, button.grayS4:visited {
+    background-position: -94px -380px;
+    color: #4c4c4c;
+    width: 92px;
+    height: 26px;
+}
+
+button.s4:hover, button.grayS4:hover {
+    background-position: left -238px;
+}
+
+button.s4:active, button.s4Disable, button.s4Disable:visited, button.s4Disable:hover, button.s4Disable:active, button.grayS4:active {
+    background-position: left -380px;
+    color: #888;
+    cursor: default;
+}
+
+button.big, button.big:visited, button.free, button.free:visited {
+    background-position: left -48px;
+    width: 128px;
+    height: 38px;
+    line-height: 38px;
+    font-size: 25px;
+}
+
+button.big:hover {
+    background-position: left -190px;
+}
+
+button.big:active, button.bigdisable, button.bigdisable:visited, button.bigdisable:hover, button.bigdisable:active {
+    background-position: left -332px;
+    color: #888;
+    cursor: default;
+}
+
+button.free, button.free:visited {
+    background-position: left top;
+    width: 260px;
+}
+
+button.free:hover {
+    background-position: left -142px;
+}
+
+button.free:active, button.freedisable, button.freedisable:visited, button.freedisable:hover, button.freedisable:active {
+    background-position: left -284px;
+    color: #888;
+    cursor: default;
+}
+
+/* common */
+.note, blockquote {
+    background: #f3f4f5;
+    border: 1px solid #ccc;
+}
+
+.important {
+    background: #fcf3eb !important;
+    border: 1px solid #f7c08e !important;
+}
+
+.warning {
+    background: #fdf2f2 !important;
+    border: 1px solid #f29191 !important;
+}
+
+.remark {
+    background: #effbea !important;
+    border: 1px solid #80d67e !important;
+}
+
+.attention {
+    background: #e8f6fb !important;
+    border: 1px solid #88d6f3 !important;
+}
+
+.info {
+    background: #f7f7f7 !important;
+    border: 1px solid #f1f1f1 !important;
+}
+
+.tip {
+    background: #fcfae9 !important;
+    border: 1px solid #eee18c !important;
+}
+
+blockquote.important {
+    border-color: #fde7d4 !important;
+}
+
+blockquote.warning {
+    border-color: #fee0e0 !important;
+}
+
+blockquote.remark {
+    border-color: #dbf6d0 !important;
+}
+
+blockquote.attention {
+    border-color: #d7f0f9 !important;
+}
+
+blockquote.tip {
+    border-color: #f7f3d2 !important;
+}
+
+.positive {
+    position: relative;
+    z-index: 1;
+}
+
+.posilute {
+    position: absolute;
+    z-index: 1;
+}
+
+cite {
+    float: right;
+}
+
+.push {
+    margin: 10px;
+}
+
+.pushT, .pusht {
+    margin-top: 10px;
+}
+
+.pushR, .pushr {
+    margin-right: 10px;
+}
+
+.pushB, .pushb {
+    margin-bottom: 10px;
+}
+
+.pushL, .pushl {
+    margin-left: 10px;
+}
+
+.noPush, .nopush {
+    margin: 0 !important;
+}
+
+.fill {
+    padding: 10px;
+}
+
+.fillT, .fillt {
+    padding-top: 10px;
+}
+
+.fillR, .fillr {
+    padding-right: 10px;
+}
+
+.fillB, .fillb {
+    padding-bottom: 10px;
+}
+
+.fillL, .fill_l {
+    padding-left: 10px;
+}
+
+.noFill, .nofill {
+    padding: 0 !important;
+}
+
+.clearR, .clear_r {
+    clear: right;
+}
+
+.clearL.clearl {
+    clear: left;
+}
+
+.clear {
+    clear: both;
+    height: 0;
+    font-size: 0;
+    overflow: hidden;
+}
+
+.left, .f_left {
+    float: left;
+}
+
+.right, .f_right {
+    float: right;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+/* Vinchio */
+.Vinchio li {
+    padding-right: 5px !important;
+}
+
+.Visiput {
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+    visibility: visible \9;
+    width: 0;
+    height: 0;
+}
+
+.Vrabom, .Vchebom {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    padding: 1px 5px 3px;
+    padding: 3px 5px 1px \9;
+    border: 1px solid #ccc;
+    line-height: 16px !important;
+    cursor: pointer;
+}
+
+.Visox, .Visio {
+    padding: 0 3px 2px;
+    padding: 2px 3px 0 \9;
+    color: #20bdbf;
+    border: 2px solid #20bdbf;
+    background: #fff;
+    font-weight: bold;
+}
+
+.Vrabom:hover, .Vchebom:hover, .Visox:hover {
+    border-color: #999;
+    color: #f60;
+}
+
+.Vrabom:active, .Vchebom:active, .Visox:active, .Vrabom.Vactive {
+    border-color: #999;
+    background: #ccc;
+    color: #999;
+}
+
+.Vrabom.Vactive {
+    cursor: default
+}
+
+.Visio, .Visio:hover, .Visio:active {
+    padding: 1px 4px 3px;
+    padding: 3px 4px 1px \9;
+    color: #fff;
+    background: #36d4d6;
+    border: 1px solid #20bdbf;
+    cursor: default;
+}
+
+/* VSexuan, VSlixuan */
+.VSexuan, .VSlixuan {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    width: 112px;
+    vertical-align: middle;
+}
+
+.Vranel {
+    display: block;
+    border: 1px solid #ccc;
+    background: #fff;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.Vranel:hover, .Voranel:hover {
+    border-color: #999;
+}
+
+.Vranel:active, .Voranel:active {
+    border-color: #ccc;
+    background: #f3f4f5;
+    color: #ccc;
+}
+
+.Vranel kbd {
+    display: block;
+    padding: 0 23px 0 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.Vranel dfn, .Vranel:visited dfn {
+    float: right;
+    margin: 3px 3px 0 0;
+    width: 16px;
+    height: 16px;
+    background: url(http://pic.ofcard.com/themes/sup/beta/iconSup.png) -154px -104px no-repeat;
+}
+
+.Vranel:hover dfn, .Vranel:hover dfn {
+    background-position: -180px -104px;
+}
+
+.Vranel:active dfn, .Vranel:active dfn {
+    background-position: -206px -104px;
+}
+
+.Vxuan .Vranel dfn {
+    background-position: -154px -130px;
+}
+
+.Vxuan {
+    position: relative;
+    z-index: 9999;
+}
+
+.Vsoom {
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+    right: 5px;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.Vxuan .Vsoom {
+    display: block;
+    top: 22px;
+    left: 0;
+    z-index: 99;
+    padding: 4px 0;
+    height: auto;
+    _zoom: 1;
+    border: 2px solid #acacac;
+    box-shadow: 0 0 2px #999;
+    background: #fff;
+}
+
+.VSexuan q {
+    display: block;
+    padding: 0 4px;
+}
+
+.VSexuan q a {
+    display: block;
+    margin: 1px 0;
+    padding: 3px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 20px;
+}
+
+.VSexuan q a:hover {
+    background: #dcdcdc;
+    color: #333;
+}
+
+.VSexuan q a:active {
+    background: #666;
+    color: #444;
+}
+
+.VSexuan q a.Vshis {
+    background: #56C8D4;
+    color: #fff;
+}
+
+.Vselectbad {
+    position: absolute;
+    z-index: -1;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.Vselectbad select {
+    margin-left: 2px;
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+    visibility: visible \9;
+    width: 0;
+    height: 0;
+}
+
+/* layout */
+.col2, .col3, .col4, .col5 {
+    float: left;
+}
+
+.col2 .Jow, .col3 .Jow, .col4 .Jow, .col5 .Jow {
+    margin: 0 10px 0 0;
+}
+
+.colLast .Jow {
+    margin: 0;
+}
+
+.col2 {
+    width: 50%;
+}
+
+.col2.colLast {
+    *margin-left: -1px;
+}
+
+.col3 {
+    width: 33.3%;
+}
+
+.col3.colLast {
+    width: 33.4%;
+}
+
+.col4 {
+    width: 25%;
+}
+
+.col4.colLast {
+    *margin-left: -2px;
+}
+
+.col5 {
+    width: 20%;
+}
+
+.actions, .action, .icon, .inline, i {
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    vertical-align: middle;
+}

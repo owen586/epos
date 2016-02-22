@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="logDir" value="D:\logs"/>
+    <property name="appName" value="e-pos"/>
+
+    <!-- 日志级别-->
+    <!-- TRACE,DEBUG,INFO,WARN,ERROR,ALL,OFF-->
+    <!-- 控制台输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder chartset="UTF-8">
+            <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${logDir}\${appName}\logback_demo.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender> -->
+    <!--
+        name：
+            用来指定受此loger约束的某一个包或者具体的某一个类
+
+        level:
+            用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
+            还有一个特俗值INHERITED或者同义词NULL，代表强制执行上级的级别。
+
+        addtivity:
+            是否向上级loger传递打印信息。默认是true。
+    -->
+    <logger name="com.tinytrustframework.epos" level="WARN" addtivity="true">
+            <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

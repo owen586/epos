@@ -1,0 +1,871 @@
+body {
+    color: #333;
+}
+
+a:link, a:visited {
+    color: #3367cd;
+}
+
+a:hover {
+    color: #f60;
+}
+
+a:active {
+    color: #666;
+}
+
+a.blue {
+    color: #0c56ad;
+}
+
+a.blue {
+    color: #1261ac;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft Yahei", SimHei;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.W980 {
+    width: 980px;
+    margin: 0 auto;
+}
+
+.f60 {
+    color: #f60;
+}
+
+.block {
+    padding: 0;
+    border: 1px solid #dadada;
+}
+
+.ColL, .ColMain, .ColR, .hotArea, .HomeProductAllList, .ColContent {
+    float: left;
+    clear: none;
+    display: inline;
+}
+
+.ColL {
+    margin-left: 0;
+    width: 299px;
+    display: inline;
+}
+
+.ColMain {
+    width: 671px;
+}
+
+.ColR {
+    width: 233px;
+    float: right;
+}
+
+.ColContent {
+    width: 1040px;
+}
+
+.font14 {
+    font-size: 14px;
+}
+
+.font18 {
+    font-size: 18px;
+}
+
+.overflow {
+    overflow: hidden;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+/* header */
+.siteHead {
+    height: 112px;
+    background: #a8d46f;
+}
+
+.logoarea {
+    float: left;
+    height: 58px;
+    width: 390px;
+}
+
+.logoarea .logo {
+    /*background: url(08pay.png) left top no-repeat;*/
+    display: block;
+    float: left;
+    height: 68px;
+    position: relative;
+    top: 30px;
+    width: 234px;
+    text-indent: -9999px;
+}
+
+.siteHead .hotLine {
+    float: right;
+    font-family: "Microsoft Yahei", SimHei;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 70px;
+}
+
+/* nav */
+.mainNav {
+    position: relative;
+    height: 42px;
+    line-height: 42px;
+    background: url(08pay.png) left -79px repeat-x;
+}
+
+.mainNav .siteNav {
+    padding: 0 27px;
+}
+
+.siteNav li {
+    float: left;
+}
+
+.siteNav li {
+    margin: 2px 8px 0;
+    position: relative;
+}
+
+.siteNav li a {
+    display: block;
+    font-size: 14px;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 20px;
+    color: #fff;
+    font-family: "Microsoft Yahei", SimHei;
+    font-weight: bold;
+}
+
+.siteNav li.current a, .siteNav li a:hover, .siteNav li.current a:hover {
+    background: #fff;
+    color: #0160a2;
+}
+
+.mainWrap {
+    margin-top: 20px;
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.mainLeftWrap {
+    float: left;
+    width: 1000px;
+    _zoom: 1;
+    clear: none;
+    display: inline;
+}
+
+.ColMainR {
+    float: right;
+    clear: none;
+    _margin-left: 10px;
++ margin-left: 10 px;
+}
+
+/* bannerbox */
+.bannerbox {
+    width: 980px;
+    height: 237px;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+#focus {
+    width: 980px;
+    height: 237px;
+    clear: both;
+    overflow: hidden;
+    position: relative;
+    float: left;
+}
+
+#focus ul {
+    width: 980px;
+    height: 237px;
+    float: left;
+    position: absolute;
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+}
+
+#focus ul li {
+    float: left;
+    width: 980px;
+    height: 237px;
+    overflow: hidden;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+#focus .preNext {
+    width: 550px;
+    height: 237px;
+    position: absolute;
+    top: 0px;
+    cursor: pointer;
+}
+
+#focus .pre {
+    left: 0;
+    background: url(sprite.png) no-repeat left center;
+}
+
+#focus .next {
+    right: 0;
+    background: url(sprite1.png) no-repeat right center;
+}
+
+.mainWrap hgroup {
+    height: 36px;
+    line-height: 36px;
+    padding-right: 10px;
+    background: url(08pay.png) left -128px repeat-x;
+    border-bottom: 1px solid #dadada;
+}
+
+.mainWrap hgroup h3 {
+    padding-left: 20px;
+    font-size: 14px;
+    color: #1c69b1;
+    font-weight: bold;
+    font-family: "Microsoft Yahei", SimHei;
+}
+
+.mainWrap hgroup h3 span {
+    color: #d8d6d6;
+    padding-left: 5px;
+}
+
+.loginArea ul {
+    margin: 20px;
+}
+
+.loginArea ul li {
+    margin-bottom: 14px;
+}
+
+.loginArea ul li .input {
+    width: 240px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
+}
+
+.loginArea ul li .inputCode {
+    width: 100px;
+}
+
+.loginArea ul li img {
+    padding: 0 10px;
+    display: inline;
+    vertical-align: middle;
+}
+
+.loginArea button, .loginArea button:visited, .loginArea button:hover, .loginArea button:active {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    letter-spacing: 20px;
+    color: #fff;
+    text-align: center;
+    background: #3385ff;
+    border-radius: 6px;
+}
+
+.loginArea button.btnReg, .loginArea button.btnReg:visited, .loginArea button.btnReg:hover, .loginArea button.btnReg:active {
+    background: #317ef3;
+}
+
+.loginArea dl {
+    padding-bottom: 20px;
+    margin: 0 20px;
+}
+
+.loginArea dl dt {
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.loginArea dl dd a {
+    padding-left: 20px;
+    color: #333;
+    background: url(08pay.png) -263px -188px no-repeat;
+}
+
+.loginArea dl dd a:hover {
+    color: #f60;
+    text-decoration: underline;
+}
+
+.loginArea dl dd a.qq {
+    margin-left: 30px;
+    background-position: -263px -230px;
+}
+
+.loginArea .focus {
+    border: 1px solid #65b1d8 !important;
+}
+
+.dateArea ul {
+    margin: 16px 10px 6px 16px;
+}
+
+.dateArea ul li {
+    font-weight: bold;
+    color: #333;
+    padding: 15px 0 15px 36px;
+    font-size: 14px;
+    font-family: "Microsoft Yahei", SimHei;
+    background: url(08pay.png) -249px -275px no-repeat;
+}
+
+.dateArea ul li.date2 {
+    background-position: -249px -338px;
+}
+
+.dateArea ul li.date3 {
+    background-position: -249px -400px;
+}
+
+.newsArea ul {
+    margin: 10px 14px;
+}
+
+.newsArea li, .newsArea li a {
+    color: #656565;
+}
+
+.newsArea li a {
+    display: block;
+    width: 440px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.newsArea li a:hover {
+    color: #f60;
+    text-decoration: underline;
+}
+
+.newsArea li {
+    padding: 3px;
+    border-bottom: 1px dotted #dadada;
+}
+
+.newsArea li.last {
+    border-bottom: 0 none;
+}
+
+.cardsArea div {
+    padding: 10px 0 10px 12px;
+    overflow: hidden;
+}
+
+.cardsArea div a {
+    float: left;
+    display: inline;
+    width: 128px;
+    height: 28px;
+    color: #727272;
+    margin: 7px 20px 7px 15px;
+    line-height: 28px;
+    text-align: center;
+    background: url(08pay.png) left -224px no-repeat;
+}
+
+.contactArea ul {
+    margin: 20px 0 20px 18px;
+}
+
+.contactArea ul li {
+    float: left;
+    display: inline;
+    width: 300px;
+    height: 57px;
+    margin: 0 20px 16px 0;
+    border: 2px solid #d5d5d5;
+}
+
+.contactArea ul li div {
+    padding-left: 80px;
+    height: 57px;
+    line-height: 55px;
+    color: #0358cd;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "Microsoft Yahei", SimHei;
+    background: url(08pay.png) -202px -490px no-repeat;
+}
+
+.contactArea ul li div.num {
+    line-height: 22px;
+    padding-top: 8px;
+    font-size: 16px;
+}
+
+.contactArea ul li div.num span {
+    color: #6b6b6b;
+    font-size: 12px;
+}
+
+.contactArea ul li div.qq {
+    background-position: -202px -622px;
+}
+
+.contactArea ul li div.wap {
+    background-position: -202px -760px;
+}
+
+.contactArea .weibo dt, .contactArea .weibo dd {
+    float: left;
+    padding: 15px 23px;
+}
+
+.contactArea .weibo dt {
+    border-right: 1px dotted #ccc;
+}
+
+.contactArea .weibo i {
+    width: 24px;
+    height: 24px;
+    background: url(08pay.png) left -310px no-repeat;
+}
+
+.contactArea .weibo i.qweibo {
+    background-position: -49px -310px;
+}
+
+.contactArea .weibo a {
+    width: 57px;
+    height: 21px;
+    font-size: 0;
+    line-height: 0;
+    margin-left: 10px;
+    background: url(08pay.png) left -345px no-repeat;
+}
+
+.mainCont {
+    padding-bottom: 30px;
+}
+
+.regbox .title {
+    padding: 10px 40px;
+    margin-bottom: 15px;
+    height: auto;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+.regbox .title h3 {
+    color: #047bcc;
+    font-size: 16px;
+}
+
+.regbox .title p {
+    color: #808080;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 24px;
+}
+
+.regbox .title p a {
+    color: #f60;
+    text-decoration: underline;
+}
+
+.regbox .form li label {
+    width: 310px;
+}
+
+.regbox .form li.label {
+    padding-left: 312px;
+}
+
+.regbox .form li .input {
+    width: 250px;
+    height: 36px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
+}
+
+.regbox .form li .focus {
+    border-color: #65b1d8 !important;
+}
+
+.regbox button, .regbox button:visited, .regbox button:hover, .regbox button:active {
+    width: 118px;
+    height: 39px;
+    font-size: 0;
+    line-height: 0;
+    background: url(08pay.png) left -373px no-repeat;
+}
+
+i.yes, i.no {
+    width: 17px;
+    height: 17px;
+    background: url(08pay.png) -103px -311px no-repeat;
+}
+
+i.no {
+    background-position: -128px -311px;
+}
+
+span.process {
+    height: 20px;
+    line-height: 20px;
+    background: #7ED100;
+}
+
+.txtList ol {
+    margin: 15px 10px;
+}
+
+.txtList ol li {
+    font-size: 14px;
+    padding: 0 0 5px 18px;
+    margin-bottom: 5px;
+    border-bottom: 1px dotted #ddd;
+    background: url(08pay.png) -260px -26px no-repeat;
+}
+
+.contactList dl {
+    margin: 20px;
+}
+
+.contactList dl dt, .contactList dl dd {
+    margin: 30px 0;
+}
+
+.contactList dl img {
+    vertical-align: middle;
+}
+
+.helpList dl dt {
+    line-height: 34px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 24px;
+    color: #777;
+    margin: 13px 0 3px 0;
+    font-family: "Microsoft Yahei", SimHei;
+    background: url(08pay.png) -254px -838px no-repeat;
+}
+
+.helpList dl dd {
+    padding-left: 24px;
+    margin-left: 20px;
+    background: url(08pay.png) -254px -967px no-repeat;
+}
+
+.float0831 {
+    position: fixed;
+    top: 180px;
+    right: 1px;
+    _position: absolute
+}
+
+.float0831 a {
+    color: #00a0e9
+}
+
+.float0831 a:hover {
+    color: #ff8100;
+    TEXT-DECORATION: none
+}
+
+.float0831 .floatL {
+    position: relative;
+    width: 28px;
+    float: left
+}
+
+.float0831 .floatL A {
+    text-indent: -9999px;
+    display: block;
+    font-size: 0px
+}
+
+.float0831 .floatR {
+    background: url(float_bg.gif)
+}
+
+.float0831 .tp {
+    background: url(float_bg.gif)
+}
+
+.float0831 .cn {
+    background: url(float_bg.gif)
+}
+
+.float0831 .floatR {
+    padding-bottom: 15px;
+    width: 130px;
+    background-repeat: no-repeat;
+    background-position: -131px bottom;
+    float: left;
+    overflow: hidden
+}
+
+.float0831 .tp {
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    height: 10px
+}
+
+.float0831 .cn {
+    background-repeat: repeat-y;
+    background-position: -262px 0px
+}
+
+.float0831 .cn H3 {
+    text-indent: -9999px;
+    height: 36px;
+    font-size: 0px
+}
+
+.float0831 .cn UL {
+    padding-bottom: 0px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 0px
+}
+
+.float0831 .cn UL LI {
+    border-bottom: #e6e5e4 1px solid;
+    line-height: 36px;
+    word-wrap: break-word;
+    height: 36px;
+    overflow: hidden;
+    word-break: normal
+}
+
+.float0831 .titZx {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .titDh {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .titDc {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .icoZx {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .icoTc {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .icoFf {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .icoTl {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .btnOpen {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .btnOpen_n {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .btnCtn {
+    background: url(float_s.gif) no-repeat
+}
+
+.float0831 .titZx {
+    background-position: 5px -10px
+}
+
+.float0831 .titDh {
+    background-position: 5px -66px
+}
+
+.float0831 .titDc {
+    background-position: 5px -124px
+}
+
+.float0831 .icoZx {
+    background-position: 2px -154px
+}
+
+.float0831 .icoTc {
+    background-position: 0px -323px
+}
+
+.float0831 .icoFf {
+    background-position: 2px -213px
+}
+
+.float0831 .icoTl {
+    padding-left: 20px;
+    display: block;
+    font-family: "微软雅黑";
+    background-position: 2px -266px;
+    FLOAT: left
+}
+
+.float0831 .btnOpen {
+    background-position: -30px -396px
+}
+
+.float0831 .btnOpen_n {
+    background-position: 0px -530px
+}
+
+.float0831 .btnCtn {
+    background-position: 0px -396px
+}
+
+.float0831 .icoZx {
+    padding-left: 28px;
+    display: block;
+    float: left
+}
+
+.float0831 .icoTc {
+    padding-left: 28px;
+    display: block;
+    float: left
+}
+
+.float0831 .icoFf {
+    padding-left: 28px;
+    display: block;
+    float: left
+}
+
+.float0831 .btnOpen {
+    position: relative;
+    width: 28px;
+    height: 118px;
+    TOP: 80px;
+    left: 2px
+}
+
+.float0831 .btnOpen_n {
+    position: relative;
+    width: 28px;
+    height: 118px;
+    TOP: 80px;
+    left: 2px
+}
+
+.float0831 .btnCtn {
+    position: relative;
+    width: 28px;
+    height: 118px;
+    top: 80px;
+    left: 2px
+}
+
+.float0831 .btnOpen {
+    top: 118px;
+    left: 1px
+}
+
+.float0831 .btnOpen_n {
+    top: 118px;
+    left: 1px
+}
+
+.float0831 .btnCtn {
+    top: 118px;
+    left: 2px
+}
+
+.float0831 UL LI H3.titDc A {
+    width: 80px;
+    display: block;
+    height: 36px
+}
+
+.float0831 UL LI.top {
+    border-bottom: #ace5f9 1px solid
+}
+
+.float0831 UL LI.bot {
+    border-bottom-style: none
+}
+
+.float0831 UL.webZx {
+    padding-bottom: 0px;
+    padding-left: 0px;
+    width: 164px;
+    padding-right: 0px;
+    background: url(webZx_bg.jpg) no-repeat;
+    height: 65px;
+    padding-top: 0px
+}
+
+.float0831 UL LI.webZx-in {
+    border-bottom-style: none;
+    padding-left: 5px;
+    height: 50px;
+    padding-top: 8px
+}
+
+/* siteFoot */
+.siteFoot {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 30px;
+    background: #f2f2e8;
+    border-top: 1px solid #dbdcde;
+}
+
+.siteFoot div {
+    margin: 0 auto;
+}
+
+.copyright {
+    text-align: right;
+    color: #699fcb;
+}
+
+.copyright p {
+    line-height: 24px;
+}
+
+.copyright p a {
+    color: #81b6d8;
+    padding: 0 5px;
+}
+
+.copyright p a:hover {
+    text-decoration: underline;
+    color: #fff;
+}

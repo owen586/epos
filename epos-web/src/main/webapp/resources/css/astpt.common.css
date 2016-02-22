@@ -1,0 +1,1551 @@
+/* boss CSS */
+/* Layout
+html,body {
+	overflow: hidden;
+} */
+body {
+    padding: 10px 10px 0 0;
+    overflow: auto;
+}
+
+body.origin {
+    padding: 0;
+    overflow: hidden;
+}
+
+#topWrap {
+    background: #fff;
+    height: 90px;
+    border-bottom: 5px solid #4081cb;
+}
+
+#mainWrap {
+    float: left;
+    width: 100%;
+}
+
+#mainColumn {
+    margin: 0 0 0 200px;
+}
+
+#sideWrap {
+    float: left;
+    margin-left: -100%;
+    width: 190px;
+    background: #f3f3f3;
+}
+
+.shrinkBUp #sideWrap {
+    width: 18px;
+}
+
+.shrinkBUp #mainColumn {
+    margin: 0 0px 0 28px;
+}
+
+/* top */
+#logoarea {
+    float: left;
+    font-size: 25px;
+}
+
+#logoarea a {
+    display: block;
+    margin: 10px 15px;
+    background: url(../images/barBoss.png) left -203px;
+    text-indent: -999px;
+    width: 210px;
+    height: 42px;
+    color: #c9d9f0;
+}
+
+#logoarea a ins {
+    display: none;
+}
+
+#logoarea a:hover ins {
+    float: right;
+    margin-right: -50px;
+    font-size: 12px;
+    color: #56a1cc;
+}
+
+#logoarea a img {
+    width: 100%;
+}
+
+.pToolbar {
+    float: right;
+    margin: 7px 5px;
+}
+
+.pToolbar li {
+    display: inline;
+    margin: 0 2px;
+    color: #fff;
+}
+
+.pToolbar li a {
+    padding: 3px 5px;
+    color: #666;
+}
+
+.pToolbar li a:hover {
+    color: #f60;
+}
+
+/* nav */
+.mainNav {
+    clear: left;
+}
+
+.mainNav .tab {
+    padding-left: 15px;
+    border: 0;
+}
+
+.mainNav .tab li {
+    float: left;
+    margin: 2px 1px 0;
+}
+
+.mainNav .tab a,
+.mainNav .tab span,
+.mainNav .tab .current a,
+.mainNav .tab .current a:hover {
+    float: left;
+    background: url(../images/barBoss.png);
+    border: 0;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-transition-duration: 2s;
+}
+
+.mainNav .tab a {
+}
+
+.mainNav .tab span {
+    padding: 0 0 0 15px;
+    background-position: left 0;
+    color: #4081cb;
+    font-size: 14px;
+}
+
+.mainNav .tab li a:hover {
+    background-position: right -41px;
+}
+
+.mainNav .tab li a:hover span {
+    background-position: left -41px;
+    color: #324972;
+}
+
+.mainNav .tab li a:active {
+    background-position: right -82px;
+}
+
+.mainNav .tab li a:active span {
+    background-position: left -82px;
+    color: #ccc;
+}
+
+.mainNav .tab .current a,
+.mainNav .tab .current a:hover {
+    margin-bottom: -2px;
+    background-position: right -123px;
+    font-weight: bold;
+    cursor: default;
+    height: 28px;
+    line-height: 28px;
+}
+
+.mainNav .tab li.current span,
+.mainNav .tab li.current a:hover span {
+    padding: 0 0 0 15px;
+    color: #fff;
+    height: 28px;
+    line-height: 28px;
+    background: none;
+}
+
+.mainNav .tab .current span,
+.mainNav .tab .current a:hover span {
+    padding: 0;
+}
+
+.memInfo {
+    float: right;
+    margin: 6px 5px 0;
+    color: #fff;
+}
+
+.memInfo dt, .memInfo dd {
+    display: inline;
+    padding: 0 5px;
+}
+
+.memInfo dd {
+    border-left: 1px solid #fff;
+}
+
+.memInfo a {
+    padding: 0 5px;
+    color: #5a5a5a;
+}
+
+.memInfo a:hover {
+    color: #f60;
+}
+
+/* left */
+#sideColumn {
+    padding: 5px 0 5px 5px;
+    margin-right: 8px;
+}
+
+.sideBlock {
+    margin-bottom: 5px;
+    line-height: 24px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.sideHead {
+    padding: 1px 5px;
+    background: #eaebeb;
+    color: #4081cb;
+}
+
+.sideHead i {
+    display: none;
+}
+
+.sideHead h6 {
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+.sideMenu {
+    padding: 5px;
+}
+
+.sideMenu a {
+    display: block;
+    padding: 0px 5px;
+    color: #222;
+    font-size: 12px;
+}
+
+.sideMenu a:hover {
+    background: #f3f3f3;
+    color: #858585;
+}
+
+.sideMenu a:active {
+    background: #ccc;
+    color: #333;
+}
+
+.sideMenu .current a,
+.sideMenu .current a:hover {
+    background: #4081cb;
+    color: #fff;
+}
+
+.sideInfo {
+    border-color: #dcdcdc;
+}
+
+.sideInfo .sideHead {
+    background: #f3f4f5;
+    color: #5a5a5a;
+}
+
+.sideInfo ul {
+    padding: 15px 5px;
+}
+
+.sideInfo ol {
+    padding: 5px;
+}
+
+.sideInfo li {
+    overflow: hidden;
+    _zoom: 1;
+}
+
+.sideInfo li label {
+    float: left;
+    width: 64px;
+    text-align: right;
+}
+
+.sideInfo strong {
+    color: #bbb;
+}
+
+.sideInfo .siteLine tt {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #dcdcdc;
+    overflow: hidden;
+}
+
+.sideInfo .siteLine img {
+    width: 50px;
+    height: 50px;
+}
+
+.sideInfoBottom {
+    margin: 0 5px;
+    border-top: 1px dotted #bfd1dd;
+}
+
+.sideInfoBottom dt a {
+    padding: 5px;
+}
+
+.sideInfoBottom dt a span {
+    color: #ff7000;
+    font-size: 10px;
+}
+
+.sideInfoBottom dd {
+    padding: 5px 0 10px;
+    text-align: center;
+}
+
+.sideInfoBottom dd a {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    width: 89px;
+    height: 23px;
+    line-height: 23px;
+    background: url(../images/barBoss.png) left -165px no-repeat;
+}
+
+.sideInfoBottom dd a:hover {
+    background: url(../images/barBoss.png) -105px -165px no-repeat;
+}
+
+.sideInfoBottom dd a:active {
+    background: url(../images/barBoss.png) -209px -165px no-repeat;
+}
+
+#shrinkBut {
+    float: right;
+    width: 8px;
+    background: #f3f3f3 url(../images/treeLine.png) -495px center no-repeat;
+    text-indent: -9999px;
+}
+
+#shrinkBut:hover {
+    background: #ccc url(../images/treeLine.png) -481px center no-repeat;
+}
+
+#shrinkBut:active {
+    background: #f1f1f1 url(../images/treeLine.png) -509px center no-repeat;
+}
+
+.shrinkBUp #sideColumn {
+    display: none;
+}
+
+.shrinkBUp #shrinkBut {
+    width: 18px;
+    background: #f3f3f3 url(../images/treeLine.png) -531px center no-repeat;
+}
+
+.shrinkBUp #shrinkBut:hover {
+    background: #ccc url(../images/treeLine.png) -545px center no-repeat;
+}
+
+.shrinkBUp #shrinkBut:active {
+    background: #f1f1f1 url(../images/treeLine.png) -517px center no-repeat;
+}
+
+/* page */
+.pageBCrumb {
+    margin-top: 8px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+.pageBCrumb i {
+    background: url(../images/barBoss.png) -229px -227px no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.pageBCrumb a {
+    padding: 0 10px;
+}
+
+.pageBCrumb strong {
+    padding-left: 10px;
+}
+
+.checkBlock input[type='text'] {
+    line-height: 20px;
+    height: 20px;
+}
+
+.checkBlock dl {
+    border: 1px solid #ccc;
+}
+
+.checkBlock q {
+    display: block;
+    padding: 0 0 5px 0;
+}
+
+.checkBlock dl dt,
+.checkBlock dl dd {
+    float: left;
+    padding: 5px;
+    padding-bottom: 0;
+}
+
+.checkBlock dt {
+    background: #f0f5fb;
+}
+
+.checkBtnBar {
+    padding: 5px;
+    text-align: center;
+}
+
+.VSeluan {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    height: 22px;
+    line-height: 22px;
+    width: 120px;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.VSeluan kbd {
+    display: block;
+    padding: 0 23px 0 3px;
+}
+
+.VSeluan kbd div {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.VSeluanBtn, .VSeluanBtn:visited {
+    float: right;
+    margin: -21px 1px 0 0;
+    width: 20px;
+    height: 20px;
+    background: url(../images/VSelectBtn.png) 4px top no-repeat;
+}
+
+.VSeluanBtn:hover {
+    background-position: -29px top;
+}
+
+.VSeluanBtn:active {
+    background-position: -62px top;
+}
+
+.VSeluanBtnCur {
+    background-position: -94px top;
+}
+
+.push5 {
+    margin-left: 5px;
+}
+
+/* tab */
+.tab {
+    border: 1px solid #ccc;
+    border-bottom: 0;
+}
+
+.tab li {
+    margin: 0;
+}
+
+.tab li i {
+    margin-right: 10px;
+    font: 9px/16px arial;
+    background: url(../images/barBoss.png) -230px -204px no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.tab li a {
+    padding: 0 30px;
+    border: solid #ccc;
+    border-width: 0 1px 0 0;
+    background: #f3f4f5;
+    height: 26px;
+    line-height: 26px;
+}
+
+.tab li a span {
+    padding: 0;
+    height: 26px;
+    line-height: 26px;
+}
+
+.tab li a span,
+.tab li a:visited span,
+.tab li a:hover span,
+.tab li a:active span,
+.tab li.current a span,
+.tab li.current a:hover span {
+    background-position: -9999px -9999px;
+}
+
+.tab li.current a,
+.tab li.current a:visited,
+.tab li.current a:hover,
+.tab li.current a:active {
+    background: #fff;
+    height: 27px;
+    line-height: 27px;
+    color: #e34768;
+    font-weight: bold;
+    cursor: default;
+}
+
+.tab li.current a span, .tab li.current a:hover span {
+    height: 27px;
+    line-height: 27px;
+    color: #e34768;
+}
+
+.tab li.current i {
+    background-position: -266px -204px;
+}
+
+/* Slisecuan */
+.Slisecuan {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 770px;
+}
+
+.SlisecuanBtn {
+    position: absolute;
+    top: 100px;
+    width: 11px;
+    display: block;
+    height: 120px;
+    background: #f7f7f7 url(../images/treeLine.png) -999px center no-repeat;
+    border: 1px solid #ccc;
+}
+
+.SlisecuanBtn:hover {
+    background: #eff4fa url(../images/treeLine.png) -999px center no-repeat;
+    border-color: #c8d9ee;
+}
+
+.SlisecuanBtn:active {
+    background: #ddd url(../images/treeLine.png) -999px center no-repeat;
+    border-color: #ccc;
+}
+
+.SlisecuanBtnL {
+    left: 0;
+    background-position: -410px center;
+}
+
+.SlisecuanBtnL:hover {
+    background-position: -430px center;
+}
+
+.SlisecuanBtnL:active {
+    background-position: -450px center;
+}
+
+.SlisecuanBtnR {
+    right: 0;
+    background-position: -350px center;
+}
+
+.SlisecuanBtnR:hover {
+    background-position: -370px center;
+}
+
+.SlisecuanBtnR:active {
+    background-position: -390px center;
+}
+
+.SlisecuanCen {
+    position: relative;
+    margin: 0 2px 0 12px;
+}
+
+.SlisecuanBlock {
+    float: left;
+    margin-right: 10px;
+    width: 240px;
+    height: 320px;
+    border: 1px solid #ccc;
+}
+
+.SlisecuanBlock ul {
+    padding: 5px;
+    overflow: auto;
+    *overflow-x: hidden;
+    height: 310px;
+}
+
+.SlisecuanBlock li {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.SlisecuanBlock ul a {
+    display: block;
+    padding: 0 5px;
+    line-height: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.SlisecuanBlock ul a:hover {
+    background: #f3f4f5;
+}
+
+.SlisecuanBlock ul a:active {
+    background: #666;
+}
+
+.SlisecuanBlock .current a,
+.SlisecuanBlock .current a:visited,
+.SlisecuanBlock .current a:hover,
+.SlisecuanBlock .current a:active {
+    background: #56a1cc;
+    color: #fff;
+}
+
+.ASBar ul {
+    padding-top: 0;
+    height: 275px;
+}
+
+.SlisecuanSBar {
+    padding: 5px 9px 5px 5px;
+}
+
+.SlisecuanSBar input {
+    *margin-left: -5px;
+    width: 100%;
+    *width: 236;
+    line-height: 24px;
+    height: 24px;
+    border: 1px solid #ccc;
+    text-indent: 5px;
+}
+
+.ASCTBar ul {
+    padding-top: 0;
+    height: 245px;
+}
+
+.CTBar ul {
+    height: 278px;
+}
+
+.SlisecuanCTBar {
+    margin-top: 5px;
+    padding: 2px 5px 3px;
+    border-top: 1px solid #ccc;
+}
+
+.SlisecuanCTBar a {
+    display: inline-block;
+    *zoom: 1;
+    display: inline;
+    margin: 5px 2px 0;
+    padding: 1px 5px;
+    border: 1px solid #dcdcdc;
+    line-height: 22px;
+}
+
+.SlisecuanCTBar a.disable {
+    color: #ccc;
+    cursor: text;
+}
+
+.ASCTBar .SlisecuanCTBar {
+    text-align: right;
+}
+
+/* disable */
+.disInfo h2 {
+    background: #f7f7f7;
+    border: 1px solid #f1f1f1;
+    color: #ccc;
+    text-align: center;
+}
+
+.errorInfo h2 {
+    background: #fdf2f2;
+    border: 1px solid #fee0e0;
+    color: #de1a1a;
+    text-align: center;
+}
+
+/* sup */
+.navme {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #4a4a4a;
+}
+
+.navme img {
+    vertical-align: middle;
+}
+
+.navme p {
+    padding: 3px 0;
+}
+
+.showN {
+    position: relative;
+}
+
+.showN .navme {
+    display: block;
+}
+
+/* table */
+.categoryTree tr td {
+    border-bottom: 0;
+    border-top: 0;
+}
+
+.tablelist tr th {
+    background: #e2e8f2;
+    border-color: #d4dbe8;
+}
+
+.tablelistDJ tr td {
+    border-left: 1px solid #d4dbe8 !important;
+}
+
+.tablelist tr td {
+    border-color: #d4dbe8;
+}
+
+.tablelist tr td.subCateName {
+    padding-left: 24px;
+    background-image: url(../images/treeLine.png);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+.tablelist tr td .actions a {
+    margin: 0 2px;
+    padding: 0 3px;
+}
+
+.tableToolbar {
+    margin-bottom: 5px;
+}
+
+.tableToolbar a {
+    float: left;
+    padding: 0 10px;
+    line-height: 22px;
+    border: 1px solid #b1b1b1;
+    background: url(../images/reX.png) left -62px repeat-x;
+    color: #404040;
+}
+
+.tableToolbar a:hover {
+    background-position: left -99px;
+    color: #5d7090;
+    border-color: #7e97b5;
+}
+
+.tableToolbar a:active {
+    background-position: left -136px;
+    color: #ccc;
+    border-color: #ccc;
+}
+
+.ToolbarR {
+    float: right;
+}
+
+.ToolbarL li {
+    float: left;
+    margin-right: 5px;
+}
+
+.tablePageBar {
+    margin-top: -1px;
+    text-align: center;
+}
+
+.tableListR {
+    float: right;
+}
+
+.tableListL {
+    float: left;
+}
+
+.tablePageBar li {
+    display: inline;
+}
+
+.tablePageBar #pages {
+    clear: none;
+    float: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 500px;
+}
+
+.pagination {
+    float: none;
+}
+
+.pagination a, .pagination span {
+    float: none;
+}
+
+.VchoIput {
+    padding: 5px 45px 5px 5px;
+    overflow: hidden;
+}
+
+.VchoIputBtn {
+    float: right;
+    margin-right: -40px;
+}
+
+.VchoIput .textCon {
+    padding: 0 5px;
+}
+
+.VchoIput .textCon input {
+    width: 100%;
+}
+
+.VchoIput .textCon input.visibility {
+    border: 0;
+    background: transparent;
+}
+
+/* priceSetBar */
+.priceRsan {
+    padding: 10px 10px 10px 130px;
+}
+
+.priceRsan li {
+    display: inline;
+    margin: 0 10px 10px 0;
+}
+
+.priceSetBar {
+    padding-left: 120px;
+}
+
+.priceTraTab {
+    float: left;
+    margin-left: -120px;
+    _position: relative;
+    _z-index: 2;
+    width: 120px;
+}
+
+.priceTraTab a {
+    display: block;
+    margin-bottom: 3px;
+    padding: 0 5px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #ccc;
+    border-right: 0;
+    background: #f7f7f7;
+}
+
+.priceTraTab .current a {
+    margin-right: -1px;
+    background: #fff;
+    color: #e34768;
+}
+
+.priceSetCon {
+    padding: 10px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    _zoom: 1;
+}
+
+.levelArea {
+    float: left;
+    width: 220px;
+}
+
+.levelArea h5 {
+    font-size: 12px;
+}
+
+.levelArea li {
+    margin: 5px 0;
+    padding: 3px 0;
+    overflow: hidden;
+    _zoom: 1;
+}
+
+.levelArea label {
+    float: left;
+    width: 100px;
+    text-align: right;
+}
+
+/* siteWidget */
+.siteThemes h5,
+.CMSpanel h5 {
+    clear: left;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    font: 14px/30px Hei, "Microsoft Yahei", SimHei;
+    background: #f7f7f7;
+    color: #e34768;
+}
+
+.siteWidget {
+    margin: 10px auto;
+    padding: 2px 1px;
+    width: 150px;
+}
+
+.siteWidget:hover {
+    padding: 1px 0px;
+    border: 1px solid #dcdcdc;
+    background: #f3f4f5;
+}
+
+.siteWidget tt {
+    display: block;
+    margin: 0 auto;
+    width: 146px;
+}
+
+.siteWidget tt img {
+    width: 146px;
+    height: 146px;
+}
+
+.siteWidget dl a {
+    padding: 0 5px;
+}
+
+.siteWidget dt,
+.siteWidget dd {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.siteWidget dd {
+    margin-top: -30px;
+    text-align: right;
+}
+
+/* siteThemes */
+.siteThemes li {
+    float: left;
+    margin: 5px 10px;
+}
+
+.ThemesWidget {
+    margin: 10px 0;
+    padding: 8px;
+    *width: 140px;
+}
+
+.ThemesWidget:hover {
+    position: relative;
+    padding: 7px;
+    border: 1px solid #dcdcdc;
+    background: #f3f4f5;
+}
+
+.ThemesWidget h6 {
+    font: 12px/22px Hei, "Microsoft Yahei", SimHei;
+    text-align: center;
+    *width: 140px;
+}
+
+.curThemeArea p,
+.ThemesWidget p {
+    text-align: center;
+    font: 10px/22px Verdana, Geneva, Arial, Helvetica, sans-serif;
+    color: #999;
+}
+
+.ThemesWidget sup,
+.ThemesWidget sub {
+    display: none;
+    position: absolute;
+    top: 170px;
+    left: 9px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 14px;
+}
+
+.ThemesWidget:hover sup,
+.ThemesWidget:hover sub {
+    display: block;
+}
+
+.ThemesWidget sub {
+    width: 134px;
+    background: #fff;
+}
+
+.ThemesWidget sup {
+    text-align: center !important;
+}
+
+.ThemesWidget sup a {
+    margin: 0 15px;
+    text-align: center !important;
+}
+
+.ThemesWidget tt {
+    display: block;
+    margin: 0 auto;
+    width: 136px;
+    height: 190px;
+    border: 1px solid #dcdcdc;
+    background: #fff;
+}
+
+.ThemesWidget tt img {
+    position: relative;
+    top: 4px;
+    left: 4px;
+    width: 128px;
+    height: 182px;
+}
+
+.curThemeArea dt {
+    float: left;
+}
+
+.curThemeArea dd {
+    display: block;
+    margin: 0 0 0 160px;
+    height: 210px;
+}
+
+.curTheme,
+.curTheme:hover {
+    position: relative;
+    margin: 0;
+    padding: 8px;
+    border: 0;
+    background: none;
+}
+
+.curTheme tt {
+    width: 140px;
+    height: 194px;
+    border: 1px solid #80d67e;
+}
+
+.curTheme tt img {
+    top: 6px;
+    left: 6px;
+}
+
+.curTheme i {
+    position: absolute;
+    top: 179px;
+    right: 9px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/barBoss.png) left -357px no-repeat;
+}
+
+.curThemeArea h6 {
+    margin-top: 15px;
+    font: 16px/22px Hei, "Microsoft Yahei", SimHei;
+}
+
+.curThemeArea p {
+    text-align: left;
+}
+
+.curThemeArea pre {
+    text-align: right;
+}
+
+.curThemeArea dd div {
+    margin-top: 80px;
+}
+
+.curThemeArea dd div a {
+    padding: 0 5px;
+}
+
+/* customThemesToolBar */
+.customThemesToolBar {
+    padding: 0;
+}
+
+.customThemesToolBar dt {
+    position: relative;
+    float: left;
+    width: 120px;
+}
+
+.customThemesToolBar dd {
+    padding: 10px;
+    overflow: hidden;
+}
+
+.pageWgList {
+    display: none;
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    z-index: 99999;
+    padding: 5px;
+    width: 500px;
+    height: 120px;
+    background: #fff;
+}
+
+.thisPageWg, .pageWgList, .pageWgBtn {
+    float: left;
+    overflow: hidden;
+}
+
+.thisPageWg {
+    margin: 10px;
+    margin-right: 0;
+    padding: 5px;
+    background: #9adc8d;
+    overflow: hidden;
+    height: 110px;
+}
+
+.pageWgList .pageWidget, .moduleWgList .moduleWidget {
+    margin: 0 10px;
+}
+
+.moduleWgList {
+    margin-bottom: 10px;
+}
+
+.moduleWidget,
+.pageWidget {
+    float: left;
+    padding: 5px;
+}
+
+.pageWgList .pageWidget:hover, .moduleWgList .moduleWidget:hover {
+    padding: 4px;
+    border: 1px solid #9adc8d;
+    background: #d5f6ce;
+}
+
+.moduleWidget figcaption, .pageWidget figcaption {
+    padding: 0 0 5px;
+    font-size: 12px;
+    text-align: center;
+    width: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.moduleWidget tt,
+.pageWidget tt {
+    display: block;
+    width: 68px;
+    height: 68px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.moduleWidget tt img,
+.pageWidget tt img {
+    margin: 2px 0 0 2px;
+    width: 64px;
+    height: 64px;
+}
+
+.myMoWgList {
+    background: #f3f4f5;
+}
+
+.showOtherPage {
+    z-index: 999;
+}
+
+.pageWgBtn {
+    float: left;
+    margin-top: 10px;
+    width: 10px;
+    height: 120px;
+    background: #fff url(../images/treeLine.png) -350px center no-repeat;
+}
+
+.pageWgBtn:hover {
+    background: #eff4fa url(../images/treeLine.png) -370px center no-repeat;
+    border-color: #c8d9ee;
+}
+
+.pageWgBtn:active {
+    background: #ddd url(../images/treeLine.png) -390px center no-repeat;
+    border-color: #ccc;
+}
+
+.showOtherPage .pageWgList {
+    display: block;
+}
+
+.showOtherPage .pageWgBtn {
+    position: absolute;
+    left: 610px;
+    z-index: 99999;
+    background-position: -410px center;
+}
+
+.showOtherPage .pageWgBtn:hover {
+    background-position: -430px center;
+}
+
+.showOtherPage .pageWgBtn:active {
+    background-position: -450px center;
+}
+
+.customThemesToolBar dd {
+    margin: 0 0 0 140px;
+}
+
+.mvpwdcaptcha {
+    float: left;
+    padding-bottom: 18px;
+    background: url(../images/phPassMb.png) left bottom no-repeat;
+    height: 22px;
+}
+
+.mvpwdcaptcha img {
+    width: 110px;
+}
+
+/* product */
+.buttonArea {
+    margin: 10px;
+    text-align: center;
+}
+
+.sellercatsbar {
+    background: none repeat scroll 0 0 #F3F4F5;
+    border: 1px solid #CCCCCC;
+    float: left;
+    height: 200px;
+    overflow: auto;
+    width: 70%;
+}
+
+.sellercatsbar h6 {
+    clear: left;
+    font-size: 1em;
+    margin-top: 5px;
+    padding: 0 10px;
+}
+
+.sellercatsbar ul {
+    clear: left;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.sellercatsbar ul:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.sellercatsbar ul li {
+    clear: none;
+    float: left;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    width: 140px;
+}
+
+.sellercatsbar h6 label, .sellercatsbar ul li label {
+    cursor: pointer;
+    float: none;
+    text-align: left;
+    width: auto;
+}
+
+.safeArea s {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    margin: 0px 7px 0 0;
+    vertical-align: middle;
+    height: 16px;
+    width: 16px;
+    background: url(../images/commonFileIcon.png) 999px 999px no-repeat
+}
+
+.safeArea s.safeOk {
+    background-position: 0 0
+}
+
+.safeArea s.safeNo {
+    background-position: -23px 0
+}
+
+#live800icon {
+    width: 160px;
+}
+
+.checkbar {
+    padding-bottom: 0
+}
+
+.checkbar .form {
+    margin: 0 auto;
+    width: 780px
+}
+
+.checkbar .form li {
+    float: left;
+    clear: none;
+    width: 250px;
+    height: 22px;
+    line-height: 22px
+}
+
+.checkbar .form li.spanVauto {
+    height: auto
+}
+
+.checkbar .form li.spancol2 {
+    width: 500px
+}
+
+.checkbar .form li.spancol3 {
+    width: 750px
+}
+
+.checkbar .form li label {
+    width: 110px
+}
+
+.checkbar .form li .transverse li {
+    width: auto
+}
+
+.checkbar .form li input.middle {
+    _width: 108px
+}
+
+.checkbar .form li input.Wdate {
+    width: 152px
+}
+
+.checkbar .form li select {
+    _width: 105px
+}
+
+.checkbar .form li select.shorter {
+    width: 50px
+}
+
+.checkbtnbar {
+    margin: 10px -10px 0 -10px;
+    padding: 10px;
+    background: #f3f4f5;
+    text-align: center
+}
+
+.checkbtnbar button {
+    margin-right: 20px
+}
+
+.checkbtnbar a {
+    font-size: 12px
+}
+
+/* windows */
+#colorbox, #cboxOverlay, #cboxWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+#cboxOverlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#cboxMiddleLeft, #cboxBottomLeft {
+    clear: left;
+}
+
+#cboxContent {
+    position: relative;
+}
+
+#cboxLoadedContent {
+    overflow: auto;
+    background: #fff;
+}
+
+#cboxLoadedContent iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+#cboxTitle {
+    margin: 0;
+}
+
+#cboxLoadingOverlay, #cboxLoadingGraphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow {
+    cursor: pointer;
+}
+
+#cboxOverlay {
+    background: transparent;
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+#colorbox {
+}
+
+#cboxContent {
+    padding: 5px;
+    background: #ccc;
+}
+
+#cboxLoadedContent {
+    background: #fff;
+    padding: 0px;
+}
+
+#cboxTitle {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    color: #000;
+    background: #ccc;
+    width: 100%;
+}
+
+#cboxCurrent {
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    color: #ccc;
+}
+
+#cboxSlideshow {
+    position: absolute;
+    top: -20px;
+    right: 90px;
+    color: #fff;
+}
+
+#cboxPrevious {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    margin-top: -32px;
+    width: 28px;
+    height: 65px;
+    text-indent: -9999px;
+}
+
+#cboxPrevious.hover {
+    background-position: bottom left;
+}
+
+#cboxNext {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    margin-top: -32px;
+    width: 28px;
+    height: 65px;
+    text-indent: -9999px;
+}
+
+#cboxNext.hover {
+    background-position: bottom right;
+}
+
+#cboxLoadingOverlay {
+    background: #fff;
+}
+
+#cboxLoadingGraphic {
+    background: url(loading.gif) no-repeat center center;
+}
+
+#cboxClose {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    text-indent: -9999px;
+}
+
+#cboxClose.hover {
+    background-position: -59px top;
+}
+
+#cboxClose:active {
+    background-position: -41px top;
+}

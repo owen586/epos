@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- 系统登录 -->
+    <query name="hql.system.login">
+        <![CDATA[
+			from User u where u.cellphone =:cellphone and u.password =:password
+		]]>
+    </query>
+
+    <!--手机号唯一性校验 -->
+    <query name="hql.system.cellphone_unique_check">
+        <![CDATA[
+			from User u where u.cellphone = :cellphone
+		]]>
+    </query>
+
+    <!--查询角色列表 -->
+    <query name="hql.role.list">
+        <![CDATA[
+			from Role r where 1=1
+		]]>
+    </query>
+
+    <!--根据用户编号查询终端信息 -->
+    <query name="hql.terminal.get_terminal_detail">
+        <![CDATA[
+			from Terminal t where t.userCode = :userCode
+		]]>
+    </query>
+
+    <!--根据终端编号查询终端信息 -->
+    <query name="hql.terminal.get_terminal_detail_by_termianl_code">
+        <![CDATA[
+			from Terminal t where t.terminalCode = :terminalCode
+		]]>
+    </query>
+
+    <!--根据用户状态查询用户列表 -->
+    <query name="hql.user.query_user_by_status">
+        <![CDATA[
+			from User u where u.status = :status
+		]]>
+    </query>
+
+    <!--根据角色编号查询角色价格列表 -->
+    <query name="hql.price.get_price_role_detail">
+        <![CDATA[
+			from PriceRole p where p.roleCode = :roleCode
+		]]>
+    </query>
+
+    <!--根据角色编号查询角色价格列表 -->
+    <query name="hql.price.get_price_user_detail">
+        <![CDATA[
+			from PriceUser p where p.userCode = :userCode
+		]]>
+    </query>
+
+    <!--根据订单来源和订单编号查询订单信息 -->
+    <query name="hql.order.get_order_detail">
+        <![CDATA[
+			from PosOrder o where o.orderSrc = :orderSrc and o.orderCode = :orderCode
+		]]>
+    </query>
+
+
+    <!--根据菜单级别查询菜单列表 -->
+    <query name="hql.menu.query_by_menu_level">
+        <![CDATA[
+			select new Menu(m.menuCode,m.menuName,m.menuUrl) 
+			from Menu m,Authority a
+			where m.menuCode = a.menuCode 
+				and a.roleUserCode = :roleUserCode 
+				and m.menuLevel = :menuLevel order by m.menuOrder asc
+		]]>
+    </query>
+
+    <!--根据父菜单编号查询子菜单列表 -->
+    <query name="hql.menu.query_submenu">
+        <![CDATA[
+			select new Menu(m.menuCode,m.menuName,m.menuUrl) 
+			from Menu m,Authority a
+			where  m.menuCode = a.menuCode  
+				and a.roleUserCode = :roleUserCode 
+				and m.topMenuCode = :topMenuCode order by m.menuOrder asc
+		]]>
+    </query>
+
+    <!--查询系统菜单信息 -->
+    <query name="hql.menu.query_menu_list">
+        <![CDATA[
+			from Menu
+		]]>
+    </query>
+
+    <!--根据角色编号查询菜单信息 -->
+    <query name="hql.authority.query_menu_by_rolecode">
+        <![CDATA[
+			select new Menu(m.menuCode,m.menuName,m.menuUrl) 
+			from Menu m,Authority a 
+			where m.menuCode = a.menuCode and a.roleUserCode = :roleUserCode
+		]]>
+    </query>
+
+    <!--判断是否有权限操作当前菜单 -->
+    <query name="hql.authority.is_authority">
+        <![CDATA[
+			select new Menu(m.menuCode,m.menuName,m.menuUrl) 
+			from Menu m,Authority a 
+			where m.menuCode = a.menuCode 
+				and a.roleUserCode = :roleUserCode and a.menuUrl = :menuUrl
+		]]>
+    </query>
+
+
+</hibernate-mapping>
+

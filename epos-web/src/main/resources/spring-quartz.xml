@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    <!-- JOB -->
+    <bean id="rechargeForT0Job"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="orderService"/>
+        <property name="targetMethod" value="rechargeForT0"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="rechargeForT1Job"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="orderService"/>
+        <property name="targetMethod" value="rechargeForT1"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!-- Trigger -->
+    <bean id="rechargeForT0Trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="rechargeForT0Job"/>
+        </property>
+        <property name="cronExpression" value="${quartz.t0.recharge.interval}"/>
+    </bean>
+    <bean id="rechargeForT1Trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="rechargeForT1Job"/>
+        </property>
+        <property name="cronExpression" value="${quartz.t1.recharge.interval}"/>
+    </bean>
+
+    <!-- Scheduler -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref local="rechargeForT0Trigger"/>
+                <ref local="rechargeForT1Trigger"/>
+            </list>
+        </property>
+    </bean>
+</beans>

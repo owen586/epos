@@ -11,30 +11,22 @@ import com.tinytrustframework.epos.service.MenuService;
 
 import javax.annotation.Resource;
 
+/**
+ * @author owen
+ * @version [版本号, 2015-7-28]
+ */
 @Service
 public class MenuServiceImpl implements MenuService {
-    /**
-     * 注释内容
-     */
     @Resource
     private MenuDao menuDao;
 
-    /**
-     * <查询菜单列表>
-     *
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
-     */
     public List<Menu> queryMenuList() {
         return menuDao.queryMenuList();
     }
 
-
     public List<Menu> queryByMenuLevel(String roleUserCode, int menuLevel) {
         return menuDao.queryByMenuLevel(roleUserCode, menuLevel);
     }
-
 
     public List<Menu> querySubmenu(String roleUserCode, int topMenuCode) {
         return menuDao.querySubmenu(roleUserCode, topMenuCode);

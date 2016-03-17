@@ -9,14 +9,12 @@ import java.io.Serializable;
  *
  * @author owen
  * @version 2.0, 2016-01-09 14:59
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class YinShengOrder implements Serializable {
+public class YSNotifyRequest implements Serializable {
     /**
      * 注释内容
      */

@@ -1,13 +1,3 @@
-/*
- * 文 件 名:  DigestUtil.java
- * 版    权:  Absolute Software
- * 描    述:  <描述>
- * 修 改 人:  Owen
- * 修改时间:  2012-5-25
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.common.utils.lang;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,8 +7,6 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author Owen
  * @version [版本号, 2012-5-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 public class DigestUtil {
 
@@ -26,15 +14,36 @@ public class DigestUtil {
     }
 
     /**
-     * <一句话功能简述>
+     * 生成MD5摘要
+     * Calculates the MD5 digest and returns the value as a 32 character hex string
      *
      * @param plainText 明文
      * @return String 密文
-     * @see [类、类#方法、类#成员]
      */
     public static String md5(String plainText) {
-        String cipherText = null;
-        cipherText = DigestUtils.md5Hex(plainText);
+        String cipherText = DigestUtils.md5Hex(plainText);
         return cipherText;
+    }
+
+    /**
+     * 生成SHA摘要
+     * Calculates the SHA digest and returns the value as a hex string
+     * 安全哈希算法（Secure Hash Algorithm）主要适用于数字签名标准（Digital Signature Standard DSS）里面定义的数字签名算法（Digital Signature Algorithm DSA）
+     *
+     * @param plainText 明文
+     * @return 密文
+     */
+    public static String sha(String plainText) {
+        String cipherText = DigestUtils.shaHex(plainText);
+        return cipherText;
+    }
+
+
+    public static void main(String[] args) {
+        String name = "owen";
+
+
+        System.out.println(DigestUtil.md5(name));
+        System.out.println(DigestUtil.sha(name));
     }
 }

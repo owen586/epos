@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.UserDao;
 import com.tinytrustframework.epos.entity.Role;
 import com.tinytrustframework.epos.entity.User;
@@ -18,11 +19,8 @@ import com.tinytrustframework.epos.entity.Terminal;
 /**
  * <一句话功能简述>
  *
- *
  * @author owen
  * @version [版本号, 2015-7-28]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 @Repository
 public class UserDaoImpl extends BaseDao implements UserDao {
@@ -31,12 +29,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
      * {@inheritDoc}
      */
     public void saveOrUpdateUser(User user) {
-        this.getHibernateTemplate().saveOrUpdate(user);
+        this.hibernateTemplate.saveOrUpdate(user);
     }
 
 
     public Map<String, Object> queryRoleList(final Map<String, Object> params, final int pageNo, final int pageSize) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql = "from Role r where 1=1 ";
@@ -53,15 +51,15 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         });
     }
 
-    
 
     public List<Role> queryRoleList() {
-        return this.getHibernateTemplate().findByNamedQuery("hql.role.list");
+        String hql = "from Role r where 1=1";
+        return this.hibernateTemplate.find(hql);
     }
 
 
     public Map<String, Object> queryUserList(final Map<String, Object> params, final int pageNo, final int pageSize) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql = "from User u where 1=1 ";
@@ -114,18 +112,17 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     public List<User> queryUserList(int status) {
-        @SuppressWarnings("unchecked")
+        String hql = "from User u where u.status = :status";
         List<User> userList =
-                this.getHibernateTemplate()
-                        .findByNamedQueryAndNamedParam("hql.user.query_user_by_status", "status", status);
+                this.hibernateTemplate
+                        .findByNamedParam(hql, "status", status);
         return userList;
     }
 
 
     public User getUserDetail(String userCode) {
         String hql = "from User u where u.userCode = :userCode";
-        @SuppressWarnings("unchecked")
-        List<User> userList = this.getHibernateTemplate().findByNamedParam(hql, "userCode", userCode);
+        List<User> userList = this.hibernateTemplate.findByNamedParam(hql, "userCode", userCode);
         if (null != userList && !userList.isEmpty()) {
             return userList.get(0);
         }
@@ -134,7 +131,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     public Map<String, Object> queryTerminalList(final Map<String, Object> params, final int pageNo, final int pageSize) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql =
@@ -170,9 +167,9 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     public Terminal getTerminalDetail(String userCode) {
-        @SuppressWarnings("unchecked")
+        String hql = "from Terminal t where t.userCode = :userCode";
         List<Terminal> terminalList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.terminal.get_terminal_detail",
+                this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"userCode"},
                         new Object[]{userCode});
         if (null != terminalList && !terminalList.isEmpty()) {
@@ -183,10 +180,10 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 
     public Terminal getTerminalDetailByTerminalCode(String terminalCode) {
-        @SuppressWarnings("unchecked")
+        String hql = "from Terminal t where t.terminalCode = :terminalCode";
         List<Terminal> terminalList =
-                this.getHibernateTemplate()
-                        .findByNamedQueryAndNamedParam("hql.terminal.get_terminal_detail_by_termianl_code",
+                this.hibernateTemplate
+                        .findByNamedParam(hql,
                                 new String[]{"terminalCode"},
                                 new Object[]{terminalCode});
         if (null != terminalList && !terminalList.isEmpty()) {
@@ -195,18 +192,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return null;
     }
 
-
     public void saveOrUpdateTerminal(Terminal terminal) {
-        this.getHibernateTemplate().saveOrUpdate(terminal);
+        this.hibernateTemplate.saveOrUpdate(terminal);
     }
-
 
     public boolean deleteTerminal(String userCode) {
         Terminal terminal = this.getTerminalDetail(userCode);
         if (null == terminal) {
             return false;
         } else {
-            this.getHibernateTemplate().delete(terminal);
+            this.hibernateTemplate.delete(terminal);
             return true;
         }
     }

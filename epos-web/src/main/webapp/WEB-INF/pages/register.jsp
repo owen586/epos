@@ -146,11 +146,5 @@
         </form>
     </div>
 </section><!--end mainWrap-->
-<footer class="siteFoot clearfix">
-    <div class="W980 copyright">
-        &copy; Copyright 2015. <span class="bold"><a href="http://www.ah918.net"
-                                                     target="_blank">青岛傲华网络信息技术有限公司</a></span> 版权所有 | 鲁ICP备13010353号
-    </div>
-</footer>
 </body>
 </html>

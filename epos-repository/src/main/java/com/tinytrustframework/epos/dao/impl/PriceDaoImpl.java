@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.PriceDao;
 import com.tinytrustframework.epos.entity.PriceUser;
 import org.hibernate.HibernateException;
@@ -17,27 +18,20 @@ import com.tinytrustframework.epos.entity.PriceRole;
 /**
  * <一句话功能简述>
  *
- *
  * @author owen
  * @version [版本号, 2015-8-3]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Repository
 public class PriceDaoImpl extends BaseDao implements PriceDao {
-    /**
-     * {@inheritDoc}
-     */
 
     public Map<String, Object> queryPriceRoleList(final Map<String, Object> params, final int pageNo, final int pageSize) {
 
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql =
                         "select new PriceRole(r.roleCode,r.roleName,t.feeRate,t.topUserFeeRateReturn) "
                                 + "from Role r,PriceRole t where r.roleCode = t.roleCode ";
-
                 if (params.containsKey("roleCode"))//角色编号
                 {
                     hql += " and r.roleCode = :roleCode ";
@@ -47,13 +41,12 @@ public class PriceDaoImpl extends BaseDao implements PriceDao {
                 return PageUtil.findByHQLQueryWithMap(session, pageNo, pageSize, hql, params);
             }
         });
-
     }
 
-
     public PriceRole getPriceRoleDetail(int roleCode) {
+        String hql = "from PriceRole p where p.roleCode = :roleCode";
         List<PriceRole> priceRoleList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.price.get_price_role_detail",
+                this.hibernateTemplate.findByNamedParam(hql,
                         "roleCode",
                         roleCode);
         if (null != priceRoleList && !priceRoleList.isEmpty()) {
@@ -64,19 +57,17 @@ public class PriceDaoImpl extends BaseDao implements PriceDao {
 
 
     public void saveOrUpdatePriceRole(PriceRole priceRole) {
-        this.getHibernateTemplate().saveOrUpdate(priceRole);
+        this.hibernateTemplate.saveOrUpdate(priceRole);
     }
-
 
     public void saveOrUpdatePriceUser(PriceUser priceUser) {
-        this.getHibernateTemplate().saveOrUpdate(priceUser);
+        this.hibernateTemplate.saveOrUpdate(priceUser);
     }
 
-
     public PriceUser getPriceUserDetail(String userCode) {
-        @SuppressWarnings("unchecked")
+        String hql = "from PriceUser p where p.userCode = :userCode";
         List<PriceUser> priceUserList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.price.get_price_user_detail",
+                this.hibernateTemplate.findByNamedParam(hql,
                         "userCode",
                         userCode);
         if (null != priceUserList && !priceUserList.isEmpty()) {
@@ -85,9 +76,8 @@ public class PriceDaoImpl extends BaseDao implements PriceDao {
         return null;
     }
 
-
     public Map<String, Object> queryPriceUserList(final Map<String, Object> params, final int pageNo, final int pageSize) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql =

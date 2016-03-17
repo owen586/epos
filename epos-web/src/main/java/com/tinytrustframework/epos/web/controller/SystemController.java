@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.tinytrustframework.epos.web.controller.response.CommonResponse;
 import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.common.utils.lang.I18nUtil;
+import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.Menu;
 import com.tinytrustframework.epos.entity.SystemConfig;
 import com.tinytrustframework.epos.entity.User;
@@ -21,7 +21,6 @@ import com.tinytrustframework.epos.service.SystemService;
 import nl.captcha.Captcha;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,8 +36,6 @@ import com.tinytrustframework.epos.service.UserService;
  *
  * @author Owen
  * @version [版本号, 2013-5-19]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 @Controller
 @RequestMapping(value = "/system")
@@ -63,10 +60,7 @@ public class SystemController extends BaseController {
     private UserService userService;
 
     /**
-     * <转发至登陆页面>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转发至登陆页面
      */
     @RequestMapping(value = "/index")
     public String index() {
@@ -74,17 +68,13 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <用户登录>
+     * 用户登录
      *
-     * @param user
-     * @param request
-     * @param response
-     * @return
-     * @see [类、类#方法、类#成员]
+     * @param user    用户表单对象
+     * @param request HttpServletRequest
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User user, HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    public ModelAndView login(User user, HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         String captcha = request.getParameter("captcha");//验证码
         if (null == user || StringUtils.isEmpty(captcha)) {
@@ -92,7 +82,6 @@ public class SystemController extends BaseController {
             modelAndView.setViewName("login");
             return modelAndView;
         }
-
         HttpSession session = request.getSession();
         Captcha captchaInSession = (Captcha) session.getAttribute(Captcha.NAME);
         if (!captchaInSession.
@@ -128,10 +117,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <转换至控制台>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转换至控制台
      */
     @RequestMapping(value = "/console")
     public ModelAndView console(HttpServletRequest request) {
@@ -156,10 +142,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <转发至注册页面>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转发至注册页面
      */
     @RequestMapping(value = "/register")
     public String registerIndex() {
@@ -167,10 +150,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <转发至修改密码页面>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转发至修改密码页面
      */
     @RequestMapping(value = "/modify_password_index")
     public String modifyPasswordIndex() {
@@ -178,41 +158,31 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <修改密码>
+     * 修改密码
      *
-     * @param request
-     * @return
-     * @see [类、类#方法、类#成员]
+     * @param request HttpServletRequest
      */
     @RequestMapping(value = "/modify_password", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse modifyPassword(HttpServletRequest request) {
-        CommonResponse commonRes = new CommonResponse();
         String oldPwd = request.getParameter("oldPwd");//原始密码
         String newPwd = request.getParameter("newPwd");//新密码
 
         User user = (User) request.getSession().getAttribute(Constant.CURRENT_USER_IN_SESSION);
         String cellphone = user.getCellphone();
-        String oldPwdMd5 = DigestUtil.md5(cellphone + oldPwd + I18nUtil.getProperty("login.and.register.key"));
+        String oldPwdMd5 = DigestUtil.md5(cellphone + oldPwd + PropUtils.getPropertyValue("login.and.register.key"));
         if (!oldPwdMd5.equals(user.getPassword())) {
-            commonRes.setResult(this.RESULT_FAIL);
-            commonRes.setMessage("旧密码错误");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("旧密码错误").build();
         } else {
-            String newPwdMd5 = DigestUtil.md5(cellphone + newPwd + I18nUtil.getProperty("login.and.register.key"));
+            String newPwdMd5 = DigestUtil.md5(cellphone + newPwd + PropUtils.getPropertyValue("login.and.register.key"));
             user.setPassword(newPwdMd5);
             userService.saveOrUpdateUser(user);
-            commonRes.setResult(this.RESULT_SUCCESS);
-            commonRes.setMessage("密码修改成功");
+            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("密码修改成功").build();
         }
-
-        return commonRes;
     }
 
     /**
-     * <注销>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 安全退出系统
      */
     @RequestMapping(value = "/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -221,7 +191,7 @@ public class SystemController extends BaseController {
             User user = (User) session.getAttribute(Constant.CURRENT_USER_IN_SESSION);
             String userCode = user.getUserCode();
             String userName = user.getUserName();
-            log.info("用户退出! userCode: " + userCode + ", userName: " + userName);
+            log.info("用户安全退出! userCode: {},userName:{}", userCode, userName);
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/index.html");
         } catch (IOException e) {
@@ -230,9 +200,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <手机号唯一性校验>
-     *
-     * @see [类、类#方法、类#成员]
+     * 手机号唯一性校验
      */
     @RequestMapping(value = "/cellphone_unique_check", method = RequestMethod.POST)
     @ResponseBody
@@ -242,9 +210,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <验证码校验>
-     *
-     * @see [类、类#方法、类#成员]
+     * 验证码校验
      */
     @RequestMapping(value = "/captcha_check", method = RequestMethod.POST)
     @ResponseBody
@@ -262,10 +228,8 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <一句话功能简述>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转发至统计面板
+     * //TODO 统计面板
      */
     @RequestMapping(value = "/workpanel")
     public String workpanel() {
@@ -273,10 +237,7 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <转发至系统配置项列表页面>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 转发至系统配置项列表页面
      */
     @RequestMapping(value = "/config/index")
     public String systemConfigIndex() {
@@ -284,46 +245,32 @@ public class SystemController extends BaseController {
     }
 
     /**
-     * <系统配置项列表查询>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 查询系统配置项列表
      */
     @RequestMapping(value = "/config/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse systemConfigList() {
-        CommonResponse commonRes = new CommonResponse();
         List<SystemConfig> systemConfigList = systemService.querySystemConfigList();
         Map<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("systemConfigList", systemConfigList);
-        commonRes.setDataMap(dataMap);
-        commonRes.setResult(this.RESULT_SUCCESS);
-        commonRes.setMessage("查询系统配置项成功");
-        return commonRes;
+        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询系统配置项成功").dataMap(dataMap).build();
     }
 
     /**
-     * <系统配置项编辑>
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
+     * 编辑系统配置项
      */
     @RequestMapping(value = "/config/update", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse systemConfigEdit(HttpServletRequest request) {
-        CommonResponse commonRes = new CommonResponse();
         String systemCode = request.getParameter("systemCode");
         SystemConfig systemConfig = systemService.querySystemConfig(systemCode);
         if (null == systemConfig) {
-            commonRes.setResult(this.RESULT_FAIL);
-            commonRes.setMessage("系统配置项不存在");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("系统配置项不存在").build();
         } else {
             String systemValue = request.getParameter("systemValue");
             systemConfig.setSysValue(systemValue);
             systemService.updateSystemConfig(systemConfig);
-            commonRes.setResult(this.RESULT_SUCCESS);
-            commonRes.setMessage("系统配置项更新成功");
+            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("系统配置项更新成功").build();
         }
-        return commonRes;
     }
 }

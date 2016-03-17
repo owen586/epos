@@ -1,13 +1,3 @@
-/*
- * 文 件 名:  JSONUtil.java
- * 版    权:  Absolute Software Co., Ltd. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  Owen 
- * 修改时间:  2010-11-16
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.common.utils.lang;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -32,8 +22,6 @@ import java.util.Map.Entry;
  *
  * @author Owen
  * @version [版本号, 2010-11-16]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 public class HttpClientUtil {
     /**
@@ -47,13 +35,13 @@ public class HttpClientUtil {
     private final static String DEFAULT_CHARSET = "UTF-8";
 
     /**
-     * <默认构造函数>
+     * 默认构造函数
      */
     private HttpClientUtil() {
     }
 
     /**
-     * <执行HTTP POST请求,以JSON MAP格式返回响应数据>
+     * 执行HTTP POST请求,以JSON MAP格式返回响应数据
      *
      * @param url       api地址
      * @param reqParams 请求参数
@@ -71,7 +59,7 @@ public class HttpClientUtil {
 
 
     /**
-     * <执行HTTP POST请求,以字符串格式返回响应数据>
+     * 执行HTTP POST请求,以字符串格式返回响应数据
      *
      * @param url
      * @param reqParams
@@ -84,7 +72,7 @@ public class HttpClientUtil {
     }
 
     /**
-     * <执行HTTP POST请求>
+     * 执行HTTP POST请求
      *
      * @param url       请求地址
      * @param reqParams 请求参数

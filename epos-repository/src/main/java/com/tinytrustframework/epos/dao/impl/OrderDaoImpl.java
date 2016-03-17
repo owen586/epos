@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.OrderDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -18,21 +19,16 @@ import com.tinytrustframework.epos.entity.PosOrder;
 import com.tinytrustframework.epos.entity.SystemConfig;
 
 /**
- * <一句话功能简述>
- *
- *
  * @author owen
  * @version [版本号, 2015-7-28]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Repository
 public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     public PosOrder getOrderDetail(int orderSrc, String orderCode) {
-        
+        String hql = "from PosOrder o where o.orderSrc = :orderSrc and o.orderCode = :orderCode";
         List<PosOrder> orderList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.order.get_order_detail",
+                this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"orderSrc", "orderCode"},
                         new Object[]{orderSrc, orderCode});
         if (null != orderList && !orderList.isEmpty()) {
@@ -41,17 +37,14 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
         return null;
     }
 
-
     public void saveOrUpdateOrder(PosOrder order) {
-        this.getHibernateTemplate().saveOrUpdate(order);
+        this.hibernateTemplate.saveOrUpdate(order);
     }
 
-
     public Map<String, Object> queryOrderList(final Map<String, Object> params, final int pageNo, final int pageSize) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Map<String, Object>>() {
+        return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
-
                 String hql =
                         "select new PosOrder(o.orderCode,o.orderType,u.tranferType,o.terminalCode,o.payBankCode,o.userCode,"
                                 + "o.outterUserCode,o.tradeMoney,o.addDate,o.shouldDealDate,o.indeedDealDate,"
@@ -117,13 +110,12 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
         });
     }
 
-    @SuppressWarnings("unchecked")
     public List<PosOrder> queryOrderForRecharge(int tranferType) {
         String orderHql = null;
         //T+0到账类型
         if (Constant.USER_TRANFER_TYPE_T0 == tranferType) {
             String systemConfigHqlT0 = "FROM SystemConfig c WHERE c.sysCode = '5_sys_order_query_minutes_limit'";
-            List<SystemConfig> systemConfig = this.getHibernateTemplate().find(systemConfigHqlT0);
+            List<SystemConfig> systemConfig = this.hibernateTemplate.find(systemConfigHqlT0);
             int intervalMinute = Integer.parseInt(systemConfig.get(0).getSysValue());
             orderHql =
                     "SELECT new PosOrder(o.orderCode,u.userName,o.orderMoney,o.feeRate,o.tradeMoney,o.outterUserCode)"
@@ -132,10 +124,10 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
                             + " AND u.status = 2" //客户状态正常
                             + " AND o.status = 1 AND u.tranferType =" + Constant.USER_TRANFER_TYPE_T0// status:1 待处理  ,tranferType:1 T+1
                             + " AND ABS(UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(o.addDate)) >=" + intervalMinute + " * 60";
-            return this.getHibernateTemplate().find(orderHql);
+            return this.hibernateTemplate.find(orderHql);
         } else if (Constant.USER_TRANFER_TYPE_T1 == tranferType) //T+1到账类型
         {
-            return this.getHibernateTemplate().execute(new HibernateCallback<List<PosOrder>>() {
+            return this.hibernateTemplate.execute(new HibernateCallback<List<PosOrder>>() {
 
                 public List<PosOrder> doInHibernate(Session session)
                         throws HibernateException, SQLException {

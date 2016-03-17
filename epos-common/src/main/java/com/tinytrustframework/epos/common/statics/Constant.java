@@ -1,13 +1,3 @@
-/*
- * 文 件 名:  Constant.java
- * 版    权:  Absolute Software Co., Ltd. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  Owen 
- * 修改时间:  2010-11-6
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.common.statics;
 
 /**
@@ -15,8 +5,6 @@ package com.tinytrustframework.epos.common.statics;
  *
  * @author Owen
  * @version [版本号, 2010-11-6]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 public class Constant {
 

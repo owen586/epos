@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author owen
  * @version 2.0, 2016-01-11 10:45
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 public class BaseTestCase {
 
     // logger

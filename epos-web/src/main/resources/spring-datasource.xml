@@ -1,10 +1,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
     <!-- 使用外部配置文件进行配置 -->
     <bean id="propertyConfigurer"
@@ -13,10 +12,10 @@
             <list>
                 <!--开发环境 -->
                 <value>classpath:quartz.properties</value>
-                <value>classpath:system.properties</value>
+                <value>classpath:datasource.properties</value>
                 <!--生产环境-->
                 <value>file:C:/aliyun/e-pos/config/quartz.properties</value>
-                <value>file:C:/aliyun/e-pos/config/system.properties</value>
+                <value>file:C:/aliyun/e-pos/config/datasource.properties</value>
             </list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -93,20 +92,15 @@
         <property name="packagesToScan">
             <value>com.tinytrustframework.epos.entity</value>
         </property>
-        <property name="mappingResources">
-            <list>
-                <value>/hibernate-hql.xml</value>
-                <value>/hibernate-sql.xml</value>
-            </list>
-        </property>
     </bean>
 
-    <!-- jdbc模板 -->
-    <bean id="jdbcTemplate"
-          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport">
-        <property name="dataSource" ref="dataSource"></property>
+    <!-- HibernateTemplate -->
+    <bean id="hibernateTemplate"
+          class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
+    <!-- 事务管理器 -->
     <bean id="txManager"
           class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory">
@@ -114,31 +108,7 @@
         </property>
     </bean>
 
-    <!-- 配置事务的传播特性 -->
-    <tx:advice id="txAdvice" transaction-manager="txManager">
-        <tx:attributes>
-            <!-- REQUIRED -->
-            <tx:method name="save*" propagation="REQUIRED" rollback-for="Throwable"/>
-            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Throwable"/>
-            <tx:method name="update*" propagation="REQUIRED" rollback-for="Throwable"/>
-            <tx:method name="saveOrUpdate*" propagation="REQUIRED" rollback-for="Throwable"/>
-            <tx:method name="recharge" propagation="REQUIRED" rollback-for="Throwable"/>
-            <!-- 只读事务 -->
-            <tx:method name="query*" read-only="true"/>
-            <tx:method name="get*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
+    <!-- 开启事务注解 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
 
-    <!-- 配置切面Aspect -->
-    <aop:config>
-        <!-- 指定切入点表达式 * : 代表匹配任意的返回类型。 一个全称限定的类型名将只会匹配返回给定类型的方法。 I:名字模式匹配的是方法名。你可以使用
-            * 通配符作为所有或者部分命名模式。 II:入参 () 匹配了一个不接受任何参数的方法 (..) 匹配了一个接受任意数量参数的方法 (*)匹配了一个接受一个任何类型的参数的方法
-            (*,String)匹配了一个接受两个参数的方法，第一个可以是任意类型，第二个则必须是String类型。 -->
-        <!-- 配置切入点Pointcut -->
-        <aop:pointcut id="service"
-                      expression="execution(*  com.tinytrustframework.epos.service.impl.*.*(..))"/>
-
-        <!-- 配置通知Advice -->
-        <aop:advisor pointcut-ref="service" advice-ref="txAdvice"/>
-    </aop:config>
 </beans>

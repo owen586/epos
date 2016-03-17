@@ -3,9 +3,9 @@ package com.tinytrustframework.epos.web.controller;
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.common.utils.lang.DateUtil;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.lang.I18nUtil;
+import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.*;
-import com.tinytrustframework.epos.web.controller.request.YinShengOrder;
+import com.tinytrustframework.epos.web.controller.request.YSNotifyRequest;
 import com.tinytrustframework.epos.web.controller.response.CommonResponse;
 import com.tinytrustframework.epos.web.controller.response.YSNotifyResponse;
 import com.tinytrustframework.epos.service.OrderService;
@@ -14,7 +14,6 @@ import com.tinytrustframework.epos.service.SystemService;
 import com.tinytrustframework.epos.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +34,6 @@ import java.util.Map;
  *
  * @author owen
  * @version [版本号, 2015-7-28]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 @Controller
 @RequestMapping(value = "/order")
@@ -67,7 +64,7 @@ public class OrderController extends BaseController {
     private SystemService systemService;
 
     /**
-     * <转发至订单列表页面>
+     * 转发至订单列表页面
      *
      * @return
      * @see [类、类#方法、类#成员]
@@ -78,17 +75,15 @@ public class OrderController extends BaseController {
     }
 
     /**
-     * <订单列表查询>
+     * 订单列表查询
      *
-     * @param order
-     * @param request
-     * @return
+     * @param order   订单查询表单
+     * @param request HttpServletRequest
      * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/online/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse onlineOrderList(PosOrder order, HttpServletRequest request) {
-        CommonResponse commonRes = new CommonResponse();
         Map<String, Object> params = new HashMap<String, Object>();
         String orderCode = order.getOrderCode();// 订单编号
         if (StringUtils.isNotEmpty(orderCode)) {
@@ -157,15 +152,11 @@ public class OrderController extends BaseController {
 
         try {
             Map<String, Object> dataMap = orderService.queryOrderList(params, pageNo, pageSize);
-            commonRes.setDataMap(dataMap);
-            commonRes.setResult(this.RESULT_SUCCESS);
-            commonRes.setMessage("查询订单列表信息成功");
+            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询订单列表信息成功").dataMap(dataMap).build();
         } catch (Exception e) {
             e.printStackTrace();
-            commonRes.setResult(this.RESULT_FAIL);
-            commonRes.setMessage("查询订单列表信息失败");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询订单列表信息失败").build();
         }
-        return commonRes;
     }
 
     /**
@@ -176,8 +167,7 @@ public class OrderController extends BaseController {
      */
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     @ResponseBody
-    public YSNotifyResponse notify(@RequestBody YinShengOrder yinShengOrder) {
-        YSNotifyResponse ysNotifyRes = new YSNotifyResponse();
+    public YSNotifyResponse notify(@RequestBody YSNotifyRequest yinShengOrder) {
         String ysOrderid = yinShengOrder.getYsOrderid();// 银盛订单号
         String orderid = yinShengOrder.getOrderid();// 商户订单号
         String status = yinShengOrder.getStatus();// 状态 1、消费成功 ；0、消费失败
@@ -186,53 +176,26 @@ public class OrderController extends BaseController {
         String remark = yinShengOrder.getRemark();// 备注
         String checkValue = yinShengOrder.getCheckValue();// 校验值
 
-        StringBuffer notifyMessageBuffer = new StringBuffer();
-        notifyMessageBuffer.append("银盛订单通知:[")
-                .append("ysOrderid: ")
-                .append(ysOrderid)
-                .append(", ")
-                .append("orderid: ")
-                .append(orderid)
-                .append(", ")
-                .append("status: ")
-                .append(status)
-                .append(", ")
-                .append("money: ")
-                .append(money)
-                .append(", ")
-                .append("time: ")
-                .append(time)
-                .append(", ")
-                .append("remark: ")
-                .append(remark)
-                .append(", ")
-                .append("checkValue: ")
-                .append(checkValue)
-                .append("]");
-
-        log.info(notifyMessageBuffer.toString());
+        log.info("银盛订单通知! ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", ysOrderid, orderid, status, money, time
+                , remark, checkValue);
 
         // 必要字段校验
         if (StringUtils.isEmpty(ysOrderid) || StringUtils.isEmpty(orderid) || StringUtils.isEmpty(status)
                 || StringUtils.isEmpty(money) || StringUtils.isEmpty(time) || StringUtils.isEmpty(remark)
                 || StringUtils.isEmpty(checkValue)) {
-            log.error("参数不完整 ");
-            ysNotifyRes.setStatus("参数不完整");
-            return ysNotifyRes;
+            log.error("参数不完整!  ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", ysOrderid, orderid, status, money, time
+                    , remark, checkValue);
+            return YSNotifyResponse.builder().status("参数不完整").build();
         }
 
         // 签名校验
         String sign =
                 DigestUtil.md5(ysOrderid + orderid + status + money + time + remark
-                        + I18nUtil.getProperty("ys.order.notify.key"));
-
-        log.info("checkValue: " + checkValue + " sign: " + sign + " source: " + ysOrderid + orderid + status + money
-                + time + remark + I18nUtil.getProperty("ys.order.notify.key"));
-
+                        + PropUtils.getPropertyValue("ys.order.notify.key"));
         if (!sign.equals(checkValue)) {
-            log.error("签名错误");
-            ysNotifyRes.setStatus("签名错误");
-            return ysNotifyRes;
+            log.error("签名错误! checkValue:{},sign:{},source:{}", checkValue, sign, ysOrderid + orderid + status + money
+                    + time + remark + PropUtils.getPropertyValue("ys.order.notify.key"));
+            return YSNotifyResponse.builder().status("签名错误").build();
         }
 
         // 解析备注remark
@@ -250,16 +213,14 @@ public class OrderController extends BaseController {
             PosOrder order = orderService.getOrderDetail(Constant.ORDER_SOURCE_POS, ysOrderid);
             if (null != order) {
                 log.error("POS订单已存在");
-                ysNotifyRes.setStatus("POS订单已存在");
-                return ysNotifyRes;
+                return YSNotifyResponse.builder().status("POS订单已存在").build();
             }
 
             // 终端检查
             Terminal terminal = userService.getTerminalDetailByTerminalCode(terminalCode);
             if (null == terminal) {
                 log.error("终端不存在");
-                ysNotifyRes.setStatus("终端不存在");
-                return ysNotifyRes;
+                return YSNotifyResponse.builder().status("终端不存在").build();
             }
 
             String userCode = terminal.getUserCode();// 用户编号
@@ -307,13 +268,13 @@ public class OrderController extends BaseController {
             if (tranferType == Constant.USER_TRANFER_TYPE_T0) {
                 shouldDealDate =
                         DateUtils.addMinutes(addDate,
-                                Integer.parseInt(I18nUtil.getProperty("tranfer.type.delay.minute.t0")));
+                                Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t0")));
 
             } else if (tranferType == Constant.USER_TRANFER_TYPE_T1)// T+1
             {
                 shouldDealDate =
                         DateUtils.addMinutes(DateUtils.addHours(addDate, 24),
-                                Integer.parseInt(I18nUtil.getProperty("tranfer.type.delay.minute.t1")));
+                                Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t1")));
             }
             mainOrder.setShouldDealDate(shouldDealDate);
 
@@ -325,7 +286,7 @@ public class OrderController extends BaseController {
             orderService.saveOrUpdateOrder(mainOrder);
 
             // 非直属下级需要跟上级设置返点
-            if (!topUserCode.equals(I18nUtil.getProperty("top.user.code.default"))) {
+            if (!topUserCode.equals(PropUtils.getPropertyValue("top.user.code.default"))) {
                 // 上级返点费率
                 BigDecimal topUserFeeRateReturnBigDecimal =
                         this.getBigDecimal(String.valueOf(topUserFeeRateReturn))
@@ -361,22 +322,20 @@ public class OrderController extends BaseController {
                     orderService.saveOrUpdateOrder(subOrder);// 保存上级返点订单
                 }
             }
-            ysNotifyRes.setStatus("ok");
-        } catch (Exception e) {
-            log.error("系统异常! " + notifyMessageBuffer.toString() + e.getMessage());
-            e.printStackTrace();
-            ysNotifyRes.setStatus("系统异常");
-            log.error("系统异常");
-        }
+            return YSNotifyResponse.builder().status("ok").build();
 
-        return ysNotifyRes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("银盛订单通知接口异常!  异常信息:{},ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", e.getMessage(), ysOrderid, orderid, status, money, time
+                    , remark, checkValue);
+            return YSNotifyResponse.builder().status("系统异常").build();
+        }
     }
 
     /**
-     * <设置对应值value的BigDecimal值> <保存3位小数>
+     * 设置对应值value的BigDecimal值,保存3位小数
      *
      * @param value 数字字符串
-     * @return
      * @see [类、类#方法、类#成员]
      */
     private BigDecimal getBigDecimal(String value) {
@@ -385,9 +344,8 @@ public class OrderController extends BaseController {
     }
 
     /**
-     * <转发至线下订单列表>
+     * 转发至线下订单列表
      *
-     * @return
      * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/list/index")
@@ -398,23 +356,20 @@ public class OrderController extends BaseController {
     /**
      * 线下订单列表查询
      *
-     * @param order
-     * @param request
-     * @return
+     * @param order   线下订单查询表单
+     * @param request HttpServletRequest
      * @see [类、类#方法、类#成员]
      */
+    //TODO
     @RequestMapping(value = "/offline/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse offlineOrderList(PosOrder order, HttpServletRequest request) {
-
-
         return null;
     }
 
     /**
-     * <转发至新增线下加款订单页面>
+     * 转发至新增线下加款订单页面
      *
-     * @return
      * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/save/fwd", method = RequestMethod.GET)
@@ -423,10 +378,9 @@ public class OrderController extends BaseController {
     }
 
     /**
-     * <新增线下加款订单>
+     * 新增线下加款订单
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest
      * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/save", method = RequestMethod.POST)
@@ -435,13 +389,13 @@ public class OrderController extends BaseController {
         User user = (User) request.getSession().getAttribute(Constant.CURRENT_USER_IN_SESSION);
         if (null == user) {
             log.error("新增订单失败, 用户信息为空!");
-            return this.createFailResponse("新增订单失败, 用户信息为空!");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,用户信息为空!").build();
         }
 
         int roleCode = user.getRoleCode();
         if (roleCode != Constant.ROLE_TYPE_ADMIN) {
             log.error("新增订单失败,无新增订单权限!");
-            return this.createFailResponse("新增订单失败,无新增订单权限!");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,无新增订单权限!").build();
         }
 
         String outterUserCode = request.getParameter("outterUserCode");//外部用户编号
@@ -450,9 +404,9 @@ public class OrderController extends BaseController {
         String tranferType = request.getParameter("tranferType");//到账类型
 
         if (StringUtils.isEmpty(outterUserCode) || StringUtils.isEmpty(terminalCode) || StringUtils.isEmpty(orderMoney)
-                || StringUtils.isEmpty("tranferType")) {
+                || StringUtils.isEmpty(tranferType)) {
             log.error("新增订单失败,加款信息不完整!");
-            return this.createFailResponse("新增订单失败,加款信息不完整!");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,加款信息不完整!").build();
         }
 
         PosOrder order = new PosOrder();
@@ -466,7 +420,7 @@ public class OrderController extends BaseController {
         SystemConfig systemConfig = systemService.querySystemConfig("6_sys_manual_operation_rate");
         if (null == systemConfig) {
             log.error("新增订单失败,线下加款订单费率为设置!");
-            return this.createFailResponse("新增订单失败,线下加款订单费率为设置!");
+            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,线下加款订单费率为设置!").build();
         }
         int offlineRate = Integer.parseInt(systemConfig.getSysValue());
         order.setFeeRate(offlineRate);
@@ -485,20 +439,19 @@ public class OrderController extends BaseController {
         Date shouldDealDate = null;
         if (Integer.parseInt(tranferType) == Constant.USER_TRANFER_TYPE_T0) {
             shouldDealDate =
-                    DateUtils.addMinutes(addDate, Integer.parseInt(I18nUtil.getProperty("tranfer.type.delay.minute.t0")));
+                    DateUtils.addMinutes(addDate, Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t0")));
 
         } else if (Integer.parseInt(tranferType) == Constant.USER_TRANFER_TYPE_T1)// T+1
         {
             shouldDealDate =
                     DateUtils.addMinutes(DateUtils.addHours(addDate, 24),
-                            Integer.parseInt(I18nUtil.getProperty("tranfer.type.delay.minute.t1")));
+                            Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t1")));
         }
         order.setShouldDealDate(shouldDealDate);
         order.setStatus(Constant.ORDER_STATE_WAITING);
         order.setMemo("待处理");
 
         orderService.saveOrUpdateOrder(order);
-
-        return this.createSuccessResponse("新增线下加款订单成功");
+        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("新增线下加款订单成功").build();
     }
 }

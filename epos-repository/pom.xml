@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>epos-repository</artifactId>
+    <packaging>jar</packaging>
 
     <!--定义依赖包-->
     <dependencies>

@@ -18,9 +18,7 @@ import java.util.Map.Entry;
  *
  * @author Owen
  * @version [版本号, 2010-11-5]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 public class PageUtil {
     /**
      * 注释内容

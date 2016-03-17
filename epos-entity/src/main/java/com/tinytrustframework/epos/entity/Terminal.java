@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * @author owen
+ * @version [版本号, 2015-7-28]
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

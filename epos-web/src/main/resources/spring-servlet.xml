@@ -9,16 +9,14 @@
     <!-- Spring上下文工具类 -->
     <bean id="springContextHelper" class="com.tinytrustframework.epos.common.utils.spring.SpringContextHelper"></bean>
 
-    <!-- 注解扫描的包 -->
-    <context:component-scan base-package="com.tinytrustframework"/>
+    <!-- 常规注解 -->
+    <context:annotation-config />
+    <context:component-scan base-package="com.tinytrustframework"/> <!-- -->
 
-    <!-- 开启注解 -->
+    <!-- MVC注解 -->
     <mvc:annotation-driven/>
-
-    <!-- 静态资源 -->
-    <mvc:default-servlet-handler/>
-
-    <mvc:interceptors>
+    <mvc:default-servlet-handler/><!-- 静态资源 -->
+    <mvc:interceptors><!-- 拦截器 -->
         <bean class="com.tinytrustframework.epos.web.interceptor.SessionSecurityInterceptor">
             <!-- 不需要进行会话验证验证  -->
             <property name="excludePathList">

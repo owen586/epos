@@ -7,9 +7,7 @@ import java.io.Serializable;
  *
  * @author owen
  * @version 2.0, 2016-01-09 14:36
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 public class Response implements Serializable {
     /**
      * 注释内容

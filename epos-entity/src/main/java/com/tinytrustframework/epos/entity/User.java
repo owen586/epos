@@ -1,13 +1,3 @@
-/*
- * 文 件 名:  User.java
- * 版    权:  www.astcard.com. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  owen
- * 修改时间:  2013-5-19
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.entity;
 
 import java.io.Serializable;
@@ -31,9 +21,7 @@ import org.hibernate.annotations.Parameter;
  *
  * @author Owen
  * @version [版本号, 2013-5-19]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -47,7 +35,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(generator = "userCodeGenerator")
     @GenericGenerator(name = "userCodeGenerator",
-            strategy = "com.tinytrustframework.epos.web.id.UserIdGenerator",
+            strategy = "com.tinytrustframework.epos.id.UserIdGenerator",
             parameters = {
                     @Parameter(name = "table_name", value = "t_pos_primary_key"),
                     @Parameter(name = "segment_column_name", value = "pk_generator_name"),

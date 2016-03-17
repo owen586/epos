@@ -3,6 +3,7 @@ package com.tinytrustframework.epos.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.entity.Authority;
 import com.tinytrustframework.epos.entity.Menu;
 import com.tinytrustframework.epos.entity.SystemConfig;
@@ -17,31 +18,29 @@ import com.tinytrustframework.epos.dao.SystemDao;
 /**
  * <一句话功能简述>
  *
- *
  * @author Owen
  * @version [版本号, 2013-5-19]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Repository
 public class SystemDaoImpl extends BaseDao implements SystemDao {
 
     public User login(String cellphone, String password) {
+        String hql = "from User u where u.cellphone =:cellphone and u.password =:password";
         List<User> userList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.system.login",
+                this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"cellphone", "password"},
                         new Object[]{cellphone, password});
         if (userList.isEmpty()) {
             return null;
         }
-
         return userList.get(0);
     }
 
-    
+
     public boolean cellphoneUniqueCheck(String cellphone) {
+        String hql = "from User u where u.cellphone = :cellphone";
         List<User> userList =
-                (List<User>) this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.system.cellphone_unique_check",
+                (List<User>) this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"cellphone"},
                         new Object[]{cellphone});
 
@@ -51,20 +50,17 @@ public class SystemDaoImpl extends BaseDao implements SystemDao {
         return true;
     }
 
-
     public List<Menu> queryAuthorityRoleList(String roleCode) {
-        @SuppressWarnings("unchecked")
+        String hql = "select new Menu(m.menuCode,m.menuName,m.menuUrl) from Menu m,Authority a where m.menuCode = a.menuCode and a.roleUserCode = :roleUserCode";
         List<Menu> menuList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.authority.query_menu_by_rolecode",
+                this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"roleUserCode"},
                         new Object[]{roleCode});
         return menuList;
     }
 
-
     public void deleteAuthorityRole(final String roleCode) {
-        this.getHibernateTemplate().execute(new HibernateCallback<Integer>() {
-
+        this.hibernateTemplate.execute(new HibernateCallback<Integer>() {
             public Integer doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql = "delete from Authority s where s.roleUserCode = :roleUserCode";
@@ -74,16 +70,14 @@ public class SystemDaoImpl extends BaseDao implements SystemDao {
         });
     }
 
-
     public void saveAuthorityRole(Authority security) {
-        this.getHibernateTemplate().save(security);
+        this.hibernateTemplate.save(security);
     }
 
-
     public boolean isAuthority(String roleUserCode, String menuPath) {
-        @SuppressWarnings("unchecked")
+        String hql = "select new Menu(m.menuCode,m.menuName,m.menuUrl) from Menu m,Authority a where m.menuCode = a.menuCode and a.roleUserCode = :roleUserCode and a.menuUrl = :menuUrl";
         List<Menu> menuList =
-                this.getHibernateTemplate().findByNamedQueryAndNamedParam("hql.authority.is_authority",
+                this.hibernateTemplate.findByNamedParam(hql,
                         new String[]{"roleUserCode", "menuUrl"},
                         new Object[]{roleUserCode, menuPath});
         if (null != menuList && !menuList.isEmpty()) {
@@ -93,40 +87,17 @@ public class SystemDaoImpl extends BaseDao implements SystemDao {
         }
     }
 
-    /**
-     * <查询系统配置项列表>
-     *
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
-     */
-    @SuppressWarnings("unchecked")
     public List<SystemConfig> querySystemConfigList() {
         String hql = "from SystemConfig";
-        return this.getHibernateTemplate().find(hql);
+        return this.hibernateTemplate.find(hql);
     }
 
-    /**
-     * <查询指定的系统配置项>
-     *
-     *
-     * @param systemCode 系统配置项编码
-     * @return
-     * @see [类、类#方法、类#成员]
-     */
     public SystemConfig querySystemConfig(String systemCode) {
-        return this.getHibernateTemplate().get(SystemConfig.class, systemCode);
+        return this.hibernateTemplate.get(SystemConfig.class, systemCode);
     }
 
-    /**
-     * <更新系统配置项>
-     *
-     *
-     * @param systemConfig 系统配置项
-     * @see [类、类#方法、类#成员]
-     */
     public void updateSystemConfig(SystemConfig systemConfig) {
-        this.getHibernateTemplate().update(systemConfig);
+        this.hibernateTemplate.update(systemConfig);
     }
 
 }

@@ -1,13 +1,3 @@
-/*
- * 文 件 名:  Example1.java
- * 版    权:  www.astcard.com. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  owen
- * 修改时间:  2013-6-25
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.common.captcha;
 
 import java.awt.Color;
@@ -36,8 +26,6 @@ import nl.captcha.text.renderer.DefaultWordRenderer;
  *
  * @author Owen
  * @version [版本号, 2013-6-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 public class TinyTrustCaptchaServlet extends SimpleCaptchaServlet {
 

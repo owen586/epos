@@ -13,9 +13,7 @@ import com.tinytrustframework.epos.entity.User;
  *
  * @author owen
  * @version [版本号, 2015-8-25]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 public class SecurityAdminTag extends TagSupport {
     /**
      * 注释内容

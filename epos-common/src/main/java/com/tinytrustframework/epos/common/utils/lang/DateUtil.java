@@ -1,16 +1,7 @@
-/*
- * 文 件 名:  DateUtil.java
- * 版    权:  Absolute Software Co., Ltd. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  Owen 
- * 修改时间:  2010-11-5
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.common.utils.lang;
 
 import com.tinytrustframework.epos.common.statics.Constant;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,73 +15,70 @@ import java.util.Date;
  *
  * @author Owen
  * @version [版本号, 2010-11-5]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 public class DateUtil {
-    /**
-     * 注释内容
-     */
+    // Log
     private final static Logger log = LoggerFactory.getLogger(DateUtil.class);
 
-    /**
-     * <默认构造函数>
-     */
+    // 默认构造函数
     private DateUtil() {
     }
 
     /**
-     * <字符串转换成日期>
-     * <如果转换格式为空，则利用默认格式进行转换操作>
+     * 将字符串按照默认的日期格式转换成日期
+     *
+     * @param str 字符串
+     * @return 日期
+     */
+    public static Date parse(String str) {
+        if (StringUtils.isBlank(str)) {
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_19);
+        Date date = null;
+        try {
+            date = sdf.parse(str);
+        } catch (ParseException e) {
+            log.error("字符串转换成日期出错! 字符串: {}", str);
+        }
+        return date;
+    }
+
+    /**
+     * 将字符串按照指定的日期格式转换成日期
      *
      * @param str    字符串
      * @param format 日期格式
      * @return 日期
-     * @see [类、类#方法、类#成员]
      */
     public static Date parse(String str, String format) {
-        if (null == str || "".equals(str)) {
+        if (StringUtils.isBlank(str)) {
             return null;
-        }
-        //如果没有指定字符串转换的格式，则用默认格式进行转换
-        if (null == format || "".equals(format)) {
-            format = Constant.DATE_FORMAT_19;
         }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         Date date = null;
         try {
             date = sdf.parse(str);
-            return date;
         } catch (ParseException e) {
-            log.error("Parse string to date error!String : {}", str);
+            log.error("字符串转换成日期出错! 字符串: {},日期格式:{}", str, format);
         }
-
-        return null;
+        return date;
     }
 
-    /**
-     * <字符串转时间戳>
-     *
-     * @param str
-     * @param format
-     * @return
-     * @see [类、类#方法、类#成员]
-     */
-    public static Timestamp parse2Timestamp(String str, String format) {
-        Date date = parse(str, format);
-        return new Timestamp(date.getTime());
-    }
 
     /**
-     * <日期转字符串>
+     * 将日期对象按指定的日期格式转换成字符串
      *
      * @param date   日期
      * @param format 日期格式
      * @return 字符串
-     * @see [类、类#方法、类#成员]
      */
     public static String format(Date date, String format) {
         if (null == date) {
+            return null;
+        }
+
+        if (StringUtils.isBlank(format)) {
             return null;
         }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -98,17 +86,18 @@ public class DateUtil {
     }
 
     /**
-     * <时间戳转换为字符串>
+     * 将日期对象按默认的日期格式转换成字符串
      *
-     * @param timestamp
-     * @return
-     * @see [类、类#方法、类#成员]
+     * @param date 日期
+     * @return 字符串
      */
-    public static String format(Timestamp timestamp, String format) {
-        if (null == timestamp) {
+    public static String format(Date date) {
+        if (null == date) {
             return null;
         }
-        return format(timestamp, format);
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_19);
+        return sdf.format(date);
     }
+
 
 }

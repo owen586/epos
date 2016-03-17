@@ -1,17 +1,18 @@
 package com.tinytrustframework.epos.service.impl;
 
 import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
 import com.tinytrustframework.epos.dao.OrderDao;
 import com.tinytrustframework.epos.dao.SystemDao;
 import com.tinytrustframework.epos.entity.PosOrder;
 import com.tinytrustframework.epos.entity.SystemConfig;
 import com.tinytrustframework.epos.service.OrderService;
+import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -21,73 +22,46 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <一句话功能简述>
- *
  * @author owen
  * @version [版本号, 2015-7-28]
- * @see [相关类/方法]
- * @since [产品/模块版本]
  */
 @Service(value = "orderService")
 public class OrderServiceImpl implements OrderService {
 
-    /**
-     * 注释内容
-     */
+    // 日志
     private final static Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    /**
-     * 充值成功
-     */
+    // 充值成功
     private final String RECHARGE_SUCCESS = "ok";
 
-    /**
-     * 充值失败
-     */
+    // 充值失败
     private final String RECHARGE_FAIL = "fail";
 
-    /**
-     * OrderDao
-     */
-    private
     @Resource
-    OrderDao orderDao;
+    private OrderDao orderDao;
 
-    /**
-     * SystemDao
-     */
-    private
     @Resource
-    SystemDao systemDao;
+    private SystemDao systemDao;
 
 
     public PosOrder getOrderDetail(int orderSrc, String orderCode) {
         return orderDao.getOrderDetail(orderSrc, orderCode);
     }
 
-
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void saveOrUpdateOrder(PosOrder order) {
         orderDao.saveOrUpdateOrder(order);
     }
-
 
     public Map<String, Object> queryOrderList(Map<String, Object> params, int pageNo, int pageSize) {
         return orderDao.queryOrderList(params, pageNo, pageSize);
     }
 
-    /**
-     * <查询订单提交第三方充值>
-     *
-     * @return 待充值订单
-     * @see [类、类#方法、类#成员]
-     */
     public List<PosOrder> queryOrderListForRecharge(int tranferType) {
         return orderDao.queryOrderForRecharge(tranferType);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT0() {
         List<PosOrder> orderListT0 = this.queryOrderListForRecharge(Constant.USER_TRANFER_TYPE_T0);
         this.recharger(Constant.USER_TRANFER_TYPE_T0, orderListT0);
@@ -96,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * {@inheritDoc}
      */
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT1() {
         List<PosOrder> orderListT1 = this.queryOrderListForRecharge(Constant.USER_TRANFER_TYPE_T1);
         this.recharger(Constant.USER_TRANFER_TYPE_T1, orderListT1);
@@ -109,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
      * @param orderList
      * @see [类、类#方法、类#成员]
      */
-    @SuppressWarnings("unchecked")
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     private void recharger(int tranferType, List<PosOrder> orderList) {
         if (null == orderList || orderList.isEmpty()) {
             log.info((tranferType == Constant.USER_TRANFER_TYPE_T0 ? "T+0" : "T+1") + "暂无待充值加款订单!");

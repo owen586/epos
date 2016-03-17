@@ -1,12 +1,3 @@
-/*
- * 文 件 名:  Security.java
- * 描    述:  <描述>
- * 修 改 人:  owen
- * 修改时间:  2015-8-21
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.tinytrustframework.epos.entity;
 
 import java.io.Serializable;
@@ -28,9 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author owen
  * @version [版本号, 2015-8-21]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

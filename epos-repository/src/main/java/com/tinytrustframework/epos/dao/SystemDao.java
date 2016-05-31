@@ -10,7 +10,7 @@ import com.tinytrustframework.epos.entity.User;
 /**
  * @author owen
  * @version [版本号, 2013-5-19]
-*/
+ */
 public interface SystemDao {
 
     /**

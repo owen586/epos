@@ -16,11 +16,9 @@ import org.springframework.stereotype.Repository;
 import com.tinytrustframework.epos.dao.SystemDao;
 
 /**
- * <一句话功能简述>
- *
  * @author Owen
  * @version [版本号, 2013-5-19]
-*/
+ */
 @Repository
 public class SystemDaoImpl extends BaseDao implements SystemDao {
 

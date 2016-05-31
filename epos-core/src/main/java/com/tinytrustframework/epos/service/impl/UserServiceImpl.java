@@ -5,7 +5,6 @@ import com.tinytrustframework.epos.entity.Role;
 import com.tinytrustframework.epos.entity.Terminal;
 import com.tinytrustframework.epos.entity.User;
 import com.tinytrustframework.epos.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,7 @@ import java.util.Map;
 /**
  * @author owen
  * @version [版本号, 2015-7-28]
-*/
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Resource

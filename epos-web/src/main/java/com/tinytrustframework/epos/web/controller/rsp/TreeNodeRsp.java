@@ -1,9 +1,9 @@
-package com.tinytrustframework.epos.web.controller.response;
+package com.tinytrustframework.epos.web.controller.rsp;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * 树形结构响应类
@@ -13,7 +13,10 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-public class TreeNodeResponse extends Response {
+public class TreeNodeRsp implements Serializable {
+
+    private static final long serialVersionUID = 9211472932618356481L;
+
     /**
      * 当前节点编号
      */
@@ -54,7 +57,7 @@ public class TreeNodeResponse extends Response {
     /**
      * <默认构造函数>
      */
-    public TreeNodeResponse() {
+    public TreeNodeRsp() {
         super();
     }
 
@@ -62,7 +65,7 @@ public class TreeNodeResponse extends Response {
     /**
      * <默认构造函数>
      */
-    public TreeNodeResponse(int id, String name, int pId, boolean open, String url, boolean checked) {
+    public TreeNodeRsp(int id, String name, int pId, boolean open, String url, boolean checked) {
         super();
         this.id = id;
         this.name = name;
@@ -76,7 +79,7 @@ public class TreeNodeResponse extends Response {
     /**
      * <默认构造函数>
      */
-    public TreeNodeResponse(int id, String name, int pId, boolean open, String url, boolean checked, String icon) {
+    public TreeNodeRsp(int id, String name, int pId, boolean open, String url, boolean checked, String icon) {
         super();
         this.id = id;
         this.name = name;

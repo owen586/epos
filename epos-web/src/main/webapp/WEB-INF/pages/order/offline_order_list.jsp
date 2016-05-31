@@ -138,7 +138,7 @@
 
 
         // 转发至新增线下加款订单
-        var add = function(){
+        var add = function () {
             location = "/order/offline/save/fwd";
         };
 

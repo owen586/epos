@@ -1,15 +1,12 @@
 package com.tinytrustframework.epos.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.tinytrustframework.epos.dao.MenuDao;
 import com.tinytrustframework.epos.entity.Menu;
 import com.tinytrustframework.epos.service.MenuService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author owen

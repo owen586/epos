@@ -1,9 +1,11 @@
-package com.tinytrustframework.epos.web.controller.response;
+package com.tinytrustframework.epos.web.controller.rsp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * 银盛HTTP请求响应类
@@ -15,7 +17,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class YSNotifyResponse extends Response {
+public class YSNotifyRsp implements Serializable {
+
+    private static final long serialVersionUID = -698359291423491769L;
+
     /**
      * 注释内容
      */

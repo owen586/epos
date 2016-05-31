@@ -5,9 +5,9 @@ import com.tinytrustframework.epos.common.utils.lang.DateUtil;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.*;
-import com.tinytrustframework.epos.web.controller.request.YSNotifyRequest;
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
-import com.tinytrustframework.epos.web.controller.response.YSNotifyResponse;
+import com.tinytrustframework.epos.web.controller.req.YSNotifyReq;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
+import com.tinytrustframework.epos.web.controller.rsp.YSNotifyRsp;
 import com.tinytrustframework.epos.service.OrderService;
 import com.tinytrustframework.epos.service.PriceService;
 import com.tinytrustframework.epos.service.SystemService;
@@ -39,35 +39,20 @@ import java.util.Map;
 @RequestMapping(value = "/order")
 public class OrderController extends BaseController {
 
-    /**
-     * OrderService
-     */
     @Resource
     private OrderService orderService;
 
-    /**
-     * UserService
-     */
     @Resource
     private UserService userService;
 
-    /**
-     * PriceService
-     */
     @Resource
     private PriceService priceService;
 
-    /**
-     * systemService
-     */
     @Resource
     private SystemService systemService;
 
     /**
      * 转发至订单列表页面
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/online/list/index")
     public String onlineOrderListIndex() {
@@ -79,11 +64,10 @@ public class OrderController extends BaseController {
      *
      * @param order   订单查询表单
      * @param request HttpServletRequest
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/online/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse onlineOrderList(PosOrder order, HttpServletRequest request) {
+    public CommonRsp onlineOrderList(PosOrder order, HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         String orderCode = order.getOrderCode();// 订单编号
         if (StringUtils.isNotEmpty(orderCode)) {
@@ -152,10 +136,10 @@ public class OrderController extends BaseController {
 
         try {
             Map<String, Object> dataMap = orderService.queryOrderList(params, pageNo, pageSize);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询订单列表信息成功").dataMap(dataMap).build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询订单列表信息成功").dataMap(dataMap).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询订单列表信息失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询订单列表信息失败").build();
         }
     }
 
@@ -163,11 +147,10 @@ public class OrderController extends BaseController {
      * 订单回调通知
      *
      * @param yinShengOrder 银盛POS订单
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     @ResponseBody
-    public YSNotifyResponse notify(@RequestBody YSNotifyRequest yinShengOrder) {
+    public YSNotifyRsp notify(@RequestBody YSNotifyReq yinShengOrder) {
         String ysOrderid = yinShengOrder.getYsOrderid();// 银盛订单号
         String orderid = yinShengOrder.getOrderid();// 商户订单号
         String status = yinShengOrder.getStatus();// 状态 1、消费成功 ；0、消费失败
@@ -185,7 +168,7 @@ public class OrderController extends BaseController {
                 || StringUtils.isEmpty(checkValue)) {
             log.error("参数不完整!  ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", ysOrderid, orderid, status, money, time
                     , remark, checkValue);
-            return YSNotifyResponse.builder().status("参数不完整").build();
+            return YSNotifyRsp.builder().status("参数不完整").build();
         }
 
         // 签名校验
@@ -195,7 +178,7 @@ public class OrderController extends BaseController {
         if (!sign.equals(checkValue)) {
             log.error("签名错误! checkValue:{},sign:{},source:{}", checkValue, sign, ysOrderid + orderid + status + money
                     + time + remark + PropUtils.getPropertyValue("ys.order.notify.key"));
-            return YSNotifyResponse.builder().status("签名错误").build();
+            return YSNotifyRsp.builder().status("签名错误").build();
         }
 
         // 解析备注remark
@@ -213,14 +196,14 @@ public class OrderController extends BaseController {
             PosOrder order = orderService.getOrderDetail(Constant.ORDER_SOURCE_POS, ysOrderid);
             if (null != order) {
                 log.error("POS订单已存在");
-                return YSNotifyResponse.builder().status("POS订单已存在").build();
+                return YSNotifyRsp.builder().status("POS订单已存在").build();
             }
 
             // 终端检查
             Terminal terminal = userService.getTerminalDetailByTerminalCode(terminalCode);
             if (null == terminal) {
                 log.error("终端不存在");
-                return YSNotifyResponse.builder().status("终端不存在").build();
+                return YSNotifyRsp.builder().status("终端不存在").build();
             }
 
             String userCode = terminal.getUserCode();// 用户编号
@@ -322,13 +305,13 @@ public class OrderController extends BaseController {
                     orderService.saveOrUpdateOrder(subOrder);// 保存上级返点订单
                 }
             }
-            return YSNotifyResponse.builder().status("ok").build();
+            return YSNotifyRsp.builder().status("ok").build();
 
         } catch (Exception e) {
             e.printStackTrace();
             log.error("银盛订单通知接口异常!  异常信息:{},ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", e.getMessage(), ysOrderid, orderid, status, money, time
                     , remark, checkValue);
-            return YSNotifyResponse.builder().status("系统异常").build();
+            return YSNotifyRsp.builder().status("系统异常").build();
         }
     }
 
@@ -336,7 +319,6 @@ public class OrderController extends BaseController {
      * 设置对应值value的BigDecimal值,保存3位小数
      *
      * @param value 数字字符串
-     * @see [类、类#方法、类#成员]
      */
     private BigDecimal getBigDecimal(String value) {
         MathContext mc = new MathContext(value.length());// 设置有效数字
@@ -345,8 +327,6 @@ public class OrderController extends BaseController {
 
     /**
      * 转发至线下订单列表
-     *
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/list/index")
     public String offlineOrderListIndex() {
@@ -358,19 +338,16 @@ public class OrderController extends BaseController {
      *
      * @param order   线下订单查询表单
      * @param request HttpServletRequest
-     * @see [类、类#方法、类#成员]
      */
     //TODO
     @RequestMapping(value = "/offline/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse offlineOrderList(PosOrder order, HttpServletRequest request) {
+    public CommonRsp offlineOrderList(PosOrder order, HttpServletRequest request) {
         return null;
     }
 
     /**
      * 转发至新增线下加款订单页面
-     *
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/save/fwd", method = RequestMethod.GET)
     public String saveOrderFwd() {
@@ -381,21 +358,20 @@ public class OrderController extends BaseController {
      * 新增线下加款订单
      *
      * @param request HttpServletRequest
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/offline/save", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveOrder(HttpServletRequest request) {
+    public CommonRsp saveOrder(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Constant.CURRENT_USER_IN_SESSION);
         if (null == user) {
             log.error("新增订单失败, 用户信息为空!");
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,用户信息为空!").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,用户信息为空!").build();
         }
 
         int roleCode = user.getRoleCode();
         if (roleCode != Constant.ROLE_TYPE_ADMIN) {
             log.error("新增订单失败,无新增订单权限!");
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,无新增订单权限!").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,无新增订单权限!").build();
         }
 
         String outterUserCode = request.getParameter("outterUserCode");//外部用户编号
@@ -406,7 +382,7 @@ public class OrderController extends BaseController {
         if (StringUtils.isEmpty(outterUserCode) || StringUtils.isEmpty(terminalCode) || StringUtils.isEmpty(orderMoney)
                 || StringUtils.isEmpty(tranferType)) {
             log.error("新增订单失败,加款信息不完整!");
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,加款信息不完整!").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,加款信息不完整!").build();
         }
 
         PosOrder order = new PosOrder();
@@ -420,7 +396,7 @@ public class OrderController extends BaseController {
         SystemConfig systemConfig = systemService.querySystemConfig("6_sys_manual_operation_rate");
         if (null == systemConfig) {
             log.error("新增订单失败,线下加款订单费率为设置!");
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("新增订单失败,线下加款订单费率为设置!").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,线下加款订单费率为设置!").build();
         }
         int offlineRate = Integer.parseInt(systemConfig.getSysValue());
         order.setFeeRate(offlineRate);
@@ -452,6 +428,6 @@ public class OrderController extends BaseController {
         order.setMemo("待处理");
 
         orderService.saveOrUpdateOrder(order);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("新增线下加款订单成功").build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("新增线下加款订单成功").build();
     }
 }

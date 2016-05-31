@@ -9,16 +9,14 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author owen
  * @version [版本号, 2015-7-14]
-*/
+ */
 public class IpUtil {
 
     /**
      * <获得请求IP>
      *
-     *
      * @param request HttpServletRequest
-     * @return IP
-     * @see [类、类#方法、类#成员]
+     *                IP
      */
     public static String getIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");

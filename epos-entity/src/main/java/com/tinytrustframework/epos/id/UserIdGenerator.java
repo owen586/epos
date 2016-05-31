@@ -13,10 +13,9 @@ import org.hibernate.type.Type;
 /**
  * <自定义用户编号生成器>
  *
- *
  * @author owen
  * @version [版本号, 2015-7-26]
-*/
+ */
 public class UserIdGenerator extends TableGenerator {
     /**
      * 指定前缀

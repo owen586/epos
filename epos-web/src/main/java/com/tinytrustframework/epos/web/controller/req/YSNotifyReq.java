@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.web.controller.request;
+package com.tinytrustframework.epos.web.controller.req;
 
 import lombok.*;
 
@@ -9,12 +9,12 @@ import java.io.Serializable;
  *
  * @author owen
  * @version 2.0, 2016-01-09 14:59
-*/
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class YSNotifyRequest implements Serializable {
+public class YSNotifyReq implements Serializable {
     /**
      * 注释内容
      */

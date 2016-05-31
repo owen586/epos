@@ -4,8 +4,8 @@ import com.tinytrustframework.epos.entity.Authority;
 import com.tinytrustframework.epos.entity.Menu;
 import com.tinytrustframework.epos.service.MenuService;
 import com.tinytrustframework.epos.service.SystemService;
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
-import com.tinytrustframework.epos.web.controller.response.TreeNodeResponse;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
+import com.tinytrustframework.epos.web.controller.rsp.TreeNodeRsp;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,28 +30,18 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/authority")
 public class AuthorityController extends BaseController {
-    /**
-     * 父节点编号
-     */
+
+    // 父节点编号
     private static final String TOP_PARENT_NODE_CODE = "0";
 
-    /**
-     * SystemService
-     */
     @Resource
     private SystemService systemService;
 
-    /**
-     * MenuService
-     */
     @Resource
     private MenuService menuService;
 
     /**
      * 转发至角色权限设置列表页面
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/list/index")
     public String securityRoleIndex() {
@@ -60,9 +50,6 @@ public class AuthorityController extends BaseController {
 
     /**
      * 转发至角色权限设置页面
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/tree/index/{roleCode}")
     public String securityRoleConfigIndex(@PathVariable int roleCode, Model model) {
@@ -72,17 +59,14 @@ public class AuthorityController extends BaseController {
 
     /**
      * 角色权限设置
-     *
-     * @param request
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/config", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse securityRoleConfig(HttpServletRequest request) {
+    public CommonRsp securityRoleConfig(HttpServletRequest request) {
         String roleUserCode = request.getParameter("roleUserCode");//角色用户编号
         String menuCodes = request.getParameter("checkedMenuCodes");//菜单编号,多个编号以“|”分隔
         if (StringUtils.isBlank(roleUserCode) || StringUtils.isBlank(menuCodes)) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("角色权限设置失败,参数不完整").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("角色权限设置失败,参数不完整").build();
         }
 
         try {
@@ -106,24 +90,20 @@ public class AuthorityController extends BaseController {
 
                 systemService.saveAuthorityRole(authority);
             }
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("角色权限设置成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("角色权限设置成功").build();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("角色权限设置失败");
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("角色权限设置失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("角色权限设置失败").build();
         }
     }
 
     /**
      * 根据角色编号查询权限菜单树
-     *
-     * @param roleCode
-     * @return
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/{roleCode}")
     @ResponseBody
-    public CommonResponse querySecurityRoleList(@PathVariable String roleCode, HttpServletRequest request) {
+    public CommonRsp querySecurityRoleList(@PathVariable String roleCode, HttpServletRequest request) {
         //查询菜单树列表
         List<Menu> menuTreeList = menuService.queryMenuList();
         //查询配置的菜单权限列表
@@ -140,32 +120,28 @@ public class AuthorityController extends BaseController {
             parentNodeChecked = true;
         }
 
-        List<TreeNodeResponse> treeNodeList = this.dataConversion(menuTreeList, parentNodeChecked);
+        List<TreeNodeRsp> treeNodeList = this.dataConversion(menuTreeList, parentNodeChecked);
         if (null != treeNodeList) {
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("treeNodeList", treeNodeList);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询权限菜单成功").dataMap(dataMap).build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询权限菜单成功").dataMap(dataMap).build();
         } else {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询权限菜单失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询权限菜单失败").build();
         }
     }
 
     /**
      * 数据转换
-     *
-     * @param menuList 菜单列表
-     * @return
-     * @see [类、类#方法、类#成员]
      */
-    private List<TreeNodeResponse> dataConversion(List<Menu> menuList, boolean parentNodeChecked) {
+    private List<TreeNodeRsp> dataConversion(List<Menu> menuList, boolean parentNodeChecked) {
         if (null == menuList || menuList.isEmpty()) {
             return null;
         }
 
-        List<TreeNodeResponse> treeNodeList = new ArrayList<TreeNodeResponse>(menuList.size());
-        treeNodeList.add(new TreeNodeResponse(0, "角色权限管理 ", 0, true, "javascript:void(0);", parentNodeChecked));
+        List<TreeNodeRsp> treeNodeList = new ArrayList<TreeNodeRsp>(menuList.size());
+        treeNodeList.add(new TreeNodeRsp(0, "角色权限管理 ", 0, true, "javascript:void(0);", parentNodeChecked));
         for (Menu aMenu : menuList) {
-            treeNodeList.add(new TreeNodeResponse(aMenu.getMenuCode(), aMenu.getMenuName(), aMenu.getTopMenuCode(), true,
+            treeNodeList.add(new TreeNodeRsp(aMenu.getMenuCode(), aMenu.getMenuName(), aMenu.getTopMenuCode(), true,
                     aMenu.getMenuUrl(), aMenu.isChecked()));
         }
 

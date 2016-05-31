@@ -10,7 +10,7 @@ import com.tinytrustframework.epos.entity.User;
 /**
  * @author owen
  * @version [版本号, 2015-7-28]
-*/
+ */
 public interface UserService {
     /**
      * 新增或编辑用户信息

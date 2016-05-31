@@ -25,7 +25,7 @@ public class PropUtils {
      * 根据属性文件KEY获取属性文件值
      *
      * @param key 属性文件键
-     * @return 属性文件值
+     *            属性文件值
      */
     public static String getPropertyValue(String key) {
         String value = null;

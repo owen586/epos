@@ -6,11 +6,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.entity.PriceUser;
 import com.tinytrustframework.epos.service.PriceService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,16 +28,12 @@ import com.tinytrustframework.epos.entity.PriceRole;
 @Controller
 @RequestMapping(value = "/price")
 public class PriceController extends BaseController {
-    /**
-     * PriceService
-     */
+
     @Resource
     private PriceService priceService;
 
     /**
      * 转发至角色价格列表页面
-     *
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/list/index")
     public String priceRoleListIndex() {
@@ -50,11 +45,10 @@ public class PriceController extends BaseController {
      *
      * @param rateCommon 角色价格表单
      * @param request    HttpServletRequest
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse priceRoleList(PriceRole rateCommon, HttpServletRequest request) {
+    public CommonRsp priceRoleList(PriceRole rateCommon, HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         int roleCode = rateCommon.getRoleCode();//角色编号
         if (roleCode != -1) {
@@ -64,14 +58,13 @@ public class PriceController extends BaseController {
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         Map<String, Object> dataMap = priceService.queryPriceRoleList(params, pageNo, pageSize);
 
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询价格角色列表信息成功").dataMap(dataMap).build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询价格角色列表信息成功").dataMap(dataMap).build();
     }
 
     /**
      * 转发至角色价格编辑页面
      *
      * @param roleCode 角色编号
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/edit/index")
     public ModelAndView priceRoleEditIndex(@RequestParam(required = false) String roleCode) {
@@ -88,19 +81,16 @@ public class PriceController extends BaseController {
      * 转发至角色价格编辑页面
      *
      * @param priceRole 角色价格对象
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/role/edit", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse priceRoleEdit(PriceRole priceRole) {
+    public CommonRsp priceRoleEdit(PriceRole priceRole) {
         priceService.saveOrUpdatePriceRole(priceRole);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("编辑角色价格成功").build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("编辑角色价格成功").build();
     }
 
     /**
      * 转发至用戶价格列表页面
-     *
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/user/list/index")
     public String priceUserListIndex() {
@@ -112,12 +102,10 @@ public class PriceController extends BaseController {
      *
      * @param priceUser 用户价格对象（密价對象）
      * @param request   HttpServletRequest
-     * @return
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/user/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse priceUserList(PriceUser priceUser, HttpServletRequest request) {
+    public CommonRsp priceUserList(PriceUser priceUser, HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         String cellphone = priceUser.getCellphone();//手机号
         if (StringUtils.isNotEmpty(cellphone)) {
@@ -137,14 +125,13 @@ public class PriceController extends BaseController {
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
         Map<String, Object> dataMap = priceService.queryPriceUserList(params, pageNo, pageSize);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询用户价格列表信息成功").dataMap(dataMap).build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询用户价格列表信息成功").dataMap(dataMap).build();
     }
 
     /**
      * 转发至用户价格编辑页面
      *
      * @param userCode 用户编号
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/user/edit/index")
     public ModelAndView priceUserEditIndex(@RequestParam(required = false) String userCode) {
@@ -161,12 +148,11 @@ public class PriceController extends BaseController {
      * 用户价格编辑
      *
      * @param priceUser 角色
-     * @see [类、类#方法、类#成员]
      */
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse priceRoleEdit(PriceUser priceUser) {
+    public CommonRsp priceRoleEdit(PriceUser priceUser) {
         priceService.saveOrUpdatePriceUser(priceUser);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("编辑用户价格成功").build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("编辑用户价格成功").build();
     }
 }

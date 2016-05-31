@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.division.filter;
+package com.tinytrustframework.epos.common.utils.region.filter;
 
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
@@ -10,7 +10,7 @@ import org.htmlparser.tags.ParagraphTag;
  * @author owen
  * @version 2016-03-16 16:54
  */
-public class DivisionParagraphNodeFilter implements NodeFilter {
+public class RegionParagraphNodeFilter implements NodeFilter {
 
     /**
      * 过滤筛选p节点

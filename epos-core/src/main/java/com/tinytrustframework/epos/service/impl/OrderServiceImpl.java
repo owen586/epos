@@ -1,14 +1,13 @@
 package com.tinytrustframework.epos.service.impl;
 
 import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
 import com.tinytrustframework.epos.dao.OrderDao;
 import com.tinytrustframework.epos.dao.SystemDao;
 import com.tinytrustframework.epos.entity.PosOrder;
 import com.tinytrustframework.epos.entity.SystemConfig;
 import com.tinytrustframework.epos.service.OrderService;
-import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -29,7 +28,7 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService {
 
     // 日志
-    private final static Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private final static org.slf4j.Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     // 充值成功
     private final String RECHARGE_SUCCESS = "ok";
@@ -82,7 +81,6 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param tranferType 到账类型
      * @param orderList
-     * @see [类、类#方法、类#成员]
      */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     private void recharger(int tranferType, List<PosOrder> orderList) {
@@ -137,8 +135,6 @@ public class OrderServiceImpl implements OrderService {
 
             log.info("加款充值开始! 订单编号:{},客户名称:{},外部商户编号:{},订单金额:{},费率：{}‱,结算金额:{}", new Object[]{
                     orderCode, userName, outterUserCode, orderMoney, feeRate, tradeMoney});
-
-
             if (StringUtils.isEmpty(outterUserCode)) {
                 log.error("外部商户编号为空! 订单编号: {}", orderCode);
                 continue;

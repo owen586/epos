@@ -10,17 +10,18 @@ import com.tinytrustframework.epos.entity.PriceUser;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.tinytrustframework.epos.common.utils.lang.PageUtil;
 import com.tinytrustframework.epos.entity.PriceRole;
 
+import javax.annotation.Resource;
+
 /**
- * <一句话功能简述>
- *
  * @author owen
  * @version [版本号, 2015-8-3]
-*/
+ */
 @Repository
 public class PriceDaoImpl extends BaseDao implements PriceDao {
 

@@ -8,7 +8,7 @@ import com.tinytrustframework.epos.entity.PriceRole;
 /**
  * @author owen
  * @version [版本号, 2015-8-3]
-*/
+ */
 public interface PriceService {
     /**
      * 查询角色价格列表

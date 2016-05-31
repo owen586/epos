@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author owen
  * @version [版本号, 2015-7-28]
-*/
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

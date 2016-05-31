@@ -1,23 +1,20 @@
 package com.tinytrustframework.epos.service.impl;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.tinytrustframework.epos.dao.PriceDao;
 import com.tinytrustframework.epos.entity.PriceRole;
 import com.tinytrustframework.epos.entity.PriceUser;
 import com.tinytrustframework.epos.service.PriceService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author owen
  * @version [版本号, 2015-8-3]
-*/
+ */
 @Service
 public class PriceServiceImpl implements PriceService {
     @Resource

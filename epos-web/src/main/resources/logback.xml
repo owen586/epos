@@ -34,7 +34,7 @@
             是否向上级loger传递打印信息。默认是true。
     -->
     <logger name="com.tinytrustframework.epos" level="WARN" addtivity="true">
-            <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE"/>
     </logger>
 
     <root level="info">

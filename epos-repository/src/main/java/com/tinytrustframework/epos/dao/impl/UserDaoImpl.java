@@ -17,8 +17,6 @@ import com.tinytrustframework.epos.common.utils.lang.PageUtil;
 import com.tinytrustframework.epos.entity.Terminal;
 
 /**
- * <一句话功能简述>
- *
  * @author owen
  * @version [版本号, 2015-7-28]
  */

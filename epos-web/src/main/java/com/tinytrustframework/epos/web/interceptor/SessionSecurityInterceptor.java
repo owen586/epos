@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author owen
  * @version [版本号, 2011-8-13]
-*/
+ */
 public class SessionSecurityInterceptor implements HandlerInterceptor {
     /**
      * 注释内容

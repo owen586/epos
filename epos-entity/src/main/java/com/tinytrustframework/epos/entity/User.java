@@ -1,14 +1,5 @@
 package com.tinytrustframework.epos.entity;
 
-import java.io.Serializable;
-import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +7,16 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
+
 /**
  * <一句话功能简述>
  *
  * @author Owen
  * @version [版本号, 2013-5-19]
-*/
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

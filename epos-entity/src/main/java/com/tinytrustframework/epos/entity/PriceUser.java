@@ -49,11 +49,11 @@ public class PriceUser implements java.io.Serializable {
     /**
      * 构造函数
      *
-     * @param userCode 用户编号
-     * @param feeRate 费率
+     * @param userCode             用户编号
+     * @param feeRate              费率
      * @param topUserFeeRateReturn 上级返点费率
-     * @param userName 用户名称
-     * @param cellphone 手机号码
+     * @param userName             用户名称
+     * @param cellphone            手机号码
      */
     public PriceUser(String userCode, int feeRate, int topUserFeeRateReturn, String userName, String cellphone) {
         super();

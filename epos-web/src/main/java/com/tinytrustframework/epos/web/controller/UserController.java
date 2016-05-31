@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.Terminal;
@@ -46,9 +46,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse register(User user) {
+    public CommonRsp register(User user) {
         if (null == user) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("注册信息为空").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("注册信息为空").build();
         } else {
             //初始化默认值
             String password = user.getPassword();
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
             }
             user.setTranferType(Constant.USER_TRANFER_TYPE_T1);//到账时间:T+1
             userService.saveOrUpdateUser(user);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("\"TinyTrust:\\r\\n\\n注册成功，请耐心等待审核!\\r\\n\\n点击确定按钮后，2秒内系统自动转至系统首页!\"").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("\"TinyTrust:\\r\\n\\n注册成功，请耐心等待审核!\\r\\n\\n点击确定按钮后，2秒内系统自动转至系统首页!\"").build();
         }
     }
 
@@ -84,13 +84,10 @@ public class UserController extends BaseController {
 
     /**
      * 角色列表查询
-     *
-     * @return
-     * @see [类、类#方法、类#成员]
-     */
+     **/
     @RequestMapping(value = "/role/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse roleList(Role role, HttpServletRequest request) {
+    public CommonRsp roleList(Role role, HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         String roleName = role.getRoleName();//角色名称
         if (StringUtils.isNotEmpty(roleName)) {
@@ -100,10 +97,10 @@ public class UserController extends BaseController {
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         try {
             Map<String, Object> dataMap = userService.queryRoleList(params, pageNo, pageSize);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询角色列表信息成功").dataMap(dataMap).build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询角色列表信息成功").dataMap(dataMap).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询角色列表信息失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询角色列表信息失败").build();
         }
     }
 
@@ -112,14 +109,14 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/role/all", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse roleList() {
+    public CommonRsp roleList() {
         List<Role> roleList = userService.queryRoleList();
         if (null == roleList || roleList.isEmpty()) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询角色列表信息失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询角色列表信息失败").build();
         } else {
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("roleList", roleList);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询角色列表信息成功").dataMap(dataMap).build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询角色列表信息成功").dataMap(dataMap).build();
         }
     }
 
@@ -139,7 +136,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse userList(User userForm, HttpServletRequest request) {
+    public CommonRsp userList(User userForm, HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
         String userCode = userForm.getUserCode();//用户编号
         if (StringUtils.isNotEmpty(userCode)) {
@@ -193,7 +190,7 @@ public class UserController extends BaseController {
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
         Map<String, Object> dataMap = userService.queryUserList(params, pageNo, pageSize);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询用户列表信息成功").dataMap(dataMap).build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询用户列表信息成功").dataMap(dataMap).build();
 
     }
 
@@ -202,14 +199,14 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/list/all", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse userList() {
+    public CommonRsp userList() {
         List<User> userList = userService.queryUserList(Constant.USER_STATE_OK);
         if (null != userList && !userList.isEmpty()) {
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("userList", userList);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询用户列表成功").dataMap(dataMap).build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询用户列表成功").dataMap(dataMap).build();
         } else {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("查询用户列表失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询用户列表失败").build();
         }
     }
 
@@ -240,9 +237,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/user_edit", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse userEdit(User userForm, HttpServletRequest request) {
+    public CommonRsp userEdit(User userForm, HttpServletRequest request) {
         if (null == userForm) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("用户信息不完整").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("用户信息不完整").build();
         } else {
             String userCode = userForm.getUserCode();
             if (StringUtils.isEmpty(userCode))//新增
@@ -299,7 +296,7 @@ public class UserController extends BaseController {
                 }
                 userService.saveOrUpdateUser(user);
             }
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("用户编辑成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("用户编辑成功").build();
         }
     }
 
@@ -308,14 +305,14 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/state_edit/{state}/{userCode}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse userStateEdit(@PathVariable int state, @PathVariable String userCode) {
+    public CommonRsp userStateEdit(@PathVariable int state, @PathVariable String userCode) {
         User user = userService.getUserDetail(userCode);
         if (null == user) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("用户不存在").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("用户不存在").build();
         } else {
             user.setStatus(state);
             userService.saveOrUpdateUser(user);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("状态更新成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("状态更新成功").build();
         }
     }
 
@@ -334,7 +331,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/terminal/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse terminalList(HttpServletRequest request) {
+    public CommonRsp terminalList(HttpServletRequest request) {
         Map<String, Object> params = new HashMap<String, Object>();
 
         String terminalCode = request.getParameter("terminalCode");//终端编号
@@ -361,7 +358,7 @@ public class UserController extends BaseController {
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
         Map<String, Object> dataMap = userService.queryTerminalList(params, pageNo, pageSize);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询终端列表信息成功").dataMap(dataMap).build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询终端列表信息成功").dataMap(dataMap).build();
     }
 
     /**
@@ -384,12 +381,12 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/terminal/edit", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse terminalEdit(Terminal terminalForm) {
+    public CommonRsp terminalEdit(Terminal terminalForm) {
         if (null == terminalForm) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("终端信息不完整").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("终端信息不完整").build();
         } else {
             userService.saveOrUpdateTerminal(terminalForm);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("终端信息编辑成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("终端信息编辑成功").build();
         }
     }
 
@@ -400,11 +397,11 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/terminal/delete/{userCode}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse terminalDelete(@PathVariable String userCode) {
+    public CommonRsp terminalDelete(@PathVariable String userCode) {
         if (userService.deleteTerminal(userCode)) {
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("终端信息删除成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("终端信息删除成功").build();
         } else {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("终端信息删除失败").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("终端信息删除失败").build();
         }
     }
 

@@ -5,7 +5,7 @@
  * @version 1.1
  * @param {int} maxentries Number of entries to paginate
  * @param {Object} opts Several options (see README for documentation)
- * @return {Object} jQuery Object
+ {Object} jQuery Object
  */
 jQuery.fn.pagination = function (maxentries, opts) {
     opts = jQuery.extend({
@@ -35,7 +35,7 @@ jQuery.fn.pagination = function (maxentries, opts) {
         /**
          * Calculate start and end point of pagination links depending on
          * current_page and num_display_entries.
-         * @return {Array}
+         {Array}
          */
         function getInterval() {
             var ne_half = Math.ceil(opts.num_display_entries / 2);

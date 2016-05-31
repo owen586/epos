@@ -10,7 +10,7 @@
     <bean id="springContextHelper" class="com.tinytrustframework.epos.common.utils.spring.SpringContextHelper"></bean>
 
     <!-- 常规注解 -->
-    <context:annotation-config />
+    <context:annotation-config/>
     <context:component-scan base-package="com.tinytrustframework"/> <!-- -->
 
     <!-- MVC注解 -->

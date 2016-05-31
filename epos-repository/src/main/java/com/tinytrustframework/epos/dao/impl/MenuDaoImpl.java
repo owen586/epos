@@ -5,14 +5,15 @@ import java.util.List;
 import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.MenuDao;
 import com.tinytrustframework.epos.entity.Menu;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
 /**
- * <一句话功能简述>
- *
  * @author owen
  * @version [版本号, 2015-7-26]
-*/
+ */
 @Repository
 public class MenuDaoImpl extends BaseDao implements MenuDao {
 

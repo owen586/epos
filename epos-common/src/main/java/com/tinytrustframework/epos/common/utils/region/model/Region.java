@@ -1,4 +1,5 @@
-package com.tinytrustframework.epos.common.utils.division.model;
+package com.tinytrustframework.epos.common.utils.region.model;
+
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class Division {
+public class Region {
     // 区域编号
     private String areaId;
 

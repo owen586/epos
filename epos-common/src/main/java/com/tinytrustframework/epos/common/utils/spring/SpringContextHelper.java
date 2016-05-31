@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContextAware;
  *
  * @author owen
  * @version [版本号, 2015-8-25]
-*/
+ */
 public class SpringContextHelper implements ApplicationContextAware {
 
     /**
@@ -26,10 +26,8 @@ public class SpringContextHelper implements ApplicationContextAware {
     /**
      * <获取业务bean>
      *
-     *
      * @param beanName bean名称
-     * @return 业务bean
-     * @see [类、类#方法、类#成员]
+     *                 业务bean
      */
     public static Object getObject(String beanName) {
         return context.getBean(beanName);

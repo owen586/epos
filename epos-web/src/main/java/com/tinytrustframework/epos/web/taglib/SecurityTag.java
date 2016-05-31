@@ -15,16 +15,11 @@ import com.tinytrustframework.epos.common.utils.spring.SpringContextHelper;
  *
  * @author owen
  * @version [版本号, 2015-8-25]
-*/
+ */
 public class SecurityTag extends TagSupport {
-    /**
-     * 注释内容
-     */
     private static final long serialVersionUID = 2670710714292636650L;
 
-    /**
-     * 菜单路径
-     */
+    // 菜单路径
     private String menuPath;
 
 

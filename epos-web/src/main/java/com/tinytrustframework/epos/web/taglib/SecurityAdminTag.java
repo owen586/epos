@@ -13,13 +13,10 @@ import com.tinytrustframework.epos.entity.User;
  *
  * @author owen
  * @version [版本号, 2015-8-25]
-*/
+ */
 public class SecurityAdminTag extends TagSupport {
-    /**
-     * 注释内容
-     */
-    private static final long serialVersionUID = 2670710714292636650L;
 
+    private static final long serialVersionUID = 2670710714292636650L;
 
     public int doStartTag()
             throws JspException {

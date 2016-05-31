@@ -1,48 +1,50 @@
-package com.tinytrustframework.epos.common.utils.division;
+package com.tinytrustframework.epos.common.utils.region;
 
-import com.tinytrustframework.epos.common.utils.division.filter.DivisionParagraphNodeFilter;
-import com.tinytrustframework.epos.common.utils.division.model.Division;
+import com.tinytrustframework.epos.common.utils.region.filter.RegionParagraphNodeFilter;
+import com.tinytrustframework.epos.common.utils.region.model.Region;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.util.NodeList;
 
 /**
- *  获取国家统计局公布的行政区划代码
- *  最新县及县以上行政区划代码（截止2014年10月31日）
- *
- *  抓取结果展示如下（以北京为例）
- *  110000 北京市 110000
- *  110100 市辖区 110000
- *  110101 东城区 110100
- *  110102 西城区 110100
- *  110105 朝阳区 110100
- *  110106 丰台区 110100
- *  110107 石景山区 110100
- *  110108 海淀区 110100
- *  110109 门头沟区 110100
- *  110111 房山区 110100
- *  110112 通州区 110100
- *  110113 顺义区 110100
- *  110114 昌平区 110100
- *  110115 大兴区 110100
- *  110116 怀柔区 110100
- *  110117 平谷区 110100
- *  110200 县 110000
- *  110228 密云县 110200
- *  110229 延庆县 110200
+ * 获取国家统计局公布的行政区划代码(http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201504/t20150415_712722.html)
+ * <p/>
+ * 最新县及县以上行政区划代码（截止2014年10月31日）
+ * <p/>
+ * 抓取结果展示如下（以北京为例）
+ * 110000 北京市 110000
+ * 110100 市辖区 110000
+ * 110101 东城区 110100
+ * 110102 西城区 110100
+ * 110105 朝阳区 110100
+ * 110106 丰台区 110100
+ * 110107 石景山区 110100
+ * 110108 海淀区 110100
+ * 110109 门头沟区 110100
+ * 110111 房山区 110100
+ * 110112 通州区 110100
+ * 110113 顺义区 110100
+ * 110114 昌平区 110100
+ * 110115 大兴区 110100
+ * 110116 怀柔区 110100
+ * 110117 平谷区 110100
+ * 110200 县 110000
+ * 110228 密云县 110200
+ * 110229 延庆县 110200
  *
  * @author owen
  * @version 2016-03-16 16:29
  */
-public class DivisionUtil {
+public class RegionUtil {
+
     public static void main(String[] args) throws Exception {
         Parser parser = new Parser();
         parser.setURL("http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201504/t20150415_712722.html");
-        NodeList divisionNodeList = parser.extractAllNodesThatMatch(new DivisionParagraphNodeFilter());
+        NodeList divisionNodeList = parser.extractAllNodesThatMatch(new RegionParagraphNodeFilter());
         if (null == divisionNodeList || divisionNodeList.size() == 0) {
             return;
         }
-        Division division = null;
+        Region division = null;
         Node paragraphNode = null;
         Node idNode = null, nameNode = null;
         String areaId = null, areaName = null, parentAreaId = null;
@@ -55,7 +57,7 @@ public class DivisionUtil {
             areaName = nameNode.toPlainTextString();//区域名称
             int areaNameOriginLength = areaName.length();
             int areaNameUpdatedLength = removeNonChineseChar(areaName).length();
-            division = Division.builder().areaId(areaId).areaName(areaName).build();
+            division = Region.builder().areaId(areaId).areaName(areaName).build();
             // 一个空格
             if (areaNameOriginLength - areaNameUpdatedLength == 1) {
                 parentAreaId = areaId;

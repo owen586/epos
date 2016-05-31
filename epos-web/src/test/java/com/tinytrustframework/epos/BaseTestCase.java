@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author owen
  * @version 2.0, 2016-01-11 10:45
-*/
+ */
 public class BaseTestCase {
 
     // logger

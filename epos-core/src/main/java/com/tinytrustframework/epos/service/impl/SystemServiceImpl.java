@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 /**
  * @author owen
  * @version [版本号, 2013-5-19]
-*/
+ */
 @Service
 public class SystemServiceImpl implements SystemService {
     @Resource
@@ -65,4 +65,5 @@ public class SystemServiceImpl implements SystemService {
     public void updateSystemConfig(SystemConfig systemConfig) {
         systemDao.updateSystemConfig(systemConfig);
     }
+
 }

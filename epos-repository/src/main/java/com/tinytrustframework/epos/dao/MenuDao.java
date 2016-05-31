@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author owen
  * @version [版本号, 2015-7-26]
-*/
+ */
 public interface MenuDao {
     /**
      * 查询菜单列表

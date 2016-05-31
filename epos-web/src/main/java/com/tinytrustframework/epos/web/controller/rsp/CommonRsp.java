@@ -1,10 +1,12 @@
-package com.tinytrustframework.epos.web.controller.response;
+package com.tinytrustframework.epos.web.controller.rsp;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -17,7 +19,9 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommonResponse extends Response {
+public class CommonRsp implements Serializable {
+
+    private static final long serialVersionUID = -6756450794052871118L;
 
     /**
      * 响应结果

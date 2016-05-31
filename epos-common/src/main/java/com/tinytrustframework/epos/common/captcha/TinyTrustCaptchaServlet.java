@@ -1,12 +1,13 @@
 package com.tinytrustframework.epos.common.captcha;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static java.util.Random.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import nl.captcha.gimpy.DropShadowGimpyRenderer;
 import nl.captcha.noise.CurvedLineNoiseProducer;
 import nl.captcha.servlet.CaptchaServletUtil;
 import nl.captcha.servlet.SimpleCaptchaServlet;
+import nl.captcha.text.producer.ChineseTextProducer;
 import nl.captcha.text.renderer.DefaultWordRenderer;
 
 /**
@@ -66,11 +68,7 @@ public class TinyTrustCaptchaServlet extends SimpleCaptchaServlet {
 
     /**
      * 初始化过滤器.将配置文件的参数文件赋值
-     *
-     * @throws ServletException
-     * @see [类、类#方法、类#成员]
      */
-
     public void init()
             throws ServletException {
         if (getInitParameter(PARAM_HEIGHT) != null) {
@@ -87,41 +85,52 @@ public class TinyTrustCaptchaServlet extends SimpleCaptchaServlet {
 
     }
 
-    /**
-     * 一句话功能简述
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
-     * @see [类、类#方法、类#成员]
-     */
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse rsp)
             throws ServletException, IOException {
         Builder builder = new Builder(_width, _height);
         builder.addBorder(); //增加边框
         if (_noise == true)//是否增加干扰线条
         {
             //            builder.addNoise(new StraightLineNoiseProducer());//直线干扰
-            int curvedLineRandomNum = new Random().nextInt(2) + 5;//随机生成N+1条干扰线
+            int curvedLineRandomNum = new Random().nextInt(3)+1;//随机生成N+1条干扰线
             for (int i = 0, j = curvedLineRandomNum; i < j; i++) {
-                builder.addNoise(new CurvedLineNoiseProducer(new Color(0, 168, 143), 1));//弧线干扰
+                builder.addNoise(new CurvedLineNoiseProducer(new Color(0, 0,0), 1));//弧线干扰
             }
         }
 
         //----------------自定义字体大小-----------
         //自定义设置字体颜色和大小 最简单的效果 多种字体随机显示
         List<Font> fontList = new ArrayList<Font>();
-        fontList.add(new Font("Arial", Font.BOLD, 40));//可以设置斜体之类的
+        //获得系统中可用的字体名称
+//        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        String[] fontName = e.getAvailableFontFamilyNames();
+//        for (int i = 0, j = fontName.length; i < j; i++) {
+//            fontList.add(new Font(fontName[i],Font.BOLD,40));
+//        }
+
+
+        fontList.add(new Font("Arial", fontStyleRandom(), 38));
+        fontList.add(new Font("Georgia", fontStyleRandom(), 38));
+        fontList.add(new Font("Comic Sans MS", fontStyleRandom(), 38));
+        fontList.add(new Font("Verdana", fontStyleRandom(), 38));
+        fontList.add(new Font("Times New Roman", fontStyleRandom(), 38));
+        fontList.add(new Font("Trebuchet MS", fontStyleRandom(), 38));
+        fontList.add(new Font("Impact", fontStyleRandom(), 38));
+        fontList.add(new Font("Courier New", fontStyleRandom(), 38));
 
         //加入多种颜色后会随机显示 字体空心
         List<Color> colorList = new ArrayList<Color>();
-        colorList.add(new Color(0, 168, 143));//深绿色
-        DefaultWordRenderer defaultWordRender = new DefaultWordRenderer(colorList, fontList);
+        colorList.add(new Color(0, 170, 85));
+//        colorList.add(new Color(0, 0, 0));
+//        colorList.add(new Color(0, 119, 221));
+//        colorList.add(new Color(0, 136, 85));
+//        colorList.add(new Color(136, 153, 17));
 
-        //增加文本，默认为5个随机数字  
+
+        DefaultWordRenderer defaultWordRender = new DefaultWordRenderer(colorList, fontList);
+        //增加文本，默认为5个随机数字
         builder.addText(defaultWordRender).addBackground();
-        //builder.addText(new NumbersAnswerProducer(new Random().nextInt(2) + 4), coloredEdgesWordRender);//Number Text
+        //            builder.addText(new NumbersAnswerProducer(new Random().nextInt(2) + 4), coloredEdgesWordRender);//Number Text
         //            builder.addText(new ArabicTextProducer(5));//Arabic Text
         //            builder.addText(new FiveLetterFirstNameTextProducer());//Letter Text
         //            builder.addText(new ChineseTextProducer(5),cwr);
@@ -129,23 +138,36 @@ public class TinyTrustCaptchaServlet extends SimpleCaptchaServlet {
         //--------------添加背景-------------  
         //设置背景渐进效果 以及颜色 form为开始颜色，to为结束颜色  
         GradiatedBackgroundProducer gbp = new GradiatedBackgroundProducer();
-        //        gbp.setFromColor(Color.BLACK);
+//        gbp.setFromColor(Color.BLACK);
         //        gbp.setFromColor(Color.DARK_GRAY);//深灰
         gbp.setFromColor(Color.LIGHT_GRAY);//浅灰 good
         //        gbp.setFromColor(Color.GRAY);
         gbp.setToColor(Color.WHITE);
         builder.addBackground(gbp);
 
-        //加入阴影效果 默认3，75   
-        //        builder.gimp(new FishEyeGimpyRenderer(Color.white, Color.white));
-        //加入阴影效果 默认3，75   
-        builder.gimp(new DropShadowGimpyRenderer(3, 50));
+        //加入阴影效果 默认3，75
+        builder.gimp(new DropShadowGimpyRenderer(2,50));
 
         //创建对象  
         Captcha captcha = builder.build();
         BufferedImage image = captcha.getImage();
-        CaptchaServletUtil.writeImage(resp, image);
+        CaptchaServletUtil.writeImage(rsp, image);
         req.getSession().setAttribute(Captcha.NAME, captcha);
+    }
+
+
+    /**
+     * 随机生成字体样式
+     * <p/>
+     * Blod:粗体样式
+     * <p/>
+     * Italic:斜体样式
+     * <p/>
+     * Plain:普通样式
+     */
+    private int fontStyleRandom() {
+        int[] fontStyleArray = {Font.PLAIN, Font.BOLD, Font.ITALIC};
+        return fontStyleArray[new Random().nextInt(fontStyleArray.length)];
     }
 
 }

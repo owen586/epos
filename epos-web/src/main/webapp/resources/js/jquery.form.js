@@ -435,7 +435,7 @@
             function getDoc(frame) {
                 /* it looks like contentWindow or contentDocument do not
                  * carry the protocol property in ie8, when running under ssl
-                 * frame.document is the only valid response document, since
+                 * frame.document is the only valid rsp document, since
                  * the protocol is know but not on the other two objects. strange?
                  * "Same origin policy" http://en.wikipedia.org/wiki/Same_origin_policy
                  */
@@ -587,7 +587,7 @@
 
                 doc = getDoc(io);
                 if (!doc) {
-                    log('cannot access response document');
+                    log('cannot access rsp document');
                     e = SERVER_ABORT;
                 }
                 if (e === CLIENT_TIMEOUT_ABORT && xhr) {
@@ -602,7 +602,7 @@
                 }
 
                 if (!doc || doc.location.href == s.iframeSrc) {
-                    // response not received yet
+                    // rsp not received yet
                     if (!timedOut)
                         return;
                 }
@@ -627,12 +627,12 @@
                             setTimeout(cb, 250);
                             return;
                         }
-                        // let this fall through because server response could be an empty document
+                        // let this fall through because server rsp could be an empty document
                         //log('Could not access iframe DOM after mutiple tries.');
                         //throw 'DOMException: not available';
                     }
 
-                    //log('response detected');
+                    //log('rsp detected');
                     var docRoot = doc.body ? doc.body : doc.documentElement;
                     xhr.responseText = docRoot ? docRoot.innerHTML : null;
                     xhr.responseXML = doc.XMLDocument ? doc.XMLDocument : doc;
@@ -651,7 +651,7 @@
                     var dt = (s.dataType || '').toLowerCase();
                     var scr = /(json|script|text)/.test(dt);
                     if (scr || s.textarea) {
-                        // see if user embedded response in textarea
+                        // see if user embedded rsp in textarea
                         var ta = doc.getElementsByTagName('textarea')[0];
                         if (ta) {
                             xhr.responseText = ta.value;
@@ -660,7 +660,7 @@
                             xhr.statusText = ta.getAttribute('statusText') || xhr.statusText;
                         }
                         else if (scr) {
-                            // account for browsers injecting pre around json response
+                            // account for browsers injecting pre around json rsp
                             var pre = doc.getElementsByTagName('pre')[0];
                             var b = doc.getElementsByTagName('body')[0];
                             if (pre) {

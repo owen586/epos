@@ -21,7 +21,7 @@ import com.tinytrustframework.epos.entity.SystemConfig;
 /**
  * @author owen
  * @version [版本号, 2015-7-28]
-*/
+ */
 @Repository
 public class OrderDaoImpl extends BaseDao implements OrderDao {
 

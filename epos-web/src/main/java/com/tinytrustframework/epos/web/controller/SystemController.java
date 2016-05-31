@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.Menu;
@@ -41,27 +41,15 @@ import com.tinytrustframework.epos.service.UserService;
 @RequestMapping(value = "/system")
 public class SystemController extends BaseController {
 
-    /**
-     * SystemService
-     */
     @Resource
     private SystemService systemService;
 
-    /**
-     * MenuService
-     */
     @Resource
     private MenuService menuService;
 
-    /**
-     * UserService
-     */
     @Resource
     private UserService userService;
 
-    /**
-     * 转发至登陆页面
-     */
     @RequestMapping(value = "/index")
     public String index() {
         return "/login";
@@ -164,7 +152,7 @@ public class SystemController extends BaseController {
      */
     @RequestMapping(value = "/modify_password", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse modifyPassword(HttpServletRequest request) {
+    public CommonRsp modifyPassword(HttpServletRequest request) {
         String oldPwd = request.getParameter("oldPwd");//原始密码
         String newPwd = request.getParameter("newPwd");//新密码
 
@@ -172,12 +160,12 @@ public class SystemController extends BaseController {
         String cellphone = user.getCellphone();
         String oldPwdMd5 = DigestUtil.md5(cellphone + oldPwd + PropUtils.getPropertyValue("login.and.register.key"));
         if (!oldPwdMd5.equals(user.getPassword())) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("旧密码错误").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("旧密码错误").build();
         } else {
             String newPwdMd5 = DigestUtil.md5(cellphone + newPwd + PropUtils.getPropertyValue("login.and.register.key"));
             user.setPassword(newPwdMd5);
             userService.saveOrUpdateUser(user);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("密码修改成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("密码修改成功").build();
         }
     }
 
@@ -249,11 +237,11 @@ public class SystemController extends BaseController {
      */
     @RequestMapping(value = "/config/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse systemConfigList() {
+    public CommonRsp systemConfigList() {
         List<SystemConfig> systemConfigList = systemService.querySystemConfigList();
         Map<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("systemConfigList", systemConfigList);
-        return CommonResponse.builder().result(this.RESULT_SUCCESS).message("查询系统配置项成功").dataMap(dataMap).build();
+        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询系统配置项成功").dataMap(dataMap).build();
     }
 
     /**
@@ -261,16 +249,16 @@ public class SystemController extends BaseController {
      */
     @RequestMapping(value = "/config/update", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse systemConfigEdit(HttpServletRequest request) {
+    public CommonRsp systemConfigEdit(HttpServletRequest request) {
         String systemCode = request.getParameter("systemCode");
         SystemConfig systemConfig = systemService.querySystemConfig(systemCode);
         if (null == systemConfig) {
-            return CommonResponse.builder().result(this.RESULT_FAIL).message("系统配置项不存在").build();
+            return CommonRsp.builder().result(this.RESULT_FAIL).message("系统配置项不存在").build();
         } else {
             String systemValue = request.getParameter("systemValue");
             systemConfig.setSysValue(systemValue);
             systemService.updateSystemConfig(systemConfig);
-            return CommonResponse.builder().result(this.RESULT_SUCCESS).message("系统配置项更新成功").build();
+            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("系统配置项更新成功").build();
         }
     }
 }

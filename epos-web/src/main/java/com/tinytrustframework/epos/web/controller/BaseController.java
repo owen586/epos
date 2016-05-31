@@ -1,10 +1,7 @@
 package com.tinytrustframework.epos.web.controller;
 
-import com.tinytrustframework.epos.web.controller.response.CommonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 /**
  * 控制处理类基类

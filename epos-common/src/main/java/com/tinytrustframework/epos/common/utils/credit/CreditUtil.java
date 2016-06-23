@@ -18,14 +18,10 @@ import java.util.Map;
  */
 public class CreditUtil {
 
-    /**
-     * 注释内容
-     */
+    // 注释内容
     private final static Logger log = LoggerFactory.getLogger(CreditUtil.class);
 
-    /**
-     * 默认构造函数
-     */
+    // 默认构造函数
     private CreditUtil() {
     }
 

@@ -9,6 +9,7 @@ import com.tinytrustframework.epos.entity.PosOrder;
  * @version [版本号, 2015-7-28]
  */
 public interface OrderService {
+
     /**
      * 查询订单详情
      *

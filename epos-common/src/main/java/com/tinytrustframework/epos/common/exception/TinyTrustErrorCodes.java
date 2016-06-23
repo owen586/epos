@@ -10,9 +10,7 @@ import java.io.Serializable;
  */
 public class TinyTrustErrorCodes implements Serializable {
 
-    /**
-     * 注释内容
-     */
+    // 注释内容
     private static final long serialVersionUID = 1558420070792805997L;
 
 }

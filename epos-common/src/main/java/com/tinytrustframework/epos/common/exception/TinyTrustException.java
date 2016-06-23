@@ -17,18 +17,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TinyTrustException extends Exception {
 
-    /**
-     * 注释内容
-     */
+    // 注释内容
     private static final long serialVersionUID = 5349074211458559093L;
 
-    /**
-     * 错误编码
-     */
+    // 错误编码
     private String errorCode;
 
-    /**
-     * 错误信息
-     */
+    // 错误信息
     private String errorMessage;
 }

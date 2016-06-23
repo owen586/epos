@@ -36,34 +36,22 @@ public class TinyTrustCaptchaServlet extends SimpleCaptchaServlet {
      */
     private static final long serialVersionUID = 2648330702611405621L;
 
-    /**
-     * 高度,默认为50
-     */
+    // 高度,默认为50
     private static final String PARAM_HEIGHT = "height";
 
-    /**
-     * 宽度,默认为100
-     */
+    // 宽度,默认为100
     private static final String PARAM_WIDTH = "width";
 
-    /**
-     * 干扰线条 默认是没有干扰线条
-     */
+    // 干扰线条 默认是没有干扰线条
     private static final String PARAM_NOISE = "noise";
 
-    /**
-     * 宽度
-     */
+    // 宽度
     protected int _width = 100;
 
-    /**
-     * 高度
-     */
+    // 高度
     protected int _height = 50;
 
-    /**
-     * 干扰线条
-     */
+    // 干扰线条
     protected boolean _noise = false;
 
     /**

@@ -18,9 +18,8 @@ import java.util.Map.Entry;
  * @version [版本号, 2010-11-5]
  */
 public class PageUtil {
-    /**
-     * 注释内容
-     */
+
+    // 注释内容
     private final static Logger log = LoggerFactory.getLogger(PageUtil.class);
 
     /**

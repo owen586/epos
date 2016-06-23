@@ -4,7 +4,15 @@
 
 a quick settle accounts by POS notification. 
 
-![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/tinytruste-pos.png "易珀斯")   
+![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/tinytruste-pos.png "易珀斯")
+
+ ![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/1.png "易珀斯")
+
+ ![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/2.png "易珀斯")
+
+ ![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/4.png "易珀斯")
+
+ ![TinyTrust E-POS](http://7xpxpy.com1.z0.glb.clouddn.com/3.png "易珀斯")
 
 
 

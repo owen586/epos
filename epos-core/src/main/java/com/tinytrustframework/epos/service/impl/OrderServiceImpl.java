@@ -1,8 +1,8 @@
 package com.tinytrustframework.epos.service.impl;
 
 import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
-import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.business.credit.CreditUtil;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
 import com.tinytrustframework.epos.dao.OrderDao;
 import com.tinytrustframework.epos.dao.SystemDao;
 import com.tinytrustframework.epos.entity.PosOrder;

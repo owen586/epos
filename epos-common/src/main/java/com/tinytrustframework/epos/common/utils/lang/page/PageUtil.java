@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.page;
+package com.tinytrustframework.epos.common.utils.lang.page;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

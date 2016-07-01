@@ -1,7 +1,7 @@
 package com.tinytrustframework.epos.dao.impl;
 
-import com.tinytrustframework.epos.common.utils.page.Page;
-import com.tinytrustframework.epos.common.utils.page.PageUtil;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.page.PageUtil;
 import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.UserDao;
 import com.tinytrustframework.epos.entity.Role;

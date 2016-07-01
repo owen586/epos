@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.spring;
+package com.tinytrustframework.epos.common.utils.lang.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

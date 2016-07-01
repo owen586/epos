@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.props;
+package com.tinytrustframework.epos.common.utils.lang.props;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -14,6 +14,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
  * @version [版本号, 2010-11-11]
  */
 public class PropUtils {
+
     // LOG
     private static final Logger log = LoggerFactory.getLogger(PropUtils.class);
 

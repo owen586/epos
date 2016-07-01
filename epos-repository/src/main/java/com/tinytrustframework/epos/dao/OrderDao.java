@@ -1,6 +1,6 @@
 package com.tinytrustframework.epos.dao;
 
-import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
 import com.tinytrustframework.epos.entity.PosOrder;
 
 import java.util.List;

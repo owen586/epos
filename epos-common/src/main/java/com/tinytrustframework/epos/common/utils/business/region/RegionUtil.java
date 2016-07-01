@@ -1,7 +1,7 @@
-package com.tinytrustframework.epos.common.utils.region;
+package com.tinytrustframework.epos.common.utils.business.region;
 
-import com.tinytrustframework.epos.common.utils.region.filter.RegionParagraphNodeFilter;
-import com.tinytrustframework.epos.common.utils.region.model.Region;
+import com.tinytrustframework.epos.common.utils.business.region.filter.RegionParagraphNodeFilter;
+import com.tinytrustframework.epos.common.utils.business.region.model.Region;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.util.NodeList;

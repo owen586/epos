@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.page;
+package com.tinytrustframework.epos.common.utils.lang.page;
 
 import lombok.Builder;
 import lombok.Data;

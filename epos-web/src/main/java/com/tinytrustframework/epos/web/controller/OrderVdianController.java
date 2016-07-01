@@ -1,7 +1,7 @@
 package com.tinytrustframework.epos.web.controller;
 
 import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.common.utils.lang.props.PropUtils;
 import com.tinytrustframework.epos.entity.PosOrder;
 import com.tinytrustframework.epos.entity.SystemConfig;
 import com.tinytrustframework.epos.entity.User;

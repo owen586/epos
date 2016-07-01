@@ -2,8 +2,8 @@ package com.tinytrustframework.epos.web.controller;
 
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.page.Page;
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.props.PropUtils;
 import com.tinytrustframework.epos.entity.Role;
 import com.tinytrustframework.epos.entity.Terminal;
 import com.tinytrustframework.epos.entity.User;

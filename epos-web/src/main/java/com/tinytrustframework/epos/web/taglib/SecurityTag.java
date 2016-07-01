@@ -8,7 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.entity.User;
 import com.tinytrustframework.epos.service.SystemService;
-import com.tinytrustframework.epos.common.utils.spring.SpringContextHelper;
+import com.tinytrustframework.epos.common.utils.lang.spring.SpringContextHelper;
 
 /**
  * 自定义权限标签

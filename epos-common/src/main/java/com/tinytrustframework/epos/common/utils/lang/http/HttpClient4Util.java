@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.http;
+package com.tinytrustframework.epos.common.utils.lang.http;
 
 import com.tinytrustframework.epos.common.utils.lang.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;

@@ -2,7 +2,7 @@ package com.tinytrustframework.epos.web.controller;
 
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.common.utils.lang.props.PropUtils;
 import com.tinytrustframework.epos.entity.*;
 import com.tinytrustframework.epos.service.OrderService;
 import com.tinytrustframework.epos.service.PriceService;
@@ -45,18 +45,18 @@ public class OrderNotifyController extends BaseController {
     /**
      * 订单回调通知
      *
-     * @param yinShengOrder 银盛POS订单
+     * @param ysOrder 银盛POS订单
      */
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     @ResponseBody
-    public YSNotifyRsp notify(@RequestBody YSNotifyReq yinShengOrder) {
-        String ysOrderid = yinShengOrder.getYsOrderid();// 银盛订单号
-        String orderid = yinShengOrder.getOrderid();// 商户订单号
-        String status = yinShengOrder.getStatus();// 状态 1、消费成功 ；0、消费失败
-        String money = yinShengOrder.getMoney();// 实际消费金额，单位:分
-        String time = yinShengOrder.getTime();// 消费日期yyyyMMddHHmmss
-        String remark = yinShengOrder.getRemark();// 备注
-        String checkValue = yinShengOrder.getCheckValue();// 校验值
+    public YSNotifyRsp notify(@RequestBody YSNotifyReq ysOrder) {
+        String ysOrderid = ysOrder.getYsOrderid();// 银盛订单号
+        String orderid = ysOrder.getOrderid();// 商户订单号
+        String status = ysOrder.getStatus();// 状态 1、消费成功 ；0、消费失败
+        String money = ysOrder.getMoney();// 实际消费金额，单位:分
+        String time = ysOrder.getTime();// 消费日期yyyyMMddHHmmss
+        String remark = ysOrder.getRemark();// 备注
+        String checkValue = ysOrder.getCheckValue();// 校验值
 
         log.info("银盛订单通知! ysOrderid:{},orderid:{},status:{},money:{},time:{},remark:{},checkValue:{}", ysOrderid, orderid, status, money, time
                 , remark, checkValue);

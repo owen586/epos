@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.weidian;
+package com.tinytrustframework.epos.common.utils.business.weidian;
 
 /**
  * @author owen

@@ -1,8 +1,8 @@
-package com.tinytrustframework.epos.common.utils.credit;
+package com.tinytrustframework.epos.common.utils.business.credit;
 
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.common.utils.lang.props.PropUtils;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.http.HttpClient3Util;
+import com.tinytrustframework.epos.common.utils.lang.http.HttpClient3Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

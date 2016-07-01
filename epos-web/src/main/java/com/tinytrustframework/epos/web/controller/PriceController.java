@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
 import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.entity.PriceUser;
 import com.tinytrustframework.epos.service.PriceService;

@@ -1,7 +1,7 @@
 package com.tinytrustframework.epos.service.impl;
 
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.common.utils.lang.props.PropUtils;
 import com.tinytrustframework.epos.dao.SystemDao;
 import com.tinytrustframework.epos.entity.Authority;
 import com.tinytrustframework.epos.entity.Menu;

@@ -2,7 +2,7 @@ package com.tinytrustframework.epos.service;
 
 import java.util.Map;
 
-import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
 import com.tinytrustframework.epos.entity.PriceUser;
 import com.tinytrustframework.epos.entity.PriceRole;
 

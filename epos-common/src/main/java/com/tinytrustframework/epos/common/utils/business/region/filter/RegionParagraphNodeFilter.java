@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.region.filter;
+package com.tinytrustframework.epos.common.utils.business.region.filter;
 
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;

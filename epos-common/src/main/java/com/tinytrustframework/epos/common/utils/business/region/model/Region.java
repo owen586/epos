@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos.common.utils.region.model;
+package com.tinytrustframework.epos.common.utils.business.region.model;
 
 
 import lombok.Builder;

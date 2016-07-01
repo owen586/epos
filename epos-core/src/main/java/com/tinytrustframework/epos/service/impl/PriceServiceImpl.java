@@ -1,6 +1,6 @@
 package com.tinytrustframework.epos.service.impl;
 
-import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.lang.page.Page;
 import com.tinytrustframework.epos.dao.PriceDao;
 import com.tinytrustframework.epos.entity.PriceRole;
 import com.tinytrustframework.epos.entity.PriceUser;

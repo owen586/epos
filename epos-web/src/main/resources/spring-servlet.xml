@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
     <!-- Spring上下文工具类 -->
-    <bean id="springContextHelper" class="com.tinytrustframework.epos.common.utils.spring.SpringContextHelper"></bean>
+    <bean id="springContextHelper" class="com.tinytrustframework.epos.common.utils.lang.spring.SpringContextHelper"></bean>
 
     <!-- 常规注解 -->
     <context:annotation-config/>

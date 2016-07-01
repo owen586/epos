@@ -12,6 +12,7 @@ import com.tinytrustframework.epos.entity.SystemConfig;
  * @version [版本号, 2013-5-19]
  */
 public interface SystemService {
+
     /**
      * 用户登录
      *

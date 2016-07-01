@@ -2,6 +2,7 @@ package com.tinytrustframework.epos.service.impl;
 
 import com.tinytrustframework.epos.common.statics.Constant;
 import com.tinytrustframework.epos.common.utils.credit.CreditUtil;
+import com.tinytrustframework.epos.common.utils.page.Page;
 import com.tinytrustframework.epos.dao.OrderDao;
 import com.tinytrustframework.epos.dao.SystemDao;
 import com.tinytrustframework.epos.entity.PosOrder;
@@ -43,23 +44,48 @@ public class OrderServiceImpl implements OrderService {
     private SystemDao systemDao;
 
 
+    /**
+     * 查询订单详情
+     *
+     * @param orderSrc  订单来源
+     * @param orderCode 订单编号
+     */
     public PosOrder getOrderDetail(int orderSrc, String orderCode) {
         return orderDao.getOrderDetail(orderSrc, orderCode);
     }
 
+    /**
+     * 新增或编辑订单信息
+     *
+     * @param order 订单信息
+     */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void saveOrUpdateOrder(PosOrder order) {
         orderDao.saveOrUpdateOrder(order);
     }
 
-    public Map<String, Object> queryOrderList(Map<String, Object> params, int pageNo, int pageSize) {
-        return orderDao.queryOrderList(params, pageNo, pageSize);
+    /**
+     * 查询订单信息列表
+     *
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
+     */
+    public Map<String, Object> queryOrderList(Map<String, Object> businessParams, Page pageParams) {
+        return orderDao.queryOrderList(businessParams, pageParams);
     }
 
-    public List<PosOrder> queryOrderListForRecharge(int tranferType) {
+    /**
+     * 根据到账类型查询待重置订单列表
+     *
+     * @param tranferType 到账类型
+     */
+    private List<PosOrder> queryOrderListForRecharge(int tranferType) {
         return orderDao.queryOrderForRecharge(tranferType);
     }
 
+    /**
+     * T+0 充值
+     */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT0() {
         List<PosOrder> orderListT0 = this.queryOrderListForRecharge(Constant.USER_TRANFER_TYPE_T0);
@@ -67,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * {@inheritDoc}
+     * T+1 重置
      */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT1() {

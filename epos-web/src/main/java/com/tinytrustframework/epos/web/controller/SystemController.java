@@ -1,25 +1,16 @@
 package com.tinytrustframework.epos.web.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.Menu;
 import com.tinytrustframework.epos.entity.SystemConfig;
 import com.tinytrustframework.epos.entity.User;
 import com.tinytrustframework.epos.service.MenuService;
 import com.tinytrustframework.epos.service.SystemService;
+import com.tinytrustframework.epos.service.UserService;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import nl.captcha.Captcha;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.service.UserService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 系统控制处理类

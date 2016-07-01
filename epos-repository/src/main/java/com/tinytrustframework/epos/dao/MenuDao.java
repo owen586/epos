@@ -5,12 +5,11 @@ import com.tinytrustframework.epos.entity.Menu;
 import java.util.List;
 
 /**
- * <一句话功能简述>
- *
  * @author owen
  * @version [版本号, 2015-7-26]
  */
 public interface MenuDao {
+
     /**
      * 查询菜单列表
      */

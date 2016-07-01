@@ -147,14 +147,17 @@ public class Constant {
     ////////////////////订单来源///////////////////////////
     ////////////////////////////////////////////////////
     /**
-     * 订单来源 POS
+     * 订单来源  POS
      */
     public static final int ORDER_SOURCE_POS = 1;
 
     /**
-     * 订单来源  线下（手动）
+     * 订单来源  微店
      */
-    public static final int ORDER_SOURCE_OFFLINE = 2;
+    public static final int ORDER_SOURCE_WEIDIAN= 2;
+
+    // 订单来源  手动
+    public static final int ORDER_SOURCE_HAND = 3;
 
     ////////////////////////////////////////////////////
     ////////////////////订单状态///////////////////////////

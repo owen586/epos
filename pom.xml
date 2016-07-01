@@ -66,7 +66,6 @@
             </dependency>
 
 
-
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -217,6 +216,24 @@
                 <version>2.7.4</version>
             </dependency>
 
+            <!-- HttpComponents-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>4.5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.4.5</version>
+            </dependency>
+
+
             <!-- ASM -->
             <dependency>
                 <groupId>asm</groupId>
@@ -325,6 +342,14 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>2.5.1</version>
+            </dependency>
+
+
+            <!-- weidian-->
+            <dependency>
+                <groupId>com.weidian</groupId>
+                <artifactId>open-sdk</artifactId>
+                <version>1.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

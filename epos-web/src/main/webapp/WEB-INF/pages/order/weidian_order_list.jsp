@@ -49,15 +49,8 @@
 
 
         $(function () {
-            /* var cd = new Date();//当前日期
-             var month = (cd.getMonth() + 1) < 10 ? '0' + (cd.getMonth() + 1) : (cd
-             .getMonth() + 1);
-             var day = cd.getDate() < 10 ? '0' + cd.getDate() : cd.getDate();
-             $("#startTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 00:00:00');
-             $("#endTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 23:59:59'); */
-
             var total = 0;
-            var url = "${cp}/order/online/list";
+            var url = "${cp}/order/weidian/online/list";
             var options = {
                 type: "POST",
                 url: url,
@@ -137,9 +130,9 @@
         });
 
 
-        // 转发至新增线下加款订单
+        // 转发至新增微店加款订单
         var add = function () {
-            location = "/order/offline/save/fwd";
+            location = "/order/weidian/save/fwd";
         };
 
     </script>
@@ -151,7 +144,7 @@
         <a href="javascript:void(0)">订单管理</a>
         &nbsp;&gt;&nbsp;
 				<span>
-					线下订单列表
+					微店订单列表
 				</span>
     </div>
     <input type="hidden" name="pageNo" id="pageNo" value="0"/>
@@ -176,7 +169,7 @@
             </li>
             <li>
                 <label>
-                    支付通编号:
+                    外部订单编号:
                 </label>
                 <input type="text" name="terminalCode" id="terminalCode" class="middle"/>
             </li>

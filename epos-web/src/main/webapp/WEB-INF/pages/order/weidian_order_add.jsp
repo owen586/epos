@@ -44,7 +44,7 @@
 
                 var options = {
                     type: 'POST',
-                    url: '${cp}/order/offline/save',
+                    url: '${cp}/order/weidian/save',
                     dataType: 'json',
                     //resetForm:true,//提交成功后重置表单
                     success: function (response) {
@@ -69,11 +69,17 @@
         <a href="javascript:void(0)"><i class="icon-home"></i>订单管理</a>
         &nbsp;&gt;&nbsp;
 				<span>
-					新增线下加款订单
+					新增加款订单
 				</span>
     </div>
     <fieldset class="note pushT" style="width: 800px;">
         <ul class="form dislocation-x">
+            <li>
+                <label>
+                    客户名称：
+                </label>
+                <input type="text" name="outterUserCode" id="outterUserCode" class="long"/>
+            </li>
             <li>
                 <label>
                     外部用户编号：
@@ -82,7 +88,7 @@
             </li>
             <li>
                 <label>
-                    终端（支付通）编号：
+                    外部订单编号：
                 </label>
                 <input type="text" name="terminalCode" id="terminalCode" class="middle"/>
             </li>

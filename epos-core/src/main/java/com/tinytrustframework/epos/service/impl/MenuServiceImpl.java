@@ -14,17 +14,33 @@ import java.util.List;
  */
 @Service
 public class MenuServiceImpl implements MenuService {
+
     @Resource
     private MenuDao menuDao;
 
+    /**
+     * 查询菜单列表
+     */
     public List<Menu> queryMenuList() {
         return menuDao.queryMenuList();
     }
 
+    /**
+     * 根据菜单类型查找菜单列表
+     *
+     * @param roleUserCode 角色（用户）编号
+     * @param menuLevel    菜单类型  1:一级菜单  2:二级菜单
+     */
     public List<Menu> queryByMenuLevel(String roleUserCode, int menuLevel) {
         return menuDao.queryByMenuLevel(roleUserCode, menuLevel);
     }
 
+    /**
+     * 根据父菜单编号查询子菜单列表
+     *
+     * @param roleUserCode 角色（用户）编号
+     * @param topMenuCode  父菜单编号
+     */
     public List<Menu> querySubmenu(String roleUserCode, int topMenuCode) {
         return menuDao.querySubmenu(roleUserCode, topMenuCode);
     }

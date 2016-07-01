@@ -1,22 +1,22 @@
 package com.tinytrustframework.epos.dao.impl;
 
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.page.PageUtil;
 import com.tinytrustframework.epos.dao.BaseDao;
 import com.tinytrustframework.epos.dao.OrderDao;
+import com.tinytrustframework.epos.entity.PosOrder;
+import com.tinytrustframework.epos.entity.SystemConfig;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.tinytrustframework.epos.common.utils.lang.PageUtil;
-import com.tinytrustframework.epos.entity.PosOrder;
-import com.tinytrustframework.epos.entity.SystemConfig;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author owen
@@ -25,6 +25,12 @@ import com.tinytrustframework.epos.entity.SystemConfig;
 @Repository
 public class OrderDaoImpl extends BaseDao implements OrderDao {
 
+    /**
+     * 查询订单详情
+     *
+     * @param orderSrc  订单来源
+     * @param orderCode 订单编号
+     */
     public PosOrder getOrderDetail(int orderSrc, String orderCode) {
         String hql = "from PosOrder o where o.orderSrc = :orderSrc and o.orderCode = :orderCode";
         List<PosOrder> orderList =
@@ -37,11 +43,22 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
         return null;
     }
 
+    /**
+     * 新增或编辑订单信息
+     *
+     * @param order 订单信息
+     */
     public void saveOrUpdateOrder(PosOrder order) {
         this.hibernateTemplate.saveOrUpdate(order);
     }
 
-    public Map<String, Object> queryOrderList(final Map<String, Object> params, final int pageNo, final int pageSize) {
+    /**
+     * 查询订单信息列表
+     *
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
+     */
+    public Map<String, Object> queryOrderList(final Map<String, Object> businessParams, final Page pageParams) {
         return this.hibernateTemplate.execute(new HibernateCallback<Map<String, Object>>() {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
@@ -50,66 +67,71 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
                                 + "o.outterUserCode,o.tradeMoney,o.addDate,o.shouldDealDate,o.indeedDealDate,"
                                 + "o.status,o.memo,u.userName,u.cellphone,o.orderMoney,o.feeRate) from PosOrder o,User u where o.userCode = u.userCode ";
 
-                if (params.containsKey("orderCode"))//订单编号
+                if (businessParams.containsKey("orderCode"))//订单编号
                 {
                     hql += " and o.orderCode like :orderCode";
                 }
 
-                if (params.containsKey("orderType"))//订单类型
+                if (businessParams.containsKey("orderType"))//订单类型
                 {
                     hql += " and o.orderType = :orderType";
                 }
 
-                if (params.containsKey("tranferType"))//到账类型
+                if (businessParams.containsKey("tranferType"))//到账类型
                 {
                     hql += " and u.tranferType = :tranferType";
                 }
 
-                if (params.containsKey("status"))//订单状态
+                if (businessParams.containsKey("status"))//订单状态
                 {
                     hql += " and o.status = :status";
                 }
 
-                if (params.containsKey("terminalCode"))//终端编号
+                if (businessParams.containsKey("terminalCode"))//终端编号
                 {
                     hql += " and o.terminalCode = :terminalCode";
                 }
 
-                if (params.containsKey("userCode"))//用户编号
+                if (businessParams.containsKey("userCode"))//用户编号
                 {
                     hql += " and u.userCode = :userCode";
                 }
 
-                if (params.containsKey("outterUserCode"))//外部用户编号
+                if (businessParams.containsKey("outterUserCode"))//外部用户编号
                 {
                     hql += " and u.outterUserCode = :outterUserCode";
                 }
 
-                if (params.containsKey("cellphone"))//手机号
+                if (businessParams.containsKey("cellphone"))//手机号
                 {
                     hql += " and u.cellphone = :cellphone";
                 }
 
-                if (params.containsKey("userName"))//用户名称
+                if (businessParams.containsKey("userName"))//用户名称
                 {
                     hql += " and u.userName like :userName";
                 }
 
                 //订单入库时间
-                if (params.containsKey("startTime") && params.containsKey("endTime")) {
+                if (businessParams.containsKey("startTime") && businessParams.containsKey("endTime")) {
                     hql += " and o.addDate between :startTime and :endTime";
-                } else if (params.containsKey("startTime") && !params.containsKey("endTime")) {
+                } else if (businessParams.containsKey("startTime") && !businessParams.containsKey("endTime")) {
                     hql += " and o.addDate >= :startTime";
-                } else if (!params.containsKey("startTime") && params.containsKey("endTime")) {
+                } else if (!businessParams.containsKey("startTime") && businessParams.containsKey("endTime")) {
                     hql += " and o.addDate <= :endTime";
                 }
 
                 hql += " order by o.addDate desc";
-                return PageUtil.findByHQLQueryWithMap(session, pageNo, pageSize, hql, params);
+                return PageUtil.hqlQuery(session, hql, businessParams, pageParams);
             }
         });
     }
 
+    /**
+     * 根据到账类型查询待重置订单列表
+     *
+     * @param tranferType 到账类型
+     */
     public List<PosOrder> queryOrderForRecharge(int tranferType) {
         String orderHql = null;
         //T+0到账类型

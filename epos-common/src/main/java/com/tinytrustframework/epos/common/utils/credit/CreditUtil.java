@@ -2,7 +2,7 @@ package com.tinytrustframework.epos.common.utils.credit;
 
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.lang.HttpClient3Util;
+import com.tinytrustframework.epos.common.utils.http.HttpClient3Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +56,7 @@ public class CreditUtil {
             String rechargeUrl = PropUtils.getPropertyValue("third.recharge.url");
             log.info("请求第三方充值加款接口, 参数: {}" + rechargeParams.toString());
 
-            rechargeResult = HttpClient3Util.getResponseAsMap(rechargeUrl, rechargeParams);
+            rechargeResult = HttpClient3Util.responseMap(rechargeUrl, rechargeParams);
 
         } catch (IOException e) {
             log.error("请求第三方充值加款接口异常! 异常信息: {}", e.getMessage());

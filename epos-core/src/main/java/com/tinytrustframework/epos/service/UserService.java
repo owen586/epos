@@ -1,17 +1,19 @@
 package com.tinytrustframework.epos.service;
 
-import java.util.List;
-import java.util.Map;
-
+import com.tinytrustframework.epos.common.utils.page.Page;
 import com.tinytrustframework.epos.entity.Role;
 import com.tinytrustframework.epos.entity.Terminal;
 import com.tinytrustframework.epos.entity.User;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author owen
  * @version [版本号, 2015-7-28]
  */
 public interface UserService {
+
     /**
      * 新增或编辑用户信息
      *
@@ -22,11 +24,10 @@ public interface UserService {
     /**
      * 查询角色信息列表
      *
-     * @param params   查询条件
-     * @param pageNo   分页参数，当前页
-     * @param pageSize 分页参数，每页记录数
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
      */
-    Map<String, Object> queryRoleList(Map<String, Object> params, int pageNo, int pageSize);
+    Map<String, Object> queryRoleList(Map<String, Object> businessParams, Page pageParams);
 
     /**
      * 查询角色列表信息
@@ -36,11 +37,10 @@ public interface UserService {
     /**
      * 查询用户信息列表
      *
-     * @param params   查询条件
-     * @param pageNo   分页参数，当前页
-     * @param pageSize 分页参数，每页记录数
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
      */
-    Map<String, Object> queryUserList(Map<String, Object> params, int pageNo, int pageSize);
+    Map<String, Object> queryUserList(Map<String, Object> businessParams, Page pageParams);
 
     /**
      * 根据用户状态查询用户信息列表
@@ -57,11 +57,10 @@ public interface UserService {
     /**
      * 查询终端列表
      *
-     * @param params   查询条件
-     * @param pageNo   分页参数，当前页
-     * @param pageSize 分页参数，每页记录数
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
      */
-    Map<String, Object> queryTerminalList(Map<String, Object> params, int pageNo, int pageSize);
+    Map<String, Object> queryTerminalList(Map<String, Object> businessParams, Page pageParams);
 
     /**
      * 根据用户编号查询终端信息

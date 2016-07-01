@@ -56,7 +56,7 @@
              $("#endTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 23:59:59'); */
 
             var total = 0;
-            var url = "${cp}/order/online/list";
+            var url = "${cp}/order/pos/online/list";
             var options = {
                 type: "POST",
                 url: url,
@@ -163,7 +163,7 @@
         <a href="javascript:void(0)">订单管理</a>
         &nbsp;&gt;&nbsp;
 				<span>
-					线上订单列表
+					POS订单列表
 				</span>
     </div>
     <input type="hidden" name="pageNo" id="pageNo" value="0"/>

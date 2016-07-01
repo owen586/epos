@@ -1,8 +1,9 @@
 package com.tinytrustframework.epos.service;
 
-import java.util.Map;
-
+import com.tinytrustframework.epos.common.utils.page.Page;
 import com.tinytrustframework.epos.entity.PosOrder;
+
+import java.util.Map;
 
 /**
  * @author owen
@@ -28,11 +29,11 @@ public interface OrderService {
     /**
      * 查询订单信息列表
      *
-     * @param params   查询条件
-     * @param pageNo   分页参数，当前页
-     * @param pageSize 分页参数，每页记录数
+     * @param businessParams 业务查询条件
+     * @param pageParams     分页查询参数
      */
-    Map<String, Object> queryOrderList(Map<String, Object> params, int pageNo, int pageSize);
+    Map<String, Object> queryOrderList(Map<String, Object> businessParams, Page pageParams);
+
 
     /**
      * T0类型订单加款充值

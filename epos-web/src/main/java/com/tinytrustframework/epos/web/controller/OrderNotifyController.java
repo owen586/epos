@@ -1,17 +1,14 @@
 package com.tinytrustframework.epos.web.controller;
 
 import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.common.utils.lang.DateUtil;
 import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
 import com.tinytrustframework.epos.common.utils.props.PropUtils;
 import com.tinytrustframework.epos.entity.*;
-import com.tinytrustframework.epos.web.controller.req.YSNotifyReq;
-import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
-import com.tinytrustframework.epos.web.controller.rsp.YSNotifyRsp;
 import com.tinytrustframework.epos.service.OrderService;
 import com.tinytrustframework.epos.service.PriceService;
-import com.tinytrustframework.epos.service.SystemService;
 import com.tinytrustframework.epos.service.UserService;
+import com.tinytrustframework.epos.web.controller.req.YSNotifyReq;
+import com.tinytrustframework.epos.web.controller.rsp.YSNotifyRsp;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -21,127 +18,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * 订单控制处理类
+ * 银盛订单回调控制类
  *
  * @author owen
- * @version [版本号, 2015-7-28]
+ * @date 2016-07-01 01:16:05
  */
 @Controller
 @RequestMapping(value = "/order")
-public class OrderController extends BaseController {
-
-    @Resource
-    private OrderService orderService;
+public class OrderNotifyController extends BaseController {
 
     @Resource
     private UserService userService;
 
     @Resource
-    private PriceService priceService;
+    private OrderService orderService;
 
     @Resource
-    private SystemService systemService;
+    private PriceService priceService;
 
-    /**
-     * 转发至订单列表页面
-     */
-    @RequestMapping(value = "/online/list/index")
-    public String onlineOrderListIndex() {
-        return "order/online_order_list";
-    }
-
-    /**
-     * 订单列表查询
-     *
-     * @param order   订单查询表单
-     * @param request HttpServletRequest
-     */
-    @RequestMapping(value = "/online/list", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonRsp onlineOrderList(PosOrder order, HttpServletRequest request) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        String orderCode = order.getOrderCode();// 订单编号
-        if (StringUtils.isNotEmpty(orderCode)) {
-            params.put("orderCode", "%" + orderCode + "%");
-        }
-
-        int orderType = order.getOrderType();// 订单类型
-        if (orderType != -1) {
-            params.put("orderType", orderType);
-        }
-
-        int tranferType = order.getTranferType();
-        if (tranferType != -1) {
-            params.put("tranferType", tranferType);
-        }
-
-        int status = order.getStatus();// 订单状态
-        if (status != -1) {
-            params.put("status", status);
-        }
-
-        String terminalCode = order.getTerminalCode();// 终端编号
-        if (StringUtils.isNotEmpty(terminalCode)) {
-            params.put("terminalCode", terminalCode);
-        }
-
-        User user = (User) request.getSession().getAttribute(Constant.CURRENT_USER_IN_SESSION);
-        int roleCode = user.getRoleCode();// 角色编号
-        if (roleCode == Constant.ROLE_TYPE_ADMIN) {
-            String userCode = order.getUserCode();// 用户编号
-            if (StringUtils.isNotEmpty(userCode)) {
-                params.put("userCode", userCode);
-            }
-        } else {
-            // 一、二级经销商只能查自己的订单信息
-            String loginUserCode = user.getUserCode();
-            params.put("userCode", loginUserCode);
-        }
-
-        String outterUserCode = order.getOutterUserCode();// 外部用户编号
-        if (StringUtils.isNotEmpty(outterUserCode)) {
-            params.put("outterUserCode", outterUserCode);
-        }
-
-        String userName = order.getUserName();// 用户名称
-        if (StringUtils.isNotEmpty(userName)) {
-            params.put("userName", userName);
-        }
-
-        String cellphone = order.getCellphone();// 手机号
-        if (StringUtils.isNotEmpty(cellphone)) {
-            params.put("cellphone", cellphone);
-        }
-
-        String startTime = request.getParameter("startTime");// 下单起始时间
-        if (!StringUtils.isEmpty(startTime)) {
-            params.put("startTime", DateUtil.parse(startTime, Constant.DATE_FORMAT_19));
-        }
-
-        String endTime = request.getParameter("endTime");// 下单结束时间
-        if (!StringUtils.isEmpty(endTime)) {
-            params.put("endTime", DateUtil.parse(endTime, Constant.DATE_FORMAT_19));
-        }
-        int pageNo = Integer.parseInt(request.getParameter("pageNo"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-
-        try {
-            Map<String, Object> dataMap = orderService.queryOrderList(params, pageNo, pageSize);
-            return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询订单列表信息成功").dataMap(dataMap).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return CommonRsp.builder().result(this.RESULT_FAIL).message("查询订单列表信息失败").build();
-        }
-    }
 
     /**
      * 订单回调通知
@@ -313,121 +212,5 @@ public class OrderController extends BaseController {
                     , remark, checkValue);
             return YSNotifyRsp.builder().status("系统异常").build();
         }
-    }
-
-    /**
-     * 设置对应值value的BigDecimal值,保存3位小数
-     *
-     * @param value 数字字符串
-     */
-    private BigDecimal getBigDecimal(String value) {
-        MathContext mc = new MathContext(value.length());// 设置有效数字
-        return new BigDecimal(value, mc).setScale(3, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 转发至线下订单列表
-     */
-    @RequestMapping(value = "/offline/list/index")
-    public String offlineOrderListIndex() {
-        return "order/offline_order_list";
-    }
-
-    /**
-     * 线下订单列表查询
-     *
-     * @param order   线下订单查询表单
-     * @param request HttpServletRequest
-     */
-    //TODO
-    @RequestMapping(value = "/offline/list", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonRsp offlineOrderList(PosOrder order, HttpServletRequest request) {
-        return null;
-    }
-
-    /**
-     * 转发至新增线下加款订单页面
-     */
-    @RequestMapping(value = "/offline/save/fwd", method = RequestMethod.GET)
-    public String saveOrderFwd() {
-        return "order/offline_order_add";
-    }
-
-    /**
-     * 新增线下加款订单
-     *
-     * @param request HttpServletRequest
-     */
-    @RequestMapping(value = "/offline/save", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonRsp saveOrder(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(Constant.CURRENT_USER_IN_SESSION);
-        if (null == user) {
-            log.error("新增订单失败, 用户信息为空!");
-            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,用户信息为空!").build();
-        }
-
-        int roleCode = user.getRoleCode();
-        if (roleCode != Constant.ROLE_TYPE_ADMIN) {
-            log.error("新增订单失败,无新增订单权限!");
-            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,无新增订单权限!").build();
-        }
-
-        String outterUserCode = request.getParameter("outterUserCode");//外部用户编号
-        String terminalCode = request.getParameter("terminalCode");//终端（支付通）编号
-        String orderMoney = request.getParameter("orderMoney");//加款金额
-        String tranferType = request.getParameter("tranferType");//到账类型
-
-        if (StringUtils.isEmpty(outterUserCode) || StringUtils.isEmpty(terminalCode) || StringUtils.isEmpty(orderMoney)
-                || StringUtils.isEmpty(tranferType)) {
-            log.error("新增订单失败,加款信息不完整!");
-            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,加款信息不完整!").build();
-        }
-
-        PosOrder order = new PosOrder();
-        order.setOrderSrc(Constant.ORDER_SOURCE_OFFLINE);
-        order.setOrderCode("H" + System.currentTimeMillis());
-        order.setOrderType(Constant.ORDER_TYPE_COMMON);
-        order.setTerminalCode(terminalCode);
-        order.setOutterUserCode(outterUserCode.toUpperCase());
-        order.setOrderMoney(Double.valueOf(orderMoney));
-        //查询线下订单费率 （‱） 
-        SystemConfig systemConfig = systemService.querySystemConfig("6_sys_manual_operation_rate");
-        if (null == systemConfig) {
-            log.error("新增订单失败,线下加款订单费率为设置!");
-            return CommonRsp.builder().result(this.RESULT_FAIL).message("新增订单失败,线下加款订单费率为设置!").build();
-        }
-        int offlineRate = Integer.parseInt(systemConfig.getSysValue());
-        order.setFeeRate(offlineRate);
-        BigDecimal feeRateBigDecimal =
-                this.getBigDecimal(String.valueOf(offlineRate))
-                        .divide(new BigDecimal(10000))
-                        .setScale(3, RoundingMode.HALF_UP);
-
-        BigDecimal orderMoneyBigDecimal = this.getBigDecimal(orderMoney).setScale(3, RoundingMode.HALF_UP);// 订单加款金额，由分转换为元
-        BigDecimal settlementMoneyBigDecimal =
-                orderMoneyBigDecimal.multiply(feeRateBigDecimal).setScale(3, RoundingMode.HALF_UP);
-        order.setTradeMoney(settlementMoneyBigDecimal.doubleValue());// 到账结算金额
-
-        Date addDate = new Date(System.currentTimeMillis());
-        order.setAddDate(addDate);// 订单入库时间
-        Date shouldDealDate = null;
-        if (Integer.parseInt(tranferType) == Constant.USER_TRANFER_TYPE_T0) {
-            shouldDealDate =
-                    DateUtils.addMinutes(addDate, Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t0")));
-
-        } else if (Integer.parseInt(tranferType) == Constant.USER_TRANFER_TYPE_T1)// T+1
-        {
-            shouldDealDate =
-                    DateUtils.addMinutes(DateUtils.addHours(addDate, 24),
-                            Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t1")));
-        }
-        order.setShouldDealDate(shouldDealDate);
-        order.setStatus(Constant.ORDER_STATE_WAITING);
-        order.setMemo("待处理");
-
-        orderService.saveOrUpdateOrder(order);
-        return CommonRsp.builder().result(this.RESULT_SUCCESS).message("新增线下加款订单成功").build();
     }
 }

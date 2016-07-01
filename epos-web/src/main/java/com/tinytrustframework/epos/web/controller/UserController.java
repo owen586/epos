@@ -1,29 +1,24 @@
 package com.tinytrustframework.epos.web.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
+import com.tinytrustframework.epos.common.utils.page.Page;
+import com.tinytrustframework.epos.common.utils.props.PropUtils;
+import com.tinytrustframework.epos.entity.Role;
+import com.tinytrustframework.epos.entity.Terminal;
+import com.tinytrustframework.epos.entity.User;
+import com.tinytrustframework.epos.service.UserService;
+import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import com.tinytrustframework.epos.common.statics.Constant;
-import com.tinytrustframework.epos.entity.Role;
-import com.tinytrustframework.epos.entity.User;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
-import com.tinytrustframework.epos.common.utils.lang.DigestUtil;
-import com.tinytrustframework.epos.common.utils.props.PropUtils;
-import com.tinytrustframework.epos.entity.Terminal;
-import com.tinytrustframework.epos.service.UserService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户控制类
@@ -96,7 +91,7 @@ public class UserController extends BaseController {
         int pageNo = Integer.parseInt(request.getParameter("pageNo"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
         try {
-            Map<String, Object> dataMap = userService.queryRoleList(params, pageNo, pageSize);
+            Map<String, Object> dataMap = userService.queryRoleList(params, Page.builder().pageStart(pageNo).pageSize(pageSize).build());
             return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询角色列表信息成功").dataMap(dataMap).build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,7 +184,7 @@ public class UserController extends BaseController {
         int pageNo = Integer.parseInt(request.getParameter("pageNo"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
-        Map<String, Object> dataMap = userService.queryUserList(params, pageNo, pageSize);
+        Map<String, Object> dataMap = userService.queryUserList(params, Page.builder().pageStart(pageNo).pageSize(pageSize).build());
         return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询用户列表信息成功").dataMap(dataMap).build();
 
     }
@@ -357,7 +352,7 @@ public class UserController extends BaseController {
         int pageNo = Integer.parseInt(request.getParameter("pageNo"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
-        Map<String, Object> dataMap = userService.queryTerminalList(params, pageNo, pageSize);
+        Map<String, Object> dataMap = userService.queryTerminalList(params, Page.builder().pageStart(pageNo).pageSize(pageSize).build());
         return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询终端列表信息成功").dataMap(dataMap).build();
     }
 

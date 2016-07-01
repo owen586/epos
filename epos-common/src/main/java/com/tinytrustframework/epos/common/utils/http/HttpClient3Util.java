@@ -1,6 +1,7 @@
-package com.tinytrustframework.epos.common.utils.lang;
+package com.tinytrustframework.epos.common.utils.http;
 
 import com.tinytrustframework.epos.common.statics.Constant;
+import com.tinytrustframework.epos.common.utils.lang.JacksonUtil;
 import lombok.Cleanup;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -38,7 +39,7 @@ public class HttpClient3Util {
      * @param url    请求地址
      * @param params 请求参数
      */
-    public static Map<String, Object> getResponseAsMap(String url, Map<String, String> params) throws IOException {
+    public static Map<String, Object> responseMap(String url, Map<String, String> params) throws IOException {
         String response = post(url, params, Constant.CHARSET_UTF8);
         if (StringUtils.isNotEmpty(response)) {
             return JacksonUtil.json2Map(response);
@@ -53,7 +54,7 @@ public class HttpClient3Util {
      * @param url    请求地址
      * @param params 请求参数
      */
-    public static String getResponseAsString(String url, Map<String, String> params) {
+    public static String responseString(String url, Map<String, String> params) {
         return post(url, params, Constant.CHARSET_UTF8);
     }
 

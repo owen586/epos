@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.tinytrustframework.epos.common.utils.page.Page;
 import com.tinytrustframework.epos.web.controller.rsp.CommonRsp;
 import com.tinytrustframework.epos.entity.PriceUser;
 import com.tinytrustframework.epos.service.PriceService;
@@ -56,7 +57,7 @@ public class PriceController extends BaseController {
         }
         int pageNo = Integer.parseInt(request.getParameter("pageNo"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-        Map<String, Object> dataMap = priceService.queryPriceRoleList(params, pageNo, pageSize);
+        Map<String, Object> dataMap = priceService.queryPriceRoleList(params, Page.builder().pageStart(pageNo).pageSize(pageSize).build());
 
         return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询价格角色列表信息成功").dataMap(dataMap).build();
     }
@@ -124,7 +125,7 @@ public class PriceController extends BaseController {
         int pageNo = Integer.parseInt(request.getParameter("pageNo"));
         int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
-        Map<String, Object> dataMap = priceService.queryPriceUserList(params, pageNo, pageSize);
+        Map<String, Object> dataMap = priceService.queryPriceUserList(params, Page.builder().pageStart(pageNo).pageSize(pageSize).build());
         return CommonRsp.builder().result(this.RESULT_SUCCESS).message("查询用户价格列表信息成功").dataMap(dataMap).build();
     }
 

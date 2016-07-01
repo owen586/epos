@@ -9,6 +9,7 @@ import com.tinytrustframework.epos.entity.Menu;
  * @version [版本号, 2015-7-28]
  */
 public interface MenuService {
+
     /**
      * 查询菜单列表
      */

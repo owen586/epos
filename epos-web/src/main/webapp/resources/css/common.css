@@ -90,7 +90,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* header */
 .siteHead {
     height: 112px;
-    background: #a8d46f;
+    background: #f1f1f1;
 }
 
 .logoarea {
@@ -843,7 +843,7 @@ span.process {
     height: 60px;
     line-height: 60px;
     margin-top: 30px;
-    background: #f2f2e8;
+    background: #f1f1f1;
     border-top: 1px solid #dbdcde;
 }
 

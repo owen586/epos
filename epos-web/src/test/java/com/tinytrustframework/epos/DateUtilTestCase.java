@@ -1,6 +1,6 @@
-package com.tinytrustframework.epos;
+package com.tinytrust.epos;
 
-import com.tinytrustframework.epos.common.utils.lang.DateUtil;
+import com.tinytrust.epos.common.utils.lang.DateUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

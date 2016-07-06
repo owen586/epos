@@ -9,7 +9,7 @@
     <description>security taglib for TinyTrust.com</description>
     <tag>
         <name>security</name>
-        <tag-class>com.tinytrustframework.epos.web.taglib.SecurityTag</tag-class>
+        <tag-class>com.tinytrust.epos.web.taglib.SecurityTag</tag-class>
         <attribute>
             <name>menuPath</name>
             <required>false</required>
@@ -20,6 +20,6 @@
     <!-- 管理员专用标签 -->
     <tag>
         <name>admin</name>
-        <tag-class>com.tinytrustframework.epos.web.taglib.SecurityAdminTag</tag-class>
+        <tag-class>com.tinytrust.epos.web.taglib.SecurityAdminTag</tag-class>
     </tag>
 </taglib>

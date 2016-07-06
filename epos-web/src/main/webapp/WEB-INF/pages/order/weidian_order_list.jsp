@@ -50,7 +50,7 @@
 
         $(function () {
             var total = 0;
-            var url = "${cp}/order/weidian/online/list";
+            var url = "${cp}/order/weidian/list";
             var options = {
                 type: "POST",
                 url: url,

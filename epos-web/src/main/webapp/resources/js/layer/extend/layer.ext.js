@@ -3,7 +3,7 @@
     layer.use("skin/layer.ext.css", function () {
         layer.layui_layer_extendlayerextjs = !0
     });
-    var a = layer.cache, b = function (b) {
+    var a = layer.cache || {}, b = function (b) {
         return a.skin ? " " + a.skin + " " + a.skin + "-" + b : ""
     };
     layer.prompt = function (a, c) {
@@ -84,7 +84,7 @@
                     a.preventDefault(), 37 === b ? f.imgprev(!0) : 39 === b ? f.imgnext(!0) : 27 === b && layer.close(f.index)
                 }
             }, f.tabimg = function (b) {
-                h.start = f.imgIndex - 1, layer.close(f.index), layer.photos(a, !0, b)
+                i.length <= 1 || (h.start = f.imgIndex - 1, layer.close(f.index), layer.photos(a, !0, b))
             }, f.event = function () {
                 f.bigimg.hover(function () {
                     f.imgsee.show()
@@ -112,7 +112,7 @@
                     moveOut: !0,
                     shift: 5 * Math.random() | 0,
                     skin: "layui-layer-photos" + b("photos"),
-                    content: '<div class="layui-layer-phimg"><img src="' + i[j].src + '" alt="' + (i[j].alt || "") + '" layer-pid="' + i[j].pid + '"><div class="layui-layer-imgsee"><span class="layui-layer-imguide"><a href="javascript:;" class="layui-layer-iconext layui-layer-imgprev"></a><a href="javascript:;" class="layui-layer-iconext layui-layer-imgnext"></a></span><div class="layui-layer-imgbar" style="display:' + (d ? "block" : "") + '"><span class="layui-layer-imgtit"><a href="javascript:;">' + (i[j].alt || "") + "</a><em>" + f.imgIndex + "/" + i.length + "</em></span></div></div></div>",
+                    content: '<div class="layui-layer-phimg"><img src="' + i[j].src + '" alt="' + (i[j].alt || "") + '" layer-pid="' + i[j].pid + '"><div class="layui-layer-imgsee">' + (i.length > 1 ? '<span class="layui-layer-imguide"><a href="javascript:;" class="layui-layer-iconext layui-layer-imgprev"></a><a href="javascript:;" class="layui-layer-iconext layui-layer-imgnext"></a></span>' : "") + '<div class="layui-layer-imgbar" style="display:' + (d ? "block" : "") + '"><span class="layui-layer-imgtit"><a href="javascript:;">' + (i[j].alt || "") + "</a><em>" + f.imgIndex + "/" + i.length + "</em></span></div></div></div>",
                     success: function (b, c) {
                         f.bigimg = b.find(".layui-layer-phimg"), f.imgsee = b.find(".layui-layer-imguide,.layui-layer-imgbar"), f.event(b), a.tab && a.tab(i[j], b)
                     },

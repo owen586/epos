@@ -6,13 +6,12 @@
 <head>
     <title>E-POS - 易珀斯</title>
     <link href="${cp}/resources/images/favicon.ico" rel="shortcut icon"/>
-    <link type="text/css" rel="stylesheet"
-          href="${cp}/resources/css/astpt.global.css"/>
-    <link type="text/css" rel="stylesheet"
-          href="${cp}/resources/css/astpt.common.css"/>
+    <link type="text/css" rel="stylesheet" href="${cp}/resources/css/astpt.global.css"/>
+    <link type="text/css" rel="stylesheet" href="${cp}/resources/css/astpt.common.css"/>
     <script src="${cp}/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="${cp}/resources/js/layer/layer.js"></script>
+    <script src="${cp}/resources/js/tinytrust.ajax.global.js"></script>
     <script src="${cp}/resources/js/jquery-migrate-1.0.0.js"></script>
-    <script src="${cp}/resources/js/layer2/layer.js"></script>
     <script>
         var WinH = ($(window).height() - 97);
         $(document)

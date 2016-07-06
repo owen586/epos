@@ -1,4 +1,4 @@
-package com.tinytrustframework.epos;
+package com.tinytrust.epos;
 
 import org.junit.After;
 import org.junit.Before;

@@ -8,10 +8,17 @@
             classpath:/spring*.xml
         </param-value>
     </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <context-param>
         <param-name>logbackConfigLocation</param-name>
         <param-value>classpath:logback.xml</param-value>
     </context-param>
+    <listener>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
 
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -45,15 +52,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-
     <!-- 验证码配置 -->
     <servlet>
         <servlet-name>TinyTrustCaptcha</servlet-name>
-        <servlet-class>com.tinytrustframework.epos.common.captcha.TinyTrustCaptchaServlet</servlet-class>
+        <servlet-class>com.tinytrust.epos.common.captcha.TinyTrustCaptchaServlet</servlet-class>
         <init-param>
             <param-name>width</param-name>
             <param-value>120</param-value>

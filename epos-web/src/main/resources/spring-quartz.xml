@@ -6,13 +6,13 @@
     <!-- JOB -->
     <bean id="rechargeForT0Job"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="orderService"/>
+        <property name="targetObject" ref="rechargeTaskService"/>
         <property name="targetMethod" value="rechargeForT0"/>
         <property name="concurrent" value="false"/>
     </bean>
     <bean id="rechargeForT1Job"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="orderService"/>
+        <property name="targetObject" ref="rechargeTaskService"/>
         <property name="targetMethod" value="rechargeForT1"/>
         <property name="concurrent" value="false"/>
     </bean>

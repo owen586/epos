@@ -56,7 +56,7 @@
              $("#endTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 23:59:59'); */
 
             var total = 0;
-            var url = "${cp}/order/pos/online/list";
+            var url = "${cp}/order/pos/list";
             var options = {
                 type: "POST",
                 url: url,

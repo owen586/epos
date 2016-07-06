@@ -29,10 +29,10 @@
             <hgroup><h3>登录</h3></hgroup>
             <form id="loginFrm" method="post" action="${cp}/system/login">
                 <ul>
-                    <li><input type="text" name="cellphone" id="cellphone" class="input" placeholder="手机号"
-                               onfocus="this.value=''" onblur="if(this.value==''){this.value='手机号'}"/></li>
-                    <li><input type="password" name="password" id="password" class="input" placeholder="密码"
-                               onfocus="this.value=''" onblur="if(this.value==''){this.value='密码'}"/></li>
+                    <li><input type="text" name="cellphone" id="cellphone" class="input" placeholder="请输入手机号"
+                               onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入手机号'}"/></li>
+                    <li><input type="password" name="password" id="password" class="input" placeholder="请输入密码"
+                               onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入密码'}"/></li>
                     <li><input type="text" name="captcha" id="captcha" class="input inputCode" placeholder="验证码"
                                onfocus="this.value=''" onblur="if(this.value==''){this.value='验证码'}"/>
                         <img id="captchaImg" src="${cp}/captcha.png" alt="captcha" border="1"
@@ -55,7 +55,7 @@
 </section>
 <footer class="siteFoot clearfix" style="position: fixed;bottom:0px">
     <div class="W980 copyright">
-        &copy; Copyright 2015. <span class="bold"><a href="http://www.ah918.net"
+        &copy; Copyright 2015-2016. <span class="bold"><a href="http://www.ah918.net"
                                                      target="_blank">青岛傲华网络信息技术有限公司</a></span> 版权所有 | 鲁ICP备13010353号
     </div>
 </footer>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <property name="logDir" value="D:\logs"/>
+    <property name="logDir" value="/Users/owen/Owen/Code/logs"/>
     <property name="appName" value="e-pos"/>
 
     <!-- 日志级别-->
@@ -8,13 +8,12 @@
     <!-- 控制台输出-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder chartset="UTF-8">
-            <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${logDir}\${appName}\logback_demo.log</file>
+        <file>${logDir}/${appName}/bussiness.log</file>
         <append>true</append>
         <encoder>
             <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
@@ -33,7 +32,7 @@
         addtivity:
             是否向上级loger传递打印信息。默认是true。
     -->
-    <logger name="com.tinytrustframework.epos" level="WARN" addtivity="true">
+    <logger name="com.tinytrust.epos" level="WARN" addtivity="true">
         <appender-ref ref="FILE"/>
     </logger>
 

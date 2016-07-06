@@ -90,7 +90,7 @@
             </props>
         </property>
         <property name="packagesToScan">
-            <value>com.tinytrustframework.epos.entity</value>
+            <value>com.tinytrust.epos.entity</value>
         </property>
     </bean>
 

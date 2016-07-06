@@ -7,32 +7,31 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
     <!-- Spring上下文工具类 -->
-    <bean id="springContextHelper" class="com.tinytrustframework.epos.common.utils.lang.spring.SpringContextHelper"></bean>
+    <bean id="springContextHelper" class="com.tinytrust.epos.common.utils.lang.spring.SpringContextHelper"></bean>
 
     <!-- 常规注解 -->
     <context:annotation-config/>
-    <context:component-scan base-package="com.tinytrustframework"/> <!-- -->
+    <context:component-scan base-package="com.tinytrust"/> <!-- -->
 
     <!-- MVC注解 -->
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/><!-- 静态资源 -->
     <mvc:interceptors><!-- 拦截器 -->
-        <bean class="com.tinytrustframework.epos.web.interceptor.SessionSecurityInterceptor">
-            <!-- 不需要进行会话验证验证  -->
-            <property name="excludePathList">
-                <list>
-                    <value>/index.html</value>
-                    <value>/system/index</value><!-- 转发至登陆页面 -->
-                    <value>/system/login</value><!-- 登陆操作 -->
-                    <value>/system/register</value><!-- 转发至注册页面 -->
-                    <value>/user/register</value><!-- 注册操作 -->
-                    <value>/system/cellphone_unique_check</value><!-- 手机号码重复性校验 -->
-                    <value>/system/captcha_check</value><!-- 验证码校验 -->
-                    <value>/order/notify</value><!-- 订单通知 -->
-                </list>
-            </property>
-        </bean>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/><!-- 静态资源文件-->
+            <mvc:exclude-mapping path="/index.html" />
+            <mvc:exclude-mapping path="/system/index" /><!-- 转发至登陆页面 -->
+            <mvc:exclude-mapping path="/system/login" /><!-- 登陆操作 -->
+            <mvc:exclude-mapping path="/system/register" /><!-- 转发至注册页面 -->
+            <mvc:exclude-mapping path="/user/register" /><!-- 注册操作 -->
+            <mvc:exclude-mapping path="/system/cellphone_unique_check" /><!-- 手机号码重复性校验 -->
+            <mvc:exclude-mapping path="/system/captcha_check" /><!-- 验证码校验 -->
+            <mvc:exclude-mapping path="/order/notify" /><!-- 订单通知 -->
+            <bean class="com.tinytrust.epos.web.interceptor.SessionInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>

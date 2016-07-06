@@ -38,6 +38,7 @@ html #layui_layer_skinlayercss {
     background-color: #fff;
     -webkit-background-clip: content;
     box-shadow: 1px 1px 50px rgba(0, 0, 0, .3);
+    border-radius: 2px;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
     -webkit-animation-duration: .3s;
@@ -368,31 +369,31 @@ html #layui_layer_skinlayercss {
 }
 
 .layui-layer-title {
-    padding: 0 80px 0 10px;
-    height: 35px;
-    line-height: 35px;
-    border-bottom: 1px solid #D5D5D5;
+    padding: 0 80px 0 20px;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 1px solid #eee;
     font-size: 14px;
     color: #333;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #EAEAEA
+    background-color: #F8F8F8
 }
 
 .layui-layer-setwin {
     position: absolute;
-    right: 10px;
+    right: 15px;
     *right: 0;
-    top: 10px;
+    top: 15px;
     font-size: 0;
     line-height: initial
 }
 
 .layui-layer-setwin a {
     position: relative;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     margin-left: 10px;
     font-size: 12px;
     _overflow: hidden
@@ -405,7 +406,7 @@ html #layui_layer_skinlayercss {
     left: 0;
     top: 50%;
     margin-top: -1px;
-    background-color: #919191;
+    background-color: #2E2D3C;
     cursor: pointer;
     _overflow: hidden
 }
@@ -415,68 +416,62 @@ html #layui_layer_skinlayercss {
 }
 
 .layui-layer-setwin .layui-layer-max {
-    background-position: -45px -55px
+    background-position: -32px -40px
 }
 
 .layui-layer-setwin .layui-layer-max:hover {
-    background-position: -95px -55px
+    background-position: -16px -40px
 }
 
 .layui-layer-setwin .layui-layer-maxmin {
-    background-position: -68px -55px
+    background-position: -65px -40px
 }
 
 .layui-layer-setwin .layui-layer-maxmin:hover {
-    background-position: -118px -55px
+    background-position: -49px -40px
 }
 
 .layui-layer-setwin .layui-layer-close1 {
-    width: 14px;
-    height: 14px;
-    background-position: -5px -55px;
+    background-position: 0 -40px;
     cursor: pointer
 }
 
 .layui-layer-setwin .layui-layer-close1:hover {
-    background-position: -25px -55px
+    opacity: .7
 }
 
 .layui-layer-setwin .layui-layer-close2 {
     position: absolute;
-    right: -23px;
-    top: -23px;
+    right: -28px;
+    top: -28px;
     width: 30px;
     height: 30px;
     margin-left: 0;
-    background-position: -149px -44px;
+    background-position: -150px -31px;
     *right: -18px;
-    _right: -15px;
-    _top: -23px;
-    _width: 14px;
-    _height: 14px;
-    _background-position: -5px -55px
+    _display: none
 }
 
 .layui-layer-setwin .layui-layer-close2:hover {
-    background-position: -180px -44px;
-    _background-position: -25px -55px
+    background-position: -181px -31px
 }
 
 .layui-layer-btn {
-    text-align: center;
-    padding: 0 30px 10px;
+    text-align: right;
+    padding: 0 10px 12px;
     pointer-events: auto
 }
 
 .layui-layer-btn a {
-    height: 30px;
-    line-height: 30px;
-    margin: 0 8px;
-    padding: 0 20px;
-    background: #5FBFE7;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
+    height: 28px;
+    line-height: 28px;
+    margin: 0 6px;
+    padding: 0 15px;
+    border: 1px solid #dedede;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 2px;
+    font-weight: 400;
     cursor: pointer;
     text-decoration: none
 }
@@ -490,12 +485,14 @@ html #layui_layer_skinlayercss {
     opacity: .7
 }
 
-.layui-layer-btn .layui-layer-btn1 {
-    background: #A6BBCE
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #4898d5;
+    background-color: #2e8ded;
+    color: #fff
 }
 
 .layui-layer-dialog {
-    min-width: 240px
+    min-width: 260px
 }
 
 .layui-layer-dialog .layui-layer-content {
@@ -509,35 +506,35 @@ html #layui_layer_skinlayercss {
 
 .layui-layer-dialog .layui-layer-content .layui-layer-ico {
     position: absolute;
-    top: 15px;
+    top: 16px;
     left: 15px;
-    _left: -50px;
-    width: 39px;
-    height: 39px
+    _left: -40px;
+    width: 30px;
+    height: 30px
 }
 
 .layui-layer-ico1 {
-    background-position: -46px 0
+    background-position: -30px 0
 }
 
 .layui-layer-ico2 {
-    background-position: -93px 0
+    background-position: -60px 0
 }
 
 .layui-layer-ico3 {
-    background-position: -145px 0
+    background-position: -90px 0
 }
 
 .layui-layer-ico4 {
-    background-position: -191px 0
+    background-position: -120px 0
 }
 
 .layui-layer-ico5 {
-    background-position: -239px 0
+    background-position: -150px 0
 }
 
 .layui-layer-ico6 {
-    background-position: -287px 0
+    background-position: -180px 0
 }
 
 .layui-layer-rim {
@@ -548,14 +545,9 @@ html #layui_layer_skinlayercss {
 }
 
 .layui-layer-msg {
-    min-width: 170px;
-    border-radius: 3px;
-    border: 5px solid #8D8D8D;
-    border: 5px solid rgba(0, 0, 0, .4)
-}
-
-.layui-layer-msg .layui-layer-content .layui-layer-ico {
-    top: 10px
+    min-width: 180px;
+    border: 1px solid #D3D4D3;
+    box-shadow: none
 }
 
 .layui-layer-hui {
@@ -573,12 +565,8 @@ html #layui_layer_skinlayercss {
 }
 
 .layui-layer-dialog .layui-layer-padding {
-    padding: 22px 20px 22px 65px;
+    padding: 20px 20px 20px 55px;
     text-align: left
-}
-
-.layui-layer-msg .layui-layer-padding {
-    padding: 17px 20px 17px 65px
 }
 
 .layui-layer-page .layui-layer-content {
@@ -700,14 +688,15 @@ html #layui_layer_skinlayercss {
     border: none
 }
 
-.layui-layer-lan .layui-layer-btn {
+.layui-layer-lan .layui-layer-lan .layui-layer-btn {
     padding: 10px;
     text-align: right;
     border-top: 1px solid #E9E7E7
 }
 
 .layui-layer-lan .layui-layer-btn a {
-    background: #BBB5B5
+    background: #BBB5B5;
+    border: none
 }
 
 .layui-layer-lan .layui-layer-btn .layui-layer-btn1 {

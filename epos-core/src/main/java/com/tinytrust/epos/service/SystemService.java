@@ -28,6 +28,14 @@ public interface SystemService {
      */
     boolean cellphoneUniqueCheck(String cellphone);
 
+
+    /**
+     * 查询用户信息
+     *
+     * @param cellphone  根据手机号
+     */
+     User getUserByCellphone(String cellphone);
+
     /**
      * 根据角色编号查询权限菜单信息
      *

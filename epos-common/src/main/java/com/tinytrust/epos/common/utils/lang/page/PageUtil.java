@@ -49,12 +49,12 @@ public class PageUtil {
             while (entrys.hasNext()) {
                 entry = entrys.next();
                 value = entry.getValue();
-                if (value instanceof String) {
-                    bizQuery.setParameter(entry.getKey(), entry.getValue());
-                    countQuery.setParameter(entry.getKey(), entry.getValue());
-                } else if (value instanceof List) {
+                if (value instanceof List) {
                     bizQuery.setParameterList(entry.getKey(), (List) entry.getValue());
                     countQuery.setParameterList(entry.getKey(), (List) entry.getValue());
+                } else {
+                    bizQuery.setParameter(entry.getKey(), entry.getValue());
+                    countQuery.setParameter(entry.getKey(), entry.getValue());
                 }
 
             }

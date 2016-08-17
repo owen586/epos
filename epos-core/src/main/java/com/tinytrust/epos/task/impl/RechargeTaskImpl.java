@@ -7,6 +7,7 @@ import com.tinytrust.epos.dao.SystemDao;
 import com.tinytrust.epos.entity.PosOrder;
 import com.tinytrust.epos.entity.SystemConfig;
 import com.tinytrust.epos.task.RechargeTask;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,9 @@ import java.util.Map;
  * @author owen
  * @date 2016-07-06 06:13:29
  */
+@Slf4j
 @Service(value = "rechargeTaskService")
 public class RechargeTaskImpl implements RechargeTask {
-
-    // 日志
-    private final static org.slf4j.Logger log = LoggerFactory.getLogger(RechargeTaskImpl.class);
 
     // 充值成功
     private final String RECHARGE_SUCCESS = "ok";
@@ -48,7 +47,6 @@ public class RechargeTaskImpl implements RechargeTask {
      */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT0() {
-        System.out.println("=============== T0 ================");
         List<PosOrder> orderListT0 = this.queryOrderListForRecharge(Constant.USER_TRANFER_TYPE_T0);
         this.recharger(Constant.USER_TRANFER_TYPE_T0, orderListT0);
     }
@@ -58,7 +56,6 @@ public class RechargeTaskImpl implements RechargeTask {
      */
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public void rechargeForT1() {
-        System.out.println("=============== T1 =================");
         List<PosOrder> orderListT1 = this.queryOrderListForRecharge(Constant.USER_TRANFER_TYPE_T1);
         this.recharger(Constant.USER_TRANFER_TYPE_T1, orderListT1);
     }
@@ -115,13 +112,12 @@ public class RechargeTaskImpl implements RechargeTask {
                 }
 
             } catch (ParseException pe) {
-                log.error("时间格式化错误!");
                 return;
             }
         }
 
-        PosOrder rechargePosOrder = null;
         for (PosOrder order : orderList) {
+            int orderSrc = order.getOrderSrc();// 订单来源
             String orderCode = order.getOrderCode();//订单编号
             String userName = order.getUserName();//客户名称
             double orderMoney = order.getOrderMoney();//订单金额
@@ -129,7 +125,8 @@ public class RechargeTaskImpl implements RechargeTask {
             double tradeMoney = order.getTradeMoney();//实际加款金额
             String outterUserCode = order.getOutterUserCode();//第三方用户编号
 
-            rechargePosOrder = orderDao.getOrderDetail(Constant.ORDER_SOURCE_POS, orderCode);
+
+            PosOrder rechargePosOrder = orderDao.getOrderDetail(orderSrc, orderCode);
 
             log.info("加款充值开始! 订单编号:{},客户名称:{},外部商户编号:{},订单金额:{},费率：{}‱,结算金额:{}", new Object[]{
                     orderCode, userName, outterUserCode, orderMoney, feeRate, tradeMoney});

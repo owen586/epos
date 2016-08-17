@@ -127,6 +127,7 @@
                                     parent.layer.msg(response.message, {icon: 1, title: '提示'}, function (index) {
                                         parent.layer.close(index);
                                         parent.layer.closeAll();
+                                        pageSelectCallback(0);
                                     });
 
                                 }
@@ -134,6 +135,7 @@
                                     parent.layer.msg(response.message, {icon: 2, title: '提示'}, function (index) {
                                         parent.layer.close(index);
                                         parent.layer.closeAll();
+                                        pageSelectCallback(0);
                                     });
                                 }
                             }

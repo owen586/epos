@@ -5,11 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * 角色价格类
@@ -35,10 +31,10 @@ public class PriceRole implements java.io.Serializable {
     private String roleName;
 
     // 费率
-    @Column(name = "fee_rate", nullable = false, precision = 4, scale = 3)
-    private int feeRate;
+    @Column(name = "fee_rate", nullable = false, precision = 5, scale = 4)
+    private Integer feeRate;
 
     // 上级返点率
-    @Column(name = "top_user_fee_rate_return", precision = 4, scale = 3)
-    private int topUserFeeRateReturn;
+    @Column(name = "top_user_fee_rate_return", nullable = true, precision = 5, scale = 4)
+    private Integer topUserFeeRateReturn;
 }

@@ -5,6 +5,7 @@ import com.tinytrust.epos.entity.Menu;
 import com.tinytrust.epos.entity.User;
 import com.tinytrust.epos.service.MenuService;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @author owen
  * @version [版本号, 2015-7-29]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/menu")
 public class MenuController extends BaseController {

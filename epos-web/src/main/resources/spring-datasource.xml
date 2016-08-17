@@ -14,8 +14,8 @@
                 <value>classpath:quartz.properties</value>
                 <value>classpath:datasource.properties</value>
                 <!--生产环境-->
-                <value>file:C:/aliyun/e-pos/config/quartz.properties</value>
-                <value>file:C:/aliyun/e-pos/config/datasource.properties</value>
+                <value>file:C:/e-pos/config/quartz.properties</value>
+                <value>file:C:/e-pos/config/datasource.properties</value>
             </list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -110,5 +110,7 @@
 
     <!-- 开启事务注解 -->
     <tx:annotation-driven transaction-manager="txManager"/>
+
+
 
 </beans>

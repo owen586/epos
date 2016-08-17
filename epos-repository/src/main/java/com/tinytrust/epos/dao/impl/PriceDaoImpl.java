@@ -35,7 +35,7 @@ public class PriceDaoImpl extends BaseDao implements PriceDao {
             public Map<String, Object> doInHibernate(Session session)
                     throws HibernateException, SQLException {
                 String hql =
-                        "select new PriceRole(r.roleCode,r.roleName,t.feeRate,t.topUserFeeRateReturn) "
+                        "select new PriceRole(r.roleCode,r.roleName,t.feeRate,COALESCE(t.topUserFeeRateReturn,0)) "
                                 + "from Role r,PriceRole t where r.roleCode = t.roleCode ";
                 if (businessParams.containsKey("roleCode"))//角色编号
                 {

@@ -10,6 +10,7 @@ import com.tinytrust.epos.common.utils.lang.page.Page;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
 import com.tinytrust.epos.entity.PriceUser;
 import com.tinytrust.epos.service.PriceService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.tinytrust.epos.entity.PriceRole;
  * @author owen
  * @version [版本号, 2015-8-3]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/price")
 public class PriceController extends BaseController {

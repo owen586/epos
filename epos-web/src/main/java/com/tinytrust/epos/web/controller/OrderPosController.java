@@ -7,6 +7,7 @@ import com.tinytrust.epos.entity.PosOrder;
 import com.tinytrust.epos.entity.User;
 import com.tinytrust.epos.service.OrderService;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @author owen
  * @version [版本号, 2015-7-28]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/order/pos")
 public class OrderPosController extends BaseController {
@@ -66,7 +68,7 @@ public class OrderPosController extends BaseController {
         }
 
         int status = order.getStatus();// 订单状态
-        if (status != -1) {
+        if (status != -999) {
             params.put("status", status);
         }
 

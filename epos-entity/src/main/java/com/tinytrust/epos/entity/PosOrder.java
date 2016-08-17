@@ -5,14 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * 订单类
@@ -87,7 +81,7 @@ public class PosOrder implements java.io.Serializable {
     private Date indeedDealDate;
 
     // 订单状态
-    // 1： 待处理  2：处理中  3：处理失败  4：处理成功
+    // -1: 待核实 1： 待处理  2：处理中  3：处理失败  4：处理成功
     @Column(name = "status")
     private Integer status;
 
@@ -108,7 +102,7 @@ public class PosOrder implements java.io.Serializable {
     private int tranferType;
 
     /**
-     * <默认构造函数>
+     * 默认构造函数
      */
     public PosOrder(String orderCode, Integer orderType, Integer tranferType, String terminalCode, String payBankCode,
                     String userCode, String outterUserCode, Double tradeMoney, Date addDate, Date shouldDealDate,
@@ -135,10 +129,11 @@ public class PosOrder implements java.io.Serializable {
     }
 
     /**
-     * <默认构造函数>
+     * 默认构造函数
      */
-    public PosOrder(String orderCode, String userName, double orderMoney, int feeRate, double tradeMoney,
+    public PosOrder(Integer orderSrc, String orderCode, String userName, double orderMoney, int feeRate, double tradeMoney,
                     String outterUserCode) {
+        this.orderSrc = orderSrc;
         this.orderCode = orderCode;
         this.userName = userName;
         this.orderMoney = orderMoney;

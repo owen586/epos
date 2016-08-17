@@ -16,6 +16,24 @@
         <property name="targetMethod" value="rechargeForT1"/>
         <property name="concurrent" value="false"/>
     </bean>
+    <bean id="tokenGenerateJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="vdianOrderTaskService"/>
+        <property name="targetMethod" value="tokenGenerate"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="orderListJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="vdianOrderTaskService"/>
+        <property name="targetMethod" value="orderListQuery"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="orderDetailJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="vdianOrderTaskService"/>
+        <property name="targetMethod" value="orderDetailQuery"/>
+        <property name="concurrent" value="false"/>
+    </bean>
 
     <!-- Trigger -->
     <bean id="rechargeForT0Trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -30,13 +48,35 @@
         </property>
         <property name="cronExpression" value="${quartz.t1.recharge.interval}"/>
     </bean>
+    <bean id="tokenGenerateTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="tokenGenerateJob"/>
+        </property>
+        <property name="cronExpression" value="${quartz.vdian.token.generate}"/>
+    </bean>
+    <bean id="orderListTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="orderListJob"/>
+        </property>
+        <property name="cronExpression" value="${quartz.vdian.order.query.interval}"/>
+    </bean>
+    <bean id="orderDetailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="orderDetailJob"/>
+        </property>
+        <property name="cronExpression" value="${quartz.vdian.order.detail.query.interval}"/>
+    </bean>
+
 
     <!-- Scheduler -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref local="rechargeForT0Trigger"/>
-                <ref local="rechargeForT1Trigger"/>
+                <ref local="rechargeForT0Trigger" />
+                <ref local="rechargeForT1Trigger" />
+                <ref local="tokenGenerateTrigger" />
+                <ref local="orderListTrigger" />
+                <ref local="orderDetailTrigger" />
             </list>
         </property>
     </bean>

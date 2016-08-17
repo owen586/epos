@@ -9,6 +9,7 @@ import com.tinytrust.epos.entity.Terminal;
 import com.tinytrust.epos.entity.User;
 import com.tinytrust.epos.service.UserService;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @author owen
  * @version [版本号, 2015-7-28]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {

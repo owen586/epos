@@ -3,6 +3,7 @@ package com.tinytrust.epos.common.utils.lang.http;
 import com.tinytrust.epos.common.statics.Constant;
 import com.tinytrust.epos.common.utils.lang.JacksonUtil;
 import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -24,10 +25,8 @@ import java.util.Map.Entry;
  * @author Owen
  * @version [版本号, 2010-11-16]
  */
+@Slf4j
 public class HttpClient3Util {
-
-    // Logger
-    private final static Logger log = LoggerFactory.getLogger(HttpClient3Util.class);
 
     // 默认构造函数
     private HttpClient3Util() {

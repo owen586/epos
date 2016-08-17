@@ -13,7 +13,7 @@
     <meta http-equiv="description" content="This is my page"/>
     <script type="text/javascript">
         $(function () {
-            //初始化角色
+            //初始化用户
             $.ajax({
                 type: 'POST',
                 async: false,//同步
@@ -31,8 +31,6 @@
 
             $("#submitBtn").click(function () {
                 var userCode = $("#userCode").val();//角色编号
-                var feeRate = $("#feeRate").val();//费率
-                var topUserFeeRateReturn = $("#topUserFeeRateReturn").val();//上级返点费率
 
                 if (null == userCode || "" == userCode) {
                     parent.layer.alert("请选择用户", {icon: 2, title: '提示'}, function (index) {
@@ -40,19 +38,61 @@
                     });
                     return false;
                 }
+                //到账费率保价范围为[9500~10000],费率,单位基数为万分之几
+                var feeRate = $("#feeRate").val();//费率
                 if (null == feeRate || "" == feeRate) {
-                    parent.layer.alert("请输入费率", {icon: 2, title: '提示'}, function (index) {
+                    parent.layer.alert("请输入到账费率", {icon: 2, title: '提示'}, function (index) {
+                        parent.layer.close(index);
+                    });
+                    return false;
+                }
+                if (!isDigit(feeRate) || (parseInt(feeRate) < 9500 || parseInt(feeRate) > 10000)) {
+                    parent.layer.alert("请输入合法的到账费率,保价范围为[9500-10000]", {icon: 2, title: '提示'}, function (index) {
                         parent.layer.close(index);
                     });
                     return false;
                 }
 
-                if (null == topUserFeeRateReturn || "" == topUserFeeRateReturn) {
-                    parent.layer.alert("请输入上级返点费率", {icon: 2, title: '提示'}, function (index) {
-                        parent.layer.close(index);
-                    });
-                    return false;
+
+                var topUserFeeRateReturn = $("#topUserFeeRateReturn").val();//上级返点费率
+                // 上级返点费率保价范围为[1~500],单位基数为万分之几
+                if (topUserFeeRateReturn) {
+
+                    if (!isDigit(topUserFeeRateReturn)) {
+                        parent.layer.alert("请输入合法的上级返点费率,保价范围为[1-500]", {icon: 2, title: '提示'}, function (index) {
+                            parent.layer.close(index);
+                        });
+                        return false;
+                    }
+
+                    if ((parseInt(topUserFeeRateReturn) < 1 || parseInt(topUserFeeRateReturn) > 500)) {
+                        parent.layer.alert("请输入合法的上级返点费率,保价范围为[1-500]", {icon: 2, title: '提示'}, function (index) {
+                            parent.layer.close(index);
+                        });
+                        return false;
+                    }
+
+                    if (parseInt(feeRate) + parseInt(topUserFeeRateReturn) > 10000) {
+
+                        parent.layer.alert("请输入合法的费率,到账费率与上级返点费率之和不能超过10000", {icon: 2, title: '提示'}, function (index) {
+                            parent.layer.close(index);
+                        });
+                        return false;
+                    }
+
                 }
+
+                var options = {
+                    type: 'POST',
+                    url: '${cp}/price/role/edit',
+                    dataType: 'json',
+                    success: function (response) {
+                        parent.layer.msg(response.message, {icon: 1, title: '提示'}, function (index) {
+                            location = "${cp}/price/role/list/index";
+                            parent.layer.close(index);
+                        });
+                    }
+                };
 
                 var options = {
                     type: 'POST',
@@ -98,7 +138,7 @@
                     到账费率:
                 </label>
                 <input type="text" name="feeRate" id="feeRate" value="${priceUser.feeRate}"/>‱
-                <samp class="gray">请输入费率</samp>
+                <samp class="gray">到账费率保价范围为[9500~10000],费率,单位基数为万分之几</samp>
             </li>
             <li>
                 <label>
@@ -106,7 +146,7 @@
                 </label>
                 <input type="text" name="topUserFeeRateReturn" id="topUserFeeRateReturn"
                        value="${priceUser.topUserFeeRateReturn}"/>‱
-                <samp class="gray">请输入上级返点费率</samp>
+                <samp class="gray">上级返点费率保价范围为[1~500],单位基数为万分之几</samp>
             </li>
             <li class="btnarea">
                 <button id="submitBtn">
@@ -114,9 +154,6 @@
                 </button>
                 <a href="javascript:void(0);" onclick="history.go(-1);">&nbsp;&nbsp;返回</a>
             </li>
-            <!-- li class="label">
-                <span id="message" style="color:green;display:none"></span>
-            </li -->
         </ul>
     </fieldset>
 </form>

@@ -10,6 +10,7 @@ import com.tinytrust.epos.service.MenuService;
 import com.tinytrust.epos.service.SystemService;
 import com.tinytrust.epos.service.UserService;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
+import lombok.extern.slf4j.Slf4j;
 import nl.captcha.Captcha;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ import java.util.Map;
  * @author Owen
  * @version [版本号, 2013-5-19]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/system")
 public class SystemController extends BaseController {

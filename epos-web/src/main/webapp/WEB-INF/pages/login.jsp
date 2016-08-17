@@ -55,8 +55,8 @@
 </section>
 <footer class="siteFoot clearfix" style="position: fixed;bottom:0px">
     <div class="W980 copyright">
-        &copy; Copyright 2015-2016. <span class="bold"><a href="http://www.ah918.net"
-                                                     target="_blank">青岛傲华网络信息技术有限公司</a></span> 版权所有 | 鲁ICP备13010353号
+        &copy; Copyright 2015-2016. <span class="bold"><a href="#"
+                                                     target="_blank">TinyTrust.com</a></span> 版权所有 | 苏ICP备15042310号-1
     </div>
 </footer>
 </body>

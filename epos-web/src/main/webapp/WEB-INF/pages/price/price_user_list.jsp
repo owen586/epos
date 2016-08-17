@@ -118,7 +118,7 @@
         <a href="javascript:void(0)">价格管理</a>
         &nbsp;&gt;&nbsp;
 				<span>
-					用户价格列表
+					用户秘价列表
 				</span>
     </div>
 

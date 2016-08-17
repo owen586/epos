@@ -46,6 +46,15 @@ public class SystemServiceImpl implements SystemService {
     }
 
     /**
+     * 查询用户信息
+     *
+     * @param cellphone  根据手机号
+     */
+    public User getUserByCellphone(String cellphone){
+        return systemDao.getUserByCellphone(cellphone);
+    }
+
+    /**
      * 根据角色编号查询权限菜单信息
      *
      * @param roleCode 角色编号

@@ -2,8 +2,7 @@ package com.tinytrust.epos.web.interceptor;
 
 import com.tinytrust.epos.common.statics.Constant;
 import com.tinytrust.epos.entity.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,11 +17,8 @@ import java.io.Writer;
  * @author owen
  * @version [版本号, 2011-8-13]
  */
+@Slf4j
 public class SessionInterceptor implements HandlerInterceptor {
-    /**
-     * 注释内容
-     */
-    private final static Logger log = LoggerFactory.getLogger(SessionInterceptor.class);
 
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

@@ -1,9 +1,8 @@
 package com.tinytrust.epos;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -13,18 +12,16 @@ import org.slf4j.LoggerFactory;
  * @author owen
  * @version 2.0, 2016-01-11 10:45
  */
+@Slf4j
 public class BaseTestCase {
-
-    // logger
-    protected Logger logger = LoggerFactory.getLogger(BaseTestCase.class);
 
     @Before
     public void before() {
-        logger.info("单元测试开始!  before");
+        log.info("单元测试开始!  before");
     }
 
     @After
     public void after() {
-        logger.info("单元测试结束!  after");
+        log.info("单元测试结束!  after");
     }
 }

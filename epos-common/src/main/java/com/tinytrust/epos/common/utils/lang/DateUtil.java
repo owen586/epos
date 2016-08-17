@@ -1,6 +1,7 @@
 package com.tinytrust.epos.common.utils.lang;
 
 import com.tinytrust.epos.common.statics.Constant;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,8 @@ import java.util.Date;
  * @author Owen
  * @version [版本号, 2010-11-5]
  */
+@Slf4j
 public class DateUtil {
-    // Log
-    private final static Logger log = LoggerFactory.getLogger(DateUtil.class);
 
     // 默认构造函数
     private DateUtil() {

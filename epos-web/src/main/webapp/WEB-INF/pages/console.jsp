@@ -202,13 +202,13 @@
                     <img border="0" src="http://wpa.qq.com/pa?p=2:318883916:51"
                          alt="点击这里给我发消息" title="点击这里给我发消息"/> </a>
                 </li>
-                <!-- <li><label>西施：</label> <a target="_blank"
-                    href="http://wpa.qq.com/msgrd?v=3&uin=318883916&site=qq&menu=yes">
+                <li><label>西施：</label> <a target="_blank"
+                                          href="http://wpa.qq.com/msgrd?v=3&uin=318883916&site=qq&menu=yes">
                     <img border="0" src="http://wpa.qq.com/pa?p=2:318883916:51"
-                    alt="点击这里给我发消息" title="点击这里给我发消息"/>
-                </a></li> -->
+                         alt="点击这里给我发消息" title="点击这里给我发消息"/>
+                </a></li>
                 <li><label>公司电话：</label>0532-82837177</li>
-                <li><label>技术支持：</label>13913317376</li>
+                <%--<li><label>技术支持：</label>13913317376</li>--%>
             </ol>
         </figure>
         <!-- sideblock end -->

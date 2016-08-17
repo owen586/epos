@@ -12,6 +12,7 @@ import com.weidian.open.sdk.request.order.VdianOrderListGetRequest;
 import com.weidian.open.sdk.response.oauth.OAuthResponse;
 import com.weidian.open.sdk.response.order.VdianOrderGetResponse;
 import com.weidian.open.sdk.response.order.VdianOrderListGetResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,8 @@ import java.util.Date;
  * @author owen
  * @date 2016-06-28 28:13:17
  */
+@Slf4j
 public class VdianUtil {
-
-    private static Logger logger = LoggerFactory.getLogger(VdianUtil.class);
 
     private VdianUtil() {
     }
@@ -60,10 +60,9 @@ public class VdianUtil {
             if (statusCode == VdianConstant.STATUS_OK) {
                 result = response.getResult();
             } else {
-                logger.error("查询订单详情异常! statusCode:{},tradeNo:{}", statusCode, tradeNo);
+                log.error("查询订单详情异常! statusCode:{},tradeNo:{}", statusCode, tradeNo);
             }
         }
-
 //
 //            String tradeNo = result.getTradeNo();//订单交易号
 //            String totoal = result.getTotal();// 订单总价,包含运费
@@ -94,12 +93,9 @@ public class VdianUtil {
     /**
      * 查询制定时间段内等待发货的订单
      *
-     * @param token        令牌
-     * @param addDateStart 订单创建起始日期
-     * @param addDateEnd   订单创建结束日期
-     * @return
+     * @param token 令牌
      */
-    public VdianOrderListGetResponse.VdianOrderListGetResult orderList(String token, Date addDateStart, Date addDateEnd) throws OpenException {
+    public static VdianOrderListGetResponse.VdianOrderListGetResult orderList(String token) throws OpenException {
 
         AbstractWeidianClient client = DefaultWeidianClient.getInstance();
 
@@ -109,20 +105,34 @@ public class VdianUtil {
         orderListRequest.setPageNum(VdianConstant.PAGE_NUM);
 
         Date currentDate = new Date();
-        String aweek = DateUtil.format(DateUtils.addDays(currentDate, -7), Constant.DATE_FORMAT_19);
+        // TODO: 8/1/16
+        String aweek = DateUtil.format(DateUtils.addDays(currentDate, -180), Constant.DATE_FORMAT_19);
         orderListRequest.setAddStart(aweek);
         String currentDateString = DateUtil.format(currentDate, Constant.DATE_FORMAT_19);
         orderListRequest.setAddEnd(currentDateString);
 
         VdianOrderListGetResponse orderListResponse = client.executePost(orderListRequest);
-
-        VdianOrderListGetResponse.VdianOrderListGetResult result = null;
-
         VdianOrderListGetResponse.VdianOrderListGetResult orderListResult = orderListResponse.getResult();
 
-
-        return result;
+        return orderListResult;
     }
 
 
+    public static void main(String[] args) {
+
+//
+        try {
+            // 令牌
+            String token = "76ee8a664cc24f2df15f71c0929fdf290004881660";//VdianUtil.76ee8a664cc24f2df15f71c0929fdf290004881660tokenGenerate();
+            System.out.println("--------------TOKEN------------- " + token);
+
+            VdianOrderListGetResponse.VdianOrderListGetResult result =  VdianUtil.orderList(token);
+            System.out.println(result.getOrderNum());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+

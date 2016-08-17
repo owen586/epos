@@ -19,9 +19,6 @@ import org.slf4j.LoggerFactory;
  */
 public class JacksonUtil {
 
-    // 注释内容
-    private static Logger log = LoggerFactory.getLogger(JacksonUtil.class);
-
     /**
      * Object 转换成 json字符串对象
      *

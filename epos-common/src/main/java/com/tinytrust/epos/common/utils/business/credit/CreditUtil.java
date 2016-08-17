@@ -3,6 +3,7 @@ package com.tinytrust.epos.common.utils.business.credit;
 import com.tinytrust.epos.common.utils.lang.props.PropUtils;
 import com.tinytrust.epos.common.utils.lang.DigestUtil;
 import com.tinytrust.epos.common.utils.lang.http.HttpClient3Util;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +17,8 @@ import java.util.Map;
  * @author owen
  * @version [版本号, 2015-9-14]
  */
+@Slf4j
 public class CreditUtil {
-
-    // 注释内容
-    private final static Logger log = LoggerFactory.getLogger(CreditUtil.class);
 
     // 默认构造函数
     private CreditUtil() {

@@ -9,6 +9,7 @@ import com.tinytrust.epos.service.PriceService;
 import com.tinytrust.epos.service.UserService;
 import com.tinytrust.epos.web.controller.req.YSNotifyReq;
 import com.tinytrust.epos.web.controller.rsp.YSNotifyRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ import java.util.Date;
  * @author owen
  * @date 2016-07-01 01:16:05
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/order")
 public class OrderNotifyController extends BaseController {
@@ -109,28 +111,32 @@ public class OrderNotifyController extends BaseController {
             User user = userService.getUserDetail(userCode);
             int tranferType = user.getTranferType();// 用户到账类型
             String topUserCode = user.getTopUserCode();// 上级用户编号
-            // 根据用户编号查询用户密价信息
+
+
+            // 用户密价查询
             PriceUser priceUser = priceService.getPriceUserDetail(userCode);
-            int feeRate = -1, topUserFeeRateReturn = -1;// 当前用户到账费率‰,上级用户返点费率‰
+            Integer feeRate = null, topUserFeeRateReturn = null;// 当前用户到账费率,上级用户返点费率
             if (null != priceUser) {
                 feeRate = priceUser.getFeeRate();
                 topUserFeeRateReturn = priceUser.getTopUserFeeRateReturn();
             } else {
-                // 根据角色查询用户设价信息
+
+                // 用户角色价格查询
                 int roleCode = user.getRoleCode();// 角色编号
                 PriceRole priceRole = priceService.getPriceRoleDetail(roleCode);
                 feeRate = priceRole.getFeeRate();
                 topUserFeeRateReturn = priceRole.getTopUserFeeRateReturn();
             }
 
+
             BigDecimal feeRateBigDecimal =
-                    this.getBigDecimal(String.valueOf(feeRate))
-                            .divide(new BigDecimal(10000))
-                            .setScale(3, RoundingMode.HALF_UP);//费率变更为‱
+                    this.getBigDecimal(String.valueOf(feeRate)).divide(new BigDecimal(10000)).setScale(4, RoundingMode.HALF_UP);//费率
+
             BigDecimal orderMoneyBigDecimal =
-                    this.getBigDecimal(money).divide(new BigDecimal(100)).setScale(3, RoundingMode.HALF_UP);// 订单加款金额，由分转换为元
+                    this.getBigDecimal(money).divide(new BigDecimal(100)).setScale(4, RoundingMode.HALF_UP);// 订单加款金额，由分转换为元
+
             BigDecimal settlementMoneyBigDecimal =
-                    orderMoneyBigDecimal.multiply(feeRateBigDecimal).setScale(3, RoundingMode.HALF_UP);// 到账结算金额
+                    orderMoneyBigDecimal.multiply(feeRateBigDecimal).setScale(4, RoundingMode.HALF_UP);// 到账结算金额
 
             PosOrder mainOrder = new PosOrder();
             mainOrder.setOrderSrc(Constant.ORDER_SOURCE_POS);// 订单来源
@@ -147,16 +153,17 @@ public class OrderNotifyController extends BaseController {
             mainOrder.setAddDate(addDate);// 订单入库时间
 
             Date shouldDealDate = null;
+            //到账时间设置
             if (tranferType == Constant.USER_TRANFER_TYPE_T0) {
+                // T+0
                 shouldDealDate =
                         DateUtils.addMinutes(addDate,
                                 Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t0")));
 
-            } else if (tranferType == Constant.USER_TRANFER_TYPE_T1)// T+1
-            {
+            } else if (tranferType == Constant.USER_TRANFER_TYPE_T1) {
+                // T+1
                 shouldDealDate =
-                        DateUtils.addMinutes(DateUtils.addHours(addDate, 24),
-                                Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t1")));
+                        DateUtils.addMinutes(DateUtils.addHours(addDate, 24), Integer.parseInt(PropUtils.getPropertyValue("tranfer.type.delay.minute.t1")));
             }
             mainOrder.setShouldDealDate(shouldDealDate);
 
@@ -167,15 +174,14 @@ public class OrderNotifyController extends BaseController {
             mainOrder.setPayBankCode(payBankCode);// 支付卡号
             orderService.saveOrUpdateOrder(mainOrder);
 
-            // 非直属下级需要跟上级设置返点
-            if (!topUserCode.equals(PropUtils.getPropertyValue("top.user.code.default"))) {
+            // 非直属下级且上级返点费率非空--->需要向上级返点
+            if (!topUserCode.equals(PropUtils.getPropertyValue("top.user.code.default")) && null != topUserFeeRateReturn) {
+
                 // 上级返点费率
                 BigDecimal topUserFeeRateReturnBigDecimal =
-                        this.getBigDecimal(String.valueOf(topUserFeeRateReturn))
-                                .divide(new BigDecimal(10000))
-                                .setScale(3, RoundingMode.HALF_UP);
+                        this.getBigDecimal(String.valueOf(topUserFeeRateReturn)).divide(new BigDecimal(10000)).setScale(4, RoundingMode.HALF_UP);
                 BigDecimal settlementMoneyReturnBigDecimal =
-                        orderMoneyBigDecimal.multiply(topUserFeeRateReturnBigDecimal).setScale(3, RoundingMode.HALF_UP);// 到账结算金额
+                        orderMoneyBigDecimal.multiply(topUserFeeRateReturnBigDecimal).setScale(4, RoundingMode.HALF_UP);// 到账结算金额
 
                 //返点金额大于0才生成返点订单
                 if (settlementMoneyReturnBigDecimal.compareTo(new BigDecimal(0)) > 0) {

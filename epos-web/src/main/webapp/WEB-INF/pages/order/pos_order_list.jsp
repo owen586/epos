@@ -48,13 +48,6 @@
         };
 
         $(function () {
-            /* var cd = new Date();//当前日期
-             var month = (cd.getMonth() + 1) < 10 ? '0' + (cd.getMonth() + 1) : (cd
-             .getMonth() + 1);
-             var day = cd.getDate() < 10 ? '0' + cd.getDate() : cd.getDate();
-             $("#startTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 00:00:00');
-             $("#endTime").val(cd.getFullYear() + '-' + month + '-' + day + ' 23:59:59'); */
-
             var total = 0;
             var url = "${cp}/order/pos/list";
             var options = {
@@ -111,7 +104,11 @@
                             var status = aOrder.status;//订单状态
                             var statusClass = '';
                             var statusTxt = '';
-                            if (status == 1) {
+                            if (status == -1) {
+                                statusClass = 'orange';
+                                statusTxt = '待核实'
+                            }
+                            else if (status == 1) {
                                 statusClass = 'orange';
                                 statusTxt = '待处理'
                             }
@@ -233,7 +230,8 @@
                     订单状态:
                 </label>
                 <select name="status" id="status" class="auto">
-                    <option value="-1">全部</option>
+                    <option value="-999">全部</option>
+                    <option value="-1">待核实</option>
                     <option value="1">待处理</option>
                     <option value="2">处理中</option>
                     <option value="3">处理失败</option>

@@ -1,9 +1,7 @@
 package com.tinytrust.epos.dao.impl;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.tinytrust.epos.dao.BaseDao;
+import com.tinytrust.epos.dao.SystemDao;
 import com.tinytrust.epos.entity.Authority;
 import com.tinytrust.epos.entity.Menu;
 import com.tinytrust.epos.entity.SystemConfig;
@@ -13,7 +11,8 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import com.tinytrust.epos.dao.SystemDao;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Owen
@@ -57,6 +56,27 @@ public class SystemDaoImpl extends BaseDao implements SystemDao {
         }
         return true;
     }
+
+
+
+    /**
+     * 查询用户信息
+     *
+     * @param cellphone  根据手机号
+     */
+    public User getUserByCellphone(String cellphone) {
+        String hql = "from User u where u.cellphone = :cellphone";
+        List<User> userList =
+                (List<User>) this.hibernateTemplate.findByNamedParam(hql,
+                        new String[]{"cellphone"},
+                        new Object[]{cellphone});
+
+        if (null != userList && !userList.isEmpty()) {
+            return userList.get(0);
+        }
+        return null;
+    }
+
 
     /**
      * 根据角色编号查询权限菜单信息

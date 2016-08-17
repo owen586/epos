@@ -6,6 +6,7 @@ import com.tinytrust.epos.service.MenuService;
 import com.tinytrust.epos.service.SystemService;
 import com.tinytrust.epos.web.controller.rsp.CommonRsp;
 import com.tinytrust.epos.web.controller.rsp.TreeNodeRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author owen
  * @version [版本号, 2015-8-20]
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/authority")
 public class AuthorityController extends BaseController {

@@ -77,7 +77,8 @@
                                 transferName = 'T+1';
                             }
                             returnStr += transferName + "</td>";
-                            returnStr += "<td class='tcenter'>" + aOrder.terminalCode + "</td>";
+//                            returnStr += "<td class='tcenter'>" + aOrder.terminalCode + "</td>";
+                            returnStr += "<td class='tcenter'>" + aOrder.userCode + "</td>";
                             returnStr += "<td class='tcenter'>" + aOrder.outterUserCode + "</td>";
                             returnStr += "<td class='tcenter'>" + aOrder.orderMoney + "</td>";
                             returnStr += "<td class='tcenter'>" + aOrder.feeRate + "</td>";
@@ -86,6 +87,10 @@
                             var status = aOrder.status;//订单状态
                             var statusClass = '';
                             var statusTxt = '';
+                            if (status == -1) {
+                                statusClass = 'orange';
+                                statusTxt = '待核实'
+                            }
                             if (status == 1) {
                                 statusClass = 'orange';
                                 statusTxt = '待处理'
@@ -130,10 +135,12 @@
         });
 
 
+        <security:security menuPath="/order/weidian/add">
         // 转发至新增微店加款订单
         var add = function () {
             location = "/order/weidian/save/fwd";
         };
+        </security:security>
 
     </script>
 </head>
@@ -184,7 +191,8 @@
                     订单状态:
                 </label>
                 <select name="status" id="status" class="auto">
-                    <option value="-1">全部</option>
+                    <option value="-999">全部</option>
+                    <option value="-1">待核实</option>
                     <option value="1">待处理</option>
                     <option value="2">处理中</option>
                     <option value="3">处理失败</option>
@@ -209,11 +217,13 @@
             </button>
         </div>
     </div>
+    <security:security menuPath="/order/weidian/add">
     <section class="tableToolbar pushT clearfix">
         <ul class="ToolbarL">
             <li><a href="javascript:void(0);" onclick="javascript:add();">新增线下加款订单</a></li>
         </ul>
     </section>
+    </security:security>
     <table class="tablelist">
         <tr>
             <th width="4%">
@@ -225,8 +235,11 @@
             <th>
                 到账<br/>类型
             </th>
+            <%--<th>--%>
+                <%--外部<br/>订单编号--%>
+            <%--</th>--%>
             <th>
-                终端<br/>编号
+                用户<br/>编号
             </th>
             <th>
                 外部<br/>用户编号

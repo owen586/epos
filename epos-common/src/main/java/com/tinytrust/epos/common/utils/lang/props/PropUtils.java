@@ -3,6 +3,7 @@ package com.tinytrust.epos.common.utils.lang.props;
 import java.io.IOException;
 import java.util.Properties;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -13,10 +14,8 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
  * @author Owen
  * @version [版本号, 2010-11-11]
  */
+@Slf4j
 public class PropUtils {
-
-    // LOG
-    private static final Logger log = LoggerFactory.getLogger(PropUtils.class);
 
     // 默认构造函数
     private PropUtils() {
